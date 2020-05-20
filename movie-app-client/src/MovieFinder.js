@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieCard from './MovieCard';
+import FinderForm from './FinderForm';
+import MovieList from './MovieList';
 
-export default function ListGenerator() {
+export default function MovieFinder() {
 	const [ movies, setMovies ] = useState([]);
 	const [ queryParams, setQueryParams ] = useState({
 		language: 'en-US',
@@ -23,5 +25,10 @@ export default function ListGenerator() {
 		fetchMovies();
 	}, []);
 
-	return <div>{movies.map((m) => <MovieCard {...m} key={m.id} />)}</div>;
+	return (
+		<div>
+			<FinderForm />
+			<MovieList movies={movies} />
+		</div>
+	);
 }

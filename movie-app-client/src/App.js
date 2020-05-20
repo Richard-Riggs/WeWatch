@@ -1,13 +1,16 @@
 import React from 'react';
-import './styles/App.css';
+import { ThemeProvider } from '@material-ui/core/styles';
 import MovieApp from './MovieApp';
+import { lightTheme, darkTheme } from './styles/themes';
+import './styles/App.css';
 
-function App() {
+export default function App() {
+	const darkMode = false;
 	return (
 		<div className="App">
-			<MovieApp />
+			<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+				<MovieApp />
+			</ThemeProvider>
 		</div>
 	);
 }
-
-export default App;
