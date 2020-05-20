@@ -5,7 +5,8 @@ export const lightTheme = createMuiTheme({
 	palette: {
 		background: {
 			primary: '#e6e6e6',
-			secondary: '#f2f2f2'
+			secondary: '#f2f2f2',
+			nav: '#ff531a'
 		},
 		text: {
 			primary: '#1a1a1a',
@@ -19,7 +20,8 @@ export const darkTheme = createMuiTheme({
 	palette: {
 		background: {
 			primary: '#262626',
-			secondary: '#595959'
+			secondary: '#595959',
+			nav: '#661a00'
 		},
 		text: {
 			primary: '#a6a6a6',
