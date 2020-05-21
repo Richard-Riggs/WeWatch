@@ -18,7 +18,7 @@ export default function MovieFinder() {
 		const response = await axios.get('/api/movieDB', {
 			params: { ...queryParams }
 		});
-		setMovies([ ...movies, ...response.data.results ]);
+		setMovies([ ...movies, ...response.data ]);
 	};
 
 	useEffect(() => {
