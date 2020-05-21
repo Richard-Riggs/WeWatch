@@ -9,16 +9,22 @@ import CardActions from '@material-ui/core/CardActions';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		height: '300px'
+		height: '450px',
+		width: '300px'
+	},
+	media: {
+		height: '100%',
+		backgroundSize: 'auto auto'
 	}
 }));
 
-export default function MovieCard({ title }) {
+export default function MovieCard({ title, poster_path, backdrop_path }) {
 	const theme = useTheme();
 	const classes = useStyles(theme);
+	const imgSrc = `https://image.tmdb.org/t/p/w300${poster_path}`;
 	return (
 		<Card className={classes.root}>
-			<span>{title}</span>
+			<CardMedia className={classes.media} image={imgSrc} title={title} />
 		</Card>
 	);
 }

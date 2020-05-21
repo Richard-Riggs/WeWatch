@@ -3,7 +3,7 @@ export default makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.background.primary,
 		color: theme.palette.text.primary,
-		width: '100vw',
+		width: '100%',
 		minHeight: '100vh',
 		paddingBottom: '10vh'
 	}

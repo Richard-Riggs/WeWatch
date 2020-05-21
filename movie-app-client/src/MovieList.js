@@ -7,7 +7,7 @@ export default function MovieList({ movies }) {
 		<div>
 			<Grid container spacing={3}>
 				{movies.map((m) => (
-					<Grid item xs={4}>
+					<Grid item xs>
 						<MovieCard {...m} key={m.id} />
 					</Grid>
 				))}
