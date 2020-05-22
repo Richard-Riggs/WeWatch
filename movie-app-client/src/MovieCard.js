@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -14,8 +14,6 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: '300px',
 		display: 'flex',
 		flexDirection: 'column'
-		// display: 'flex',
-		// flexDirection: 'column'
 	},
 	cardContent: {
 		padding: '1rem !important',
@@ -39,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function MovieCard(props) {
+function MovieCard(props) {
 	const { title, poster_path, backdrop_path, overview, ratings } = props;
 	const theme = useTheme();
 	const classes = useStyles(theme);
@@ -92,3 +90,5 @@ export default function MovieCard(props) {
 		</Card>
 	);
 }
+
+export default memo(MovieCard);
