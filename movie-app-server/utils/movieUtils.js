@@ -39,11 +39,15 @@ exports.addOmdbData = async (movies) => {
 					i: movie.imdb_id
 				}
 			});
-			const { Runtime, Ratings } = response.data;
+			const { Runtime, Ratings, Genre, Director, Writer, Actors } = response.data;
 			const updatedMovie = {
 				...movie,
 				runtime: Runtime,
-				ratings: Ratings
+				ratings: Ratings,
+				genre: Genre,
+				director: Director,
+				writer: Writer,
+				actors: Actors
 			};
 			return updatedMovie;
 		})
