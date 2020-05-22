@@ -39,7 +39,7 @@ export default function MovieFinder() {
 			<InfiniteScroll
 				dataLength={movies.length}
 				next={fetchMovies}
-				hasMore={!(movies.length > 100)}
+				hasMore={!(movies.length > 40)}
 				endMessage={
 					<p style={{ textAlign: 'center' }}>
 						<b>Yay! You have seen it all</b>

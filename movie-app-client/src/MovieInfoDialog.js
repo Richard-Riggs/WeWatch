@@ -16,6 +16,7 @@ import useStyles from './styles/MovieInfoDialogStyles';
 export default function MovieInfoDialog({ showInfo, closeInfo, movieInfo }) {
 	const theme = useTheme();
 	const classes = useStyles(theme);
+	const releaseDate = new Date(movieInfo.release_date);
 	return (
 		<Dialog open={showInfo} onClose={closeInfo} fullWidth maxWidth={'lg'}>
 			<Box className={classes.infoDialog}>
@@ -32,6 +33,18 @@ export default function MovieInfoDialog({ showInfo, closeInfo, movieInfo }) {
 						<Box className={classes.infoRow} style={{ alignItems: 'center' }}>
 							<div className={classes.infoRowHeader}>Ratings</div>
 							<MovieRatings ratings={movieInfo.ratings} id={movieInfo.id} justifyContent="flex-start" />
+						</Box>
+						<Box className={classes.infoRow}>
+							<div className={classes.infoRowHeader}>Release Date</div>
+							<p>{`${releaseDate.toLocaleString('default', {
+								month: 'long',
+								day: 'numeric',
+								year: 'numeric'
+							})}`}</p>
+						</Box>
+						<Box className={classes.infoRow}>
+							<div className={classes.infoRowHeader}>Runtime</div>
+							<p>{movieInfo.runtime}</p>
 						</Box>
 						<Box className={classes.infoRow}>
 							<div className={classes.infoRowHeader}>Genre</div>

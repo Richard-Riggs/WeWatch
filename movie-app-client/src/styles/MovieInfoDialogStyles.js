@@ -62,7 +62,7 @@ export default makeStyles((theme) => ({
 		color: theme.palette.text.secondary
 	},
 	infoRowHeader: {
-		width: '100px',
+		width: '120px',
 		margin: 0,
 		flexShrink: 0,
 		fontWeight: 'bold',

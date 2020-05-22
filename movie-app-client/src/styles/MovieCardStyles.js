@@ -4,7 +4,8 @@ export default makeStyles((theme) => ({
 		width: '300px',
 		maxWidth: '300px',
 		display: 'flex',
-		flexDirection: 'column'
+		flexDirection: 'column',
+		position: 'relative'
 	},
 	gridItem: {
 		display: 'flex',
@@ -27,6 +28,16 @@ export default makeStyles((theme) => ({
 	title: {
 		marginBottom: 'auto',
 		lineHeight: '1.5rem',
-		paddingBottom: '1rem'
+		paddingBottom: '1rem',
+		display: 'flex',
+		alignItems: 'flex-start',
+		justifyContent: 'space-between'
+	},
+	infoButton: {
+		padding: 0
+	},
+	icon: {
+		width: '30px',
+		height: '30px'
 	}
 }));
