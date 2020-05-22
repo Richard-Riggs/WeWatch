@@ -28,6 +28,8 @@ exports.addImdbIds = async (movies) => {
 	return updatedMovies;
 };
 
+// Input array of TMDb movie objects with IMDb IDs
+// Returns array of TMDb movie objects with additional OMDb data
 exports.addOmdbData = async (movies) => {
 	const updatedMovies = await Promise.all(
 		movies.map(async (movie) => {

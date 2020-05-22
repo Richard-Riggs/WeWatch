@@ -24,7 +24,7 @@ export const darkTheme = createMuiTheme({
 			nav: '#661a00'
 		},
 		text: {
-			primary: '#a6a6a6',
+			primary: '#f2f2f2',
 			secondary: '#737373'
 		}
 	}
