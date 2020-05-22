@@ -1,23 +1,6 @@
 import React from 'react';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-	rating: {
-		display: 'flex',
-		alignItems: 'center'
-	},
-	ratings: (props) => ({
-		display: 'flex',
-		justifyContent: props.justifyContent,
-		alignItems: 'center',
-		fontWeight: 'bold'
-	}),
-	icon: {
-		width: '35px',
-		height: '35px',
-		marginRight: theme.spacing(0.75)
-	}
-}));
+import { useTheme } from '@material-ui/core/styles';
+import useStyles from './styles/MovieRatingsStyles';
 
 MovieRatings.defaultProps = { justifyContent: 'space-between' };
 
@@ -27,6 +10,7 @@ export default function MovieRatings(props) {
 	const theme = useTheme();
 	return (
 		<div className={classes.ratings}>
+			{![ ...ratings ].length && <p className={classes.noRatings}>No ratings found</p>}
 			{ratings.map((r) => {
 				switch (r['Source']) {
 					case 'Internet Movie Database':

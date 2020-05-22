@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,21 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { CustomThemeContext } from './contexts/CustomThemeContext';
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1
-	},
-	AppBar: {
-		backgroundColor: theme.palette.background.nav
-	},
-	menuButton: {
-		marginRight: theme.spacing(2)
-	},
-	title: {
-		flexGrow: 1
-	}
-}));
+import useStyles from './styles/NavbarStyles';
 
 export default function Navbar() {
 	const theme = useTheme();

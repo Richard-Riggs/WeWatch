@@ -20,7 +20,6 @@ export default function MovieFinder() {
 
 	const fetchMovies = async () => {
 		setIsLoading(true);
-
 		const newPage = queryParams.page + 1;
 		const response = await axios.get('/api/movieDB', {
 			params: { ...queryParams, page: newPage }
