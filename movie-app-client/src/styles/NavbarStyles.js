@@ -11,6 +11,16 @@ export default makeStyles((theme) => ({
 		marginRight: theme.spacing(2)
 	},
 	title: {
-		flexGrow: 1
-	}
+		marginRight: 'auto',
+		textDecoration: 'none',
+		color: 'white'
+	},
+	navButton: {
+		marginLeft: theme.spacing(2)
+	},
+	offset: theme.mixins.toolbar,
+	listButtons: (props) => ({
+		display: 'flex',
+		transition: 'all 0.2s ease-in-out'
+	})
 }));

@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import MovieCard from './MovieCard';
 import FinderForm from './FinderForm';
 import MovieList from './MovieList';
-import { render } from 'react-dom';
-
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useTheme } from '@material-ui/core/styles';
+import useStyles from './styles/MovieFinderStyles';
 
 export default function MovieFinder() {
+	const theme = useTheme();
+	const classes = useStyles(theme);
 	const [ movies, setMovies ] = useState([]);
 	const [ isLoading, setIsLoading ] = useState(false);
 	const [ queryParams, setQueryParams ] = useState({
@@ -34,12 +35,12 @@ export default function MovieFinder() {
 	}, []);
 
 	return (
-		<div>
+		<div className={classes.root}>
 			<FinderForm />
 			<InfiniteScroll
 				dataLength={movies.length}
 				next={fetchMovies}
-				hasMore={!(movies.length > 40)}
+				hasMore={!(movies.length >= 40)}
 				endMessage={
 					<p style={{ textAlign: 'center' }}>
 						<b>Yay! You have seen it all</b>

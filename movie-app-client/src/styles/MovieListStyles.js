@@ -8,7 +8,8 @@ export default makeStyles((theme) => ({
 	gridItem: {
 		display: 'flex',
 		boxSizing: 'content-box',
-		maxWidth: '300px'
+		maxWidth: '300px',
+		marginBottom: '2rem'
 	},
 	gridSkeleton: {
 		backgroundColor: 'rgba(0,0,0,0.25)'

@@ -22,7 +22,7 @@ export default function MovieList({ movies, isLoading }) {
 	return (
 		<div>
 			<Grid className={classes.gridContainer} container justify="space-around" spacing={3}>
-				{movies.map((m) => <MovieCard {...m} key={m.id} openInfo={openInfo} />)}
+				{movies.map((m) => <MovieCard movie={m} key={m.id} openInfo={openInfo} />)}
 				{isLoading &&
 					[ ...Array(10) ].map((n, i) => (
 						<Grid item xs className={classes.gridItem} style={{ display: 'block' }} key={`skel${i}`}>

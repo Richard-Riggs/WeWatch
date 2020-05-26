@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
 		backgroundColor: theme.palette.background.primary,
 		color: theme.palette.text.primary,
 		width: '100%',
-		minHeight: '100vh',
+		minHeight: '90vh',
 		paddingBottom: '10vh'
 	}
 }));

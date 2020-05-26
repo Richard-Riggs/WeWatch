@@ -47,7 +47,8 @@ exports.addOmdbData = async (movies) => {
 				genre: Genre,
 				director: Director,
 				writer: Writer,
-				actors: Actors
+				actors: Actors,
+				list_id: ''
 			};
 			return updatedMovie;
 		})

@@ -6,12 +6,15 @@ export const lightTheme = createMuiTheme({
 		background: {
 			primary: '#e6e6e6',
 			secondary: '#f2f2f2',
-			nav: '#ff531a'
+			nav: '#600058'
 		},
 		text: {
 			primary: '#1a1a1a',
 			secondary: '#666666'
 		}
+	},
+	fonts: {
+		header: "'Oswald', sans-serif"
 	}
 });
 
@@ -21,11 +24,14 @@ export const darkTheme = createMuiTheme({
 		background: {
 			primary: '#262626',
 			secondary: '#595959',
-			nav: '#661a00'
+			nav: '#41003b'
 		},
 		text: {
 			primary: '#e6e6e6',
 			secondary: '#cccccc'
 		}
+	},
+	fonts: {
+		header: "'Oswald', sans-serif"
 	}
 });

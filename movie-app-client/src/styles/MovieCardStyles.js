@@ -5,12 +5,14 @@ export default makeStyles((theme) => ({
 		maxWidth: '300px',
 		display: 'flex',
 		flexDirection: 'column',
-		position: 'relative'
+		position: 'relative',
+		transition: 'all 0.2s ease-in-out'
 	},
 	gridItem: {
 		display: 'flex',
 		boxSizing: 'content-box',
-		maxWidth: '300px'
+		maxWidth: '300px',
+		marginBottom: '2rem'
 	},
 	poster: {
 		width: '300px',
@@ -39,5 +41,21 @@ export default makeStyles((theme) => ({
 	icon: {
 		width: '30px',
 		height: '30px'
+	},
+	selected: {
+		transform: 'scale(1.05)',
+		'& $selectedIcon': {
+			opacity: 1
+		}
+	},
+	selectedIcon: {
+		position: 'absolute',
+		top: 10,
+		right: 10,
+		color: '#4caf50',
+		backgroundColor: 'white',
+		borderRadius: '50%',
+		opacity: 0,
+		transition: 'all 0.2s ease-in-out'
 	}
 }));
