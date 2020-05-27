@@ -14,8 +14,9 @@ export function MovieListsProvider(props) {
 			setselectedMovies(selectedMovies.filter((m) => m.id !== movie.id));
 		}
 	};
-	const saveMovies = (name = 'defaultName') => {
-		setMovieLists([ ...movieLists, { movies: [ ...selectedMovies ], id: movieLists.length } ]);
+	const saveMovies = (listName) => {
+		const listId = listName.toLowerCase().replace(/ /g, '-');
+		setMovieLists([ ...movieLists, { movies: [ ...selectedMovies ], id: listId, name: listName } ]);
 		setselectedMovies([]);
 	};
 	const deleteMovieList = (id) => setMovieLists(movieLists.filter((ml) => ml.id !== id));

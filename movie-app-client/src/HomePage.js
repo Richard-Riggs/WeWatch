@@ -29,7 +29,7 @@ export default function HomePage() {
 				</div>
 			</header>
 			<Grid container justify="center">
-				<Grid className={classes.movieLists} item xs={10}>
+				<Grid className={classes.movieLists} item xs={10} xl={8}>
 					<Typography variant="h6" className={classes.title}>
 						Your Movie Lists
 					</Typography>

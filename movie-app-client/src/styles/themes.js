@@ -23,7 +23,7 @@ export const darkTheme = createMuiTheme({
 	palette: {
 		background: {
 			primary: '#262626',
-			secondary: '#595959',
+			secondary: '#404040',
 			nav: '#41003b'
 		},
 		text: {

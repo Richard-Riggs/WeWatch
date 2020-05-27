@@ -8,14 +8,17 @@ import Button from '@material-ui/core/Button';
 import useStyles from './styles/DeleteListDialogStyles';
 import { MovieListsContext } from './contexts/MovieListsContext';
 
-export default function DeleteListDialog({ id, open, setOpen }) {
+export default function DeleteListDialog({ id, name, open, setOpen }) {
 	const { deleteMovieList } = useContext(MovieListsContext);
 	const classes = useStyles();
 	const handleClose = () => setOpen(false);
-	const handleDelete = () => deleteMovieList(id);
+	const handleDelete = () => {
+		setOpen(false);
+		deleteMovieList(id);
+	};
 	return (
 		<Dialog className={classes.root} open={open} onClose={handleClose}>
-			<DialogTitle>{'Delete this movie list?'}</DialogTitle>
+			<DialogTitle>Delete {name} ?</DialogTitle>
 			<DialogContent>
 				<DialogContentText id="alert-dialog-description">This action cannot be undone.</DialogContentText>
 			</DialogContent>

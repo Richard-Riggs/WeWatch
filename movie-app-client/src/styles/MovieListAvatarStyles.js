@@ -9,7 +9,7 @@ export default makeStyles((theme) => ({
 		overflow: 'hidden',
 		backgroundColor: theme.palette.background.primary,
 		boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
-		marginRight: theme.spacing(2)
+		marginRight: theme.spacing(4)
 	},
 	miniPoster: {
 		width: '45px',

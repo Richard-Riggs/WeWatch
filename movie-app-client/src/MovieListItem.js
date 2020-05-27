@@ -3,6 +3,7 @@ import useStyles from './styles/MovieListItemStyles';
 import MovieListAvatar from './MovieListAvatar';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import DeleteListDialog from './DeleteListDialog';
 
 export default function MovieListItem({ movieList }) {
@@ -14,11 +15,19 @@ export default function MovieListItem({ movieList }) {
 	return (
 		<li className={classes.root}>
 			<MovieListAvatar list={movieList.movies} />
-			<h1 className={classes.movieListItemTitle}>Movie List Title</h1>
+			<h1 className={classes.movieListItemTitle}>{movieList.name}</h1>
+			<Button variant="outlined">View</Button>
+			<Button variant="outlined">Vote</Button>
+
 			<IconButton onClick={handleDelete}>
-				<DeleteIcon />
+				<DeleteIcon color="secondary" />
 			</IconButton>
-			<DeleteListDialog id={movieList.id} open={openDeleteDialog} setOpen={setOpenDeleteDialog} />
+			<DeleteListDialog
+				id={movieList.id}
+				name={movieList.name}
+				open={openDeleteDialog}
+				setOpen={setOpenDeleteDialog}
+			/>
 		</li>
 	);
 }
