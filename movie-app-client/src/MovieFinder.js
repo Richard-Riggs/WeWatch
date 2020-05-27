@@ -5,8 +5,10 @@ import MovieList from './MovieList';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTheme } from '@material-ui/core/styles';
 import useStyles from './styles/MovieFinderStyles';
+import { MovieListsContext } from './contexts/MovieListsContext';
 
 export default function MovieFinder() {
+	const { clearSelectedMovies } = useContext(MovieListsContext);
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const [ movies, setMovies ] = useState([]);
@@ -16,6 +18,7 @@ export default function MovieFinder() {
 		sort_by: 'popularity.desc',
 		include_adult: false,
 		include_video: false,
+		with_genres: '',
 		page: 0
 	});
 
@@ -31,13 +34,16 @@ export default function MovieFinder() {
 	};
 
 	useEffect(() => {
-		fetchMovies();
+		// fetchMovies();
+		return () => {
+			clearSelectedMovies();
+		};
 	}, []);
 
 	return (
 		<div className={classes.root}>
 			<FinderForm />
-			<InfiniteScroll
+			{/* <InfiniteScroll
 				dataLength={movies.length}
 				next={fetchMovies}
 				hasMore={!(movies.length >= 40)}
@@ -48,7 +54,7 @@ export default function MovieFinder() {
 				}
 			>
 				<MovieList movies={movies} isLoading={isLoading} />
-			</InfiniteScroll>
+			</InfiniteScroll> */}
 		</div>
 	);
 }

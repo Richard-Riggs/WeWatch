@@ -4,25 +4,34 @@ import { useLocalStorageState } from '../hooks/useLocalStorageState';
 export const MovieListsContext = createContext();
 
 export function MovieListsProvider(props) {
-	const [ selectedMovies, setselectedMovies ] = useState([]);
+	const [ selectedMovies, setSelectedMovies ] = useState([]);
 	const [ movieLists, setMovieLists ] = useLocalStorageState('movieLists', []);
-	const addMovie = (movie) => setselectedMovies([ ...selectedMovies, movie ]);
+	const addMovie = (movie) => setSelectedMovies([ ...selectedMovies, movie ]);
 	const toggleMovie = (movie) => {
 		if (selectedMovies.every((m) => m.id !== movie.id)) {
-			setselectedMovies([ ...selectedMovies, { ...movie } ]);
+			setSelectedMovies([ ...selectedMovies, { ...movie } ]);
 		} else {
-			setselectedMovies(selectedMovies.filter((m) => m.id !== movie.id));
+			setSelectedMovies(selectedMovies.filter((m) => m.id !== movie.id));
 		}
 	};
 	const saveMovies = (listName) => {
 		const listId = listName.toLowerCase().replace(/ /g, '-');
 		setMovieLists([ ...movieLists, { movies: [ ...selectedMovies ], id: listId, name: listName } ]);
-		setselectedMovies([]);
+		setSelectedMovies([]);
 	};
 	const deleteMovieList = (id) => setMovieLists(movieLists.filter((ml) => ml.id !== id));
+	const clearSelectedMovies = () => setSelectedMovies([]);
 	return (
 		<MovieListsContext.Provider
-			value={{ selectedMovies, addMovie, toggleMovie, saveMovies, movieLists, deleteMovieList }}
+			value={{
+				selectedMovies,
+				clearSelectedMovies,
+				addMovie,
+				toggleMovie,
+				saveMovies,
+				movieLists,
+				deleteMovieList
+			}}
 		>
 			{props.children}
 		</MovieListsContext.Provider>

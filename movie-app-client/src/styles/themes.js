@@ -1,6 +1,13 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const shared = {
+	fonts: {
+		header: "'Oswald', sans-serif"
+	}
+};
+
 export const lightTheme = createMuiTheme({
+	...shared,
 	darkMode: false,
 	palette: {
 		background: {
@@ -12,13 +19,11 @@ export const lightTheme = createMuiTheme({
 			primary: '#1a1a1a',
 			secondary: '#666666'
 		}
-	},
-	fonts: {
-		header: "'Oswald', sans-serif"
 	}
 });
 
 export const darkTheme = createMuiTheme({
+	...shared,
 	darkMode: true,
 	palette: {
 		background: {
@@ -30,8 +35,5 @@ export const darkTheme = createMuiTheme({
 			primary: '#e6e6e6',
 			secondary: '#cccccc'
 		}
-	},
-	fonts: {
-		header: "'Oswald', sans-serif"
 	}
 });
