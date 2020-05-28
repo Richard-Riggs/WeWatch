@@ -1,19 +1,6 @@
 const axios = require('axios');
 
-// Input query parameters in JSON format
-// Return array of TMDb movie objects
-exports.discoverMovies = async (queryParams) => {
-	const url = 'https://api.themoviedb.org/3/discover/movie';
-	const movies = await axios.get(url, {
-		params: {
-			api_key: process.env.TMDB_KEY,
-			...queryParams
-		}
-	});
-	return movies.data.results;
-};
-
-// Input query parameters in JSON format
+// Input query type (discover, search, or trending) and parameters (JSON format)
 // Return array of TMDb movie objects
 exports.getMovies = async (queryType, queryParams) => {
 	const url = `https://api.themoviedb.org/3/${queryType}/movie`;

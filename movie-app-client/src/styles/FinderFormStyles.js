@@ -29,8 +29,13 @@ export default makeStyles((theme) => ({
 	},
 	fieldRow: {
 		marginBottom: '2rem',
+		display: 'flex',
+		justifyContent: 'space-between',
+		flexWrap: 'wrap',
 		'& h2': {
-			margin: '0.5rem'
+			margin: '0.5rem',
+			paddingBottom: '0.5rem',
+			width: '100%'
 		}
 	},
 	searchRow: {
@@ -49,20 +54,30 @@ export default makeStyles((theme) => ({
 	searchBtn: {
 		borderRadius: '0 2rem 2rem 0'
 	},
-	genreField: {
+	discoverField: {
+		marginLeft: '2rem',
+		marginTop: '1rem',
 		display: 'flex',
+		flexWrap: 'wrap',
+		width: '400px',
 		alignItems: 'center',
+		'& h3': {
+			width: '100%',
+			marginBottom: '0.5rem'
+		},
 		'& label': {
 			paddingRight: theme.spacing(2)
+		},
+		'& button': {
+			marginLeft: theme.spacing(2),
+			borderRadius: '2rem'
 		}
 	},
-	genreSelect: {
-		width: '300px',
+	discoverSelect: {
+		flexGrow: 1,
+		marginRight: theme.spacing(3),
 		'& .MuiSelect-root': {
-			paddingLeft: '1rem'
+			paddingLeft: theme.spacing(2)
 		}
-	},
-	'.MuiPopover-paper': {
-		maxHeight: '50vh !important'
 	}
 }));

@@ -29,10 +29,12 @@ export default function FinderForm({ setQuery }) {
 	const classes = useStyles(theme);
 	const [ genreVal, setGenreVal ] = useState('');
 	const [ searchVal, setSearchVal ] = useState('');
+	const [ trendingVal, setTrendingVal ] = useState('day');
 	const [ formSummary, setFormSummary ] = useState(<p>Find movies to add to your list</p>);
 	const [ expanded, toggleExpanded ] = useToggleState(true);
 	const handleGenreChange = (e) => setGenreVal(e.target.value);
 	const handleSearchChange = (e) => setSearchVal(e.target.value);
+	const handleTrendingChange = (e) => setTrendingVal(e.target.value);
 
 	const handleDiscover = () => {
 		toggleExpanded();
@@ -123,10 +125,10 @@ export default function FinderForm({ setQuery }) {
 					</div>
 					<div className={classes.fieldRow}>
 						<h2>Discover</h2>
-						<h3>Popular</h3>
-						<div className={classes.genreField}>
+						<div className={classes.discoverField}>
+							<h3>Popular</h3>
 							<label>Genre</label>
-							<FormControl className={classes.genreSelect} variant="outlined">
+							<FormControl className={classes.discoverSelect} variant="outlined">
 								<Select
 									input={<Input />}
 									value={genreVal}
@@ -157,9 +159,29 @@ export default function FinderForm({ setQuery }) {
 								Go
 							</Button>
 						</div>
-					</div>
-					<div className={classes.fieldRow}>
-						<h3>Trending</h3>
+						<div className={classes.discoverField}>
+							<h3>Trending</h3>
+							<label>Time Frame</label>
+							<FormControl variant="outlined" className={classes.discoverSelect}>
+								<Select
+									input={<Input />}
+									value={trendingVal}
+									variant="outlined"
+									onChange={handleTrendingChange}
+									renderValue={(selected) => (selected === 'day' ? 'Past day' : 'Past week')}
+								>
+									<MenuItem value={'day'}>
+										<ListItemText primary={'Past day'} />
+									</MenuItem>
+									<MenuItem value={'week'}>
+										<ListItemText primary={'Past week'} />
+									</MenuItem>
+								</Select>
+							</FormControl>
+							<Button size="small" color="primary" variant="contained" disableElevation>
+								Go
+							</Button>
+						</div>
 					</div>
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
