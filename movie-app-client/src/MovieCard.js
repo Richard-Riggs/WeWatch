@@ -13,12 +13,12 @@ import useStyles from './styles/MovieCardStyles';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import useToggleState from './hooks/useToggleState';
 
-function MovieCard({ movie, openInfo }) {
+function MovieCard({ movie, openInfo, selected }) {
 	const { title, poster_path, ratings, id, list_id } = movie;
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const { toggleMovie } = useContext(MovieListsContext);
-	const [ isSelected, toggleIsSelected ] = useToggleState(list_id ? true : false);
+	const [ isSelected, toggleIsSelected ] = useToggleState(list_id || selected ? true : false);
 	const imgSrc = `https://image.tmdb.org/t/p/w300${poster_path}`;
 
 	const handleInfoClick = (e) => {

@@ -6,6 +6,7 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
+		marginBottom: '2rem',
 		'& .MuiExpansionPanel-root': {
 			width: '90vw',
 			'& .MuiExpansionPanelDetails-root': {
@@ -47,5 +48,21 @@ export default makeStyles((theme) => ({
 	},
 	searchBtn: {
 		borderRadius: '0 2rem 2rem 0'
+	},
+	genreField: {
+		display: 'flex',
+		alignItems: 'center',
+		'& label': {
+			paddingRight: theme.spacing(2)
+		}
+	},
+	genreSelect: {
+		width: '300px',
+		'& .MuiSelect-root': {
+			paddingLeft: '1rem'
+		}
+	},
+	'.MuiPopover-paper': {
+		maxHeight: '50vh !important'
 	}
 }));

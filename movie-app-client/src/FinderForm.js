@@ -20,31 +20,82 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
-
+import useToggleState from './hooks/useToggleState';
 import Checkbox from '@material-ui/core/Checkbox';
 import { GENRES } from './constants';
 
-export default function FinderForm() {
+export default function FinderForm({ setQuery }) {
 	const theme = useTheme();
 	const classes = useStyles(theme);
-	const [ genreVals, setGenreVals ] = useState([]);
-	const handleGenreChange = (e) => setGenreVals(e.target.value);
+	const [ genreVal, setGenreVal ] = useState('');
+	const [ searchVal, setSearchVal ] = useState('');
+	const [ formSummary, setFormSummary ] = useState(<p>Find movies to add to your list</p>);
+	const [ expanded, toggleExpanded ] = useToggleState(true);
+	const handleGenreChange = (e) => setGenreVal(e.target.value);
+	const handleSearchChange = (e) => setSearchVal(e.target.value);
+
+	const handleDiscover = () => {
+		toggleExpanded();
+		const genreName = genreVal ? GENRES.find((g) => g.id === genreVal).name.toLowerCase() : '';
+		setFormSummary(
+			<p>
+				Showing popular <strong>{genreName}</strong> movies{' '}
+				{!genreVal && (
+					<span>
+						of <strong>all genres</strong>
+					</span>
+				)}
+			</p>
+		);
+		setQuery({
+			type: 'discover',
+			params: {
+				language: 'en-US',
+				sort_by: 'popularity.desc',
+				include_adult: false,
+				include_video: false,
+				with_genres: genreVal || ''
+			}
+		});
+	};
+
+	const handleSearch = () => {
+		if (searchVal) {
+			toggleExpanded();
+
+			setFormSummary(
+				<p>
+					Showing search results for <strong>{searchVal}</strong>
+				</p>
+			);
+
+			setQuery({
+				type: 'search',
+				params: {
+					language: 'en-US',
+					query: searchVal,
+					include_adult: false
+				}
+			});
+		}
+	};
+
 	return (
 		<div className={classes.root}>
 			<header className={classes.header}>
 				<h1 className={classes.headerText}>Find Movies</h1>
 			</header>
-			<ExpansionPanel defaultExpanded>
-				<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-					<p>
-						Showing search results for <strong>The Matrix</strong>
-					</p>
+			<ExpansionPanel expanded={expanded}>
+				<ExpansionPanelSummary onClick={toggleExpanded} expandIcon={<ExpandMoreIcon />}>
+					{formSummary}
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails>
 					<div className={classes.fieldRow}>
 						<h2>Search</h2>
 						<div className={classes.searchRow}>
 							<TextField
+								value={searchVal}
+								onChange={handleSearchChange}
 								className={classes.searchInput}
 								type="search"
 								variant="outlined"
@@ -64,6 +115,7 @@ export default function FinderForm() {
 								color="primary"
 								variant="contained"
 								disableElevation
+								onClick={handleSearch}
 							>
 								Go
 							</Button>
@@ -71,32 +123,45 @@ export default function FinderForm() {
 					</div>
 					<div className={classes.fieldRow}>
 						<h2>Discover</h2>
-						<h4>Popular</h4>
-
-						<FormControl className={classes.formControl} variant={'outlined'}>
-							<Select
-								input={<Input />}
-								multiple
-								value={genreVals}
-								onChange={handleGenreChange}
-								displayEmpty={true}
-								variant={'outlined'}
-								renderValue={(selected) => {
-									if (selected.length) return selected.map((s) => s.name).join(', ');
-									else return 'All';
-								}}
-							>
-								{GENRES.map((genre) => (
-									<MenuItem key={genre.id} value={genre}>
-										<Checkbox checked={genreVals.includes(genre)} />
-										<ListItemText primary={genre.name} />
+						<h3>Popular</h3>
+						<div className={classes.genreField}>
+							<label>Genre</label>
+							<FormControl className={classes.genreSelect} variant="outlined">
+								<Select
+									input={<Input />}
+									value={genreVal}
+									onChange={handleGenreChange}
+									displayEmpty={true}
+									variant="outlined"
+									renderValue={(selected) =>
+										selected ? GENRES.find((g) => g.id === selected).name : 'Any'}
+								>
+									<MenuItem value={''}>
+										<ListItemText primary={'Any (Default)'} />
 									</MenuItem>
-								))}
-							</Select>
-						</FormControl>
+									<Divider />
+									{GENRES.map((genre) => (
+										<MenuItem key={genre.id} value={genre.id}>
+											<ListItemText primary={genre.name} />
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+							<Button
+								onClick={handleDiscover}
+								size="small"
+								color="primary"
+								variant="contained"
+								disableElevation
+							>
+								Go
+							</Button>
+						</div>
+					</div>
+					<div className={classes.fieldRow}>
+						<h3>Trending</h3>
 					</div>
 				</ExpansionPanelDetails>
-				<Divider />
 			</ExpansionPanel>
 		</div>
 	);

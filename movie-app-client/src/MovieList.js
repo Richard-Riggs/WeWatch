@@ -6,8 +6,10 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import useToggleState from './hooks/useToggleState';
 import MovieInfoDialog from './MovieInfoDialog';
 import useStyles from './styles/MovieListStyles';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
-export default function MovieList({ movies, isLoading }) {
+export default function MovieList({ movies, isLoading, showSelected, toggleShowSelected }) {
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const [ showInfo, toggleInfo ] = useToggleState(false);
@@ -22,7 +24,14 @@ export default function MovieList({ movies, isLoading }) {
 	return (
 		<div>
 			<Grid className={classes.gridContainer} container justify="space-around" spacing={3}>
-				{movies.map((m) => <MovieCard movie={m} key={m.id} openInfo={openInfo} />)}
+				<Grid item xs={10}>
+					<FormControlLabel
+						control={<Checkbox color="primary" checked={showSelected} onChange={toggleShowSelected} />}
+						label="Only View Selection"
+					/>
+				</Grid>
+
+				{movies.map((m) => <MovieCard movie={m} key={m.id} openInfo={openInfo} selected={showSelected} />)}
 				{isLoading &&
 					[ ...Array(10) ].map((n, i) => (
 						<Grid item xs className={classes.gridItem} style={{ display: 'block' }} key={`skel${i}`}>

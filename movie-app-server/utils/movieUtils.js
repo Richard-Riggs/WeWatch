@@ -13,6 +13,19 @@ exports.discoverMovies = async (queryParams) => {
 	return movies.data.results;
 };
 
+// Input query parameters in JSON format
+// Return array of TMDb movie objects
+exports.getMovies = async (queryType, queryParams) => {
+	const url = `https://api.themoviedb.org/3/${queryType}/movie`;
+	const movies = await axios.get(url, {
+		params: {
+			api_key: process.env.TMDB_KEY,
+			...queryParams
+		}
+	});
+	return movies.data.results;
+};
+
 // Input array of TMDb movie objects
 // Return array of TMDb movie objects with IMDb IDs
 exports.addImdbIds = async (movies) => {

@@ -6,55 +6,76 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTheme } from '@material-ui/core/styles';
 import useStyles from './styles/MovieFinderStyles';
 import { MovieListsContext } from './contexts/MovieListsContext';
+import useToggleState from './hooks/useToggleState';
 
 export default function MovieFinder() {
-	const { clearSelectedMovies } = useContext(MovieListsContext);
+	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const [ movies, setMovies ] = useState([]);
 	const [ isLoading, setIsLoading ] = useState(false);
-	const [ queryParams, setQueryParams ] = useState({
-		language: 'en-US',
-		sort_by: 'popularity.desc',
-		include_adult: false,
-		include_video: false,
-		with_genres: '',
-		page: 0
-	});
+	const [ query, setQuery ] = useState({});
+	const [ resultsPage, setResultsPage ] = useState(0);
+	const [ showSelected, toggleShowSelected ] = useToggleState(false);
 
 	const fetchMovies = async () => {
-		setIsLoading(true);
-		const newPage = queryParams.page + 1;
-		const response = await axios.get('/api/movieDB', {
-			params: { ...queryParams, page: newPage }
-		});
-		setMovies([ ...movies, ...response.data ]);
-		setQueryParams({ ...queryParams, page: newPage });
-		setIsLoading(false);
+		if (Object.keys(query).length) {
+			setIsLoading(true);
+			const nextPage = resultsPage + 1;
+			const response = await axios.get(`/api/movieDB/${query.type}`, {
+				params: { ...query.params, page: nextPage }
+			});
+			setMovies([ ...movies, ...response.data ]);
+			setResultsPage(nextPage);
+			setIsLoading(false);
+		}
 	};
 
+	// Clears movie selection when leaving page
 	useEffect(() => {
-		// fetchMovies();
 		return () => {
 			clearSelectedMovies();
 		};
 	}, []);
 
+	// This useEffect chain is used to ensure that the movies and resultsPage state resets
+	// BEFORE processing the new query. Otherwise, the old movies are not removed.
+	useEffect(
+		() => {
+			setResultsPage(0);
+			setMovies([]);
+		},
+		[ query ]
+	);
+	useEffect(
+		() => {
+			if (movies.length === 0) {
+				(async () => await fetchMovies())();
+			}
+		},
+		[ movies ]
+	);
+
 	return (
 		<div className={classes.root}>
-			<FinderForm />
-			{/* <InfiniteScroll
+			<FinderForm setQuery={setQuery} />
+			<InfiniteScroll
 				dataLength={movies.length}
 				next={fetchMovies}
-				hasMore={!(movies.length >= 40)}
+				hasMore={!showSelected && !(movies.length >= 40)}
 				endMessage={
 					<p style={{ textAlign: 'center' }}>
 						<b>Yay! You have seen it all</b>
 					</p>
 				}
 			>
-				<MovieList movies={movies} isLoading={isLoading} />
-			</InfiniteScroll> */}
+				<MovieList
+					movies={showSelected ? selectedMovies : movies}
+					isLoading={isLoading}
+					showSelected={showSelected}
+					toggleShowSelected={toggleShowSelected}
+				/>
+			</InfiniteScroll>
 		</div>
 	);
 }
