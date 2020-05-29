@@ -13,7 +13,7 @@ import useStyles from './styles/MovieCardStyles';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import useToggleState from './hooks/useToggleState';
 
-function MovieCard({ movie, openInfo, selected }) {
+function MovieCard({ movie, openInfo, selected, view }) {
 	const { title, poster_path, ratings, id, list_id } = movie;
 	const theme = useTheme();
 	const classes = useStyles(theme);
@@ -27,8 +27,10 @@ function MovieCard({ movie, openInfo, selected }) {
 	};
 
 	const handleCardClick = () => {
-		toggleMovie(movie);
-		toggleIsSelected();
+		if (!view) {
+			toggleMovie(movie);
+			toggleIsSelected();
+		}
 	};
 
 	return (

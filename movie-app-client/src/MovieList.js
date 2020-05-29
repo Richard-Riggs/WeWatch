@@ -9,7 +9,7 @@ import useStyles from './styles/MovieListStyles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export default function MovieList({ movies, isLoading, showSelected, toggleShowSelected }) {
+export default function MovieList({ movies, isLoading, showSelected, toggleShowSelected, view }) {
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const [ showInfo, toggleInfo ] = useToggleState(false);
@@ -31,7 +31,9 @@ export default function MovieList({ movies, isLoading, showSelected, toggleShowS
 					/>
 				</Grid>
 
-				{movies.map((m) => <MovieCard movie={m} key={m.id} openInfo={openInfo} selected={showSelected} />)}
+				{movies.map((m) => (
+					<MovieCard view={view} movie={m} key={m.id} openInfo={openInfo} selected={showSelected} />
+				))}
 				{isLoading &&
 					[ ...Array(10) ].map((n, i) => (
 						<Grid item xs className={classes.gridItem} style={{ display: 'block' }} key={`skel${i}`}>

@@ -30,7 +30,7 @@ export default makeStyles((theme) => ({
 	fieldRow: {
 		marginBottom: '2rem',
 		display: 'flex',
-		justifyContent: 'space-between',
+		justifyContent: 'space-around',
 		flexWrap: 'wrap',
 		'& h2': {
 			margin: '0.5rem',

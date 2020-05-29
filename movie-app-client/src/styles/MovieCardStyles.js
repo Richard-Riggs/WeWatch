@@ -7,9 +7,9 @@ export default makeStyles((theme) => ({
 		flexDirection: 'column',
 		position: 'relative',
 		transition: 'all 0.2s ease-in-out',
-		'&:hover&:not($selected)& $selectedIcon': {
-			opacity: 0.5
-		}
+		'&:hover&:not($selected)& $selectedIcon': (props) => ({
+			opacity: props.view ? 0 : 0.5
+		})
 	},
 	gridItem: {
 		display: 'flex',

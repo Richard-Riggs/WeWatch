@@ -36,7 +36,7 @@ export default function FinderForm({ setQuery }) {
 	const handleSearchChange = (e) => setSearchVal(e.target.value);
 	const handleTrendingChange = (e) => setTrendingVal(e.target.value);
 
-	const handleDiscover = () => {
+	const handleDiscoverPopular = () => {
 		toggleExpanded();
 		const genreName = genreVal ? GENRES.find((g) => g.id === genreVal).name.toLowerCase() : '';
 		setFormSummary(
@@ -80,6 +80,21 @@ export default function FinderForm({ setQuery }) {
 				}
 			});
 		}
+	};
+
+	const handleDiscoverTrending = () => {
+		toggleExpanded();
+		setFormSummary(
+			<p>
+				Showing trending movies from the past <strong>{trendingVal}</strong>
+			</p>
+		);
+		setQuery({
+			type: 'trending',
+			params: {
+				trendTime: trendingVal
+			}
+		});
 	};
 
 	return (
@@ -150,7 +165,7 @@ export default function FinderForm({ setQuery }) {
 								</Select>
 							</FormControl>
 							<Button
-								onClick={handleDiscover}
+								onClick={handleDiscoverPopular}
 								size="small"
 								color="primary"
 								variant="contained"
@@ -178,7 +193,13 @@ export default function FinderForm({ setQuery }) {
 									</MenuItem>
 								</Select>
 							</FormControl>
-							<Button size="small" color="primary" variant="contained" disableElevation>
+							<Button
+								size="small"
+								color="primary"
+								variant="contained"
+								disableElevation
+								onClick={handleDiscoverTrending}
+							>
 								Go
 							</Button>
 						</div>
