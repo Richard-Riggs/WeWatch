@@ -70,6 +70,7 @@ export default function MovieFinder() {
 				}
 			>
 				<MovieList
+					mode={'find'}
 					movies={showSelected ? selectedMovies : movies}
 					isLoading={isLoading}
 					showSelected={showSelected}

@@ -1,4 +1,4 @@
-import React, { memo, useContext, useState } from 'react';
+import React, { memo, useContext, useState, useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
@@ -13,12 +13,13 @@ import useStyles from './styles/MovieCardStyles';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import useToggleState from './hooks/useToggleState';
 
-function MovieCard({ movie, openInfo, selected, view }) {
+function MovieCard({ movie, openInfo, selected, mode }) {
 	const { title, poster_path, ratings, id, list_id } = movie;
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const { toggleMovie } = useContext(MovieListsContext);
-	const [ isSelected, toggleIsSelected ] = useToggleState(list_id || selected ? true : false);
+	const [ isSelected, setIsSelected ] = useState(list_id || selected ? true : false);
+	const toggleIsSelected = () => setIsSelected(!isSelected);
 	const imgSrc = `https://image.tmdb.org/t/p/w300${poster_path}`;
 
 	const handleInfoClick = (e) => {
@@ -27,11 +28,19 @@ function MovieCard({ movie, openInfo, selected, view }) {
 	};
 
 	const handleCardClick = () => {
-		if (!view) {
+		if (mode !== 'view') {
 			toggleMovie(movie);
 			toggleIsSelected();
 		}
 	};
+
+	useEffect(
+		() => {
+			if (mode === 'edit') setIsSelected(true);
+			else if (mode === 'view') setIsSelected(false);
+		},
+		[ mode ]
+	);
 
 	return (
 		<Grid className={classes.gridItem} onClick={handleCardClick} item xs>
