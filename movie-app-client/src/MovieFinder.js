@@ -7,6 +7,7 @@ import { useTheme } from '@material-ui/core/styles';
 import useStyles from './styles/MovieFinderStyles';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import useToggleState from './hooks/useToggleState';
+import MovieFinderNav from './MovieFinderNav';
 
 export default function MovieFinder() {
 	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
@@ -58,6 +59,7 @@ export default function MovieFinder() {
 
 	return (
 		<div className={classes.root}>
+			<MovieFinderNav selectedMovies={selectedMovies} />
 			<FinderForm setQuery={setQuery} />
 			<InfiniteScroll
 				dataLength={movies.length}

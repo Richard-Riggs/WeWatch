@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import MovieList from './MovieList';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import Button from '@material-ui/core/Button';
+import MovieViewerNav from './MovieViewerNav';
 
 export default function MovieListViewer(props) {
 	const listId = props.match.params.listId;
@@ -19,6 +20,7 @@ export default function MovieListViewer(props) {
 	};
 	return (
 		<div>
+			<MovieViewerNav movieList={movieList} />
 			<h1>Viewing movies in {listId}</h1>
 			<Button variant="contained" onClick={toggleEdit}>
 				Edit

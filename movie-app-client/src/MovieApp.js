@@ -12,7 +12,6 @@ export default function MovieApp() {
 	const classes = useStyles(theme);
 	return (
 		<div className={classes.root}>
-			<Navbar />
 			<Switch>
 				<Route exact path="/" render={(routeProps) => <HomePage {...routeProps} />} />
 				<Route exact path="/new" render={(routeProps) => <MovieFinder {...routeProps} />} />

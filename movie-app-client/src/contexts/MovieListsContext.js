@@ -22,6 +22,10 @@ export function MovieListsProvider(props) {
 	const deleteMovieList = (id) => setMovieLists(movieLists.filter((ml) => ml.id !== id));
 	const clearSelectedMovies = () => setSelectedMovies([]);
 	const selectMovieList = (id) => setSelectedMovies(movieLists.find((ml) => ml.id === id).movies);
+	const updateMovieList = (id) => {
+		setMovieLists(movieLists.map((ml) => (ml.id === id ? { ...ml, movies: [ ...selectedMovies ] } : ml)));
+		clearSelectedMovies([]);
+	};
 	return (
 		<MovieListsContext.Provider
 			value={{
@@ -32,7 +36,8 @@ export function MovieListsProvider(props) {
 				saveMovies,
 				movieLists,
 				selectMovieList,
-				deleteMovieList
+				deleteMovieList,
+				updateMovieList
 			}}
 		>
 			{props.children}
