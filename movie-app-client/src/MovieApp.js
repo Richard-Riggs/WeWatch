@@ -7,6 +7,8 @@ import MovieListViewer from './MovieListViewer';
 import useStyles from './styles/MovieAppStyles';
 import Navbar from './Navbar';
 import MovieVoter from './MovieVoter';
+import { VoteSessionProvider } from './contexts/VoteSessionContext';
+import io from 'socket.io-client';
 
 export default function MovieApp() {
 	const theme = useTheme();
@@ -17,10 +19,23 @@ export default function MovieApp() {
 				<Route exact path="/" render={(routeProps) => <HomePage {...routeProps} />} />
 				<Route exact path="/new" render={(routeProps) => <MovieFinder {...routeProps} />} />
 				<Route exact path="/movie-lists/:listId" render={(routeProps) => <MovieListViewer {...routeProps} />} />
-				<Route exact path="/vote/:sessionId" render={(routeProps) => <MovieVoter {...routeProps} />} />
+				<Route
+					exact
+					path="/vote/:sessionId"
+					render={(routeProps) => {
+						const socket = io('/vote', {
+							query: {
+								sessionId: routeProps.match.params.sessionId
+							}
+						});
+						return (
+							<VoteSessionProvider socket={socket}>
+								<MovieVoter {...routeProps} />
+							</VoteSessionProvider>
+						);
+					}}
+				/>
 			</Switch>
 		</div>
 	);
 }
-
-//routeProps.match.params.listId

@@ -46,6 +46,12 @@ vote.on('connection', (socket) => {
 		socket.emit('loadMovies', sessionData);
 		updateUserCount(sessionId);
 
+		socket.on('startVote', (startVote) => {
+			if (sessionData.leaderId === socket.client.nsps['/vote'].conn.id) {
+				vote.to(sessionId).emit('startVote', startVote);
+			}
+		});
+
 		socket.on('disconnect', () => {
 			console.log('user disconnected');
 			updateUserCount(sessionId);

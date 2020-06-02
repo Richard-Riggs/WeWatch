@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import useStyles from './styles/VotingLobbyStyles';
 import Button from '@material-ui/core/Button';
+import { VoteSessionContext } from './contexts/VoteSessionContext';
 
-export default function VotingLobby({ movieList, userCount, isLeader }) {
+export default function VotingLobby() {
+	const { movieList, userCount, isLeader, startVote } = useContext(VoteSessionContext);
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
@@ -28,7 +30,7 @@ export default function VotingLobby({ movieList, userCount, isLeader }) {
 				<div className={classes.leaderSection}>
 					<h2>You are the lobby leader</h2>
 					<div className={classes.leaderBtns}>
-						<Button size="large" variant="contained" color="secondary">
+						<Button size="large" variant="contained" color="secondary" onClick={startVote}>
 							Start Vote
 						</Button>
 						<Button size="large" variant="outlined" color="default">
