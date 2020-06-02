@@ -6,13 +6,23 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import DeleteListDialog from './DeleteListDialog';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { withRouter } from 'react-router';
 
-export default function MovieListItem({ movieList }) {
+function MovieListItem({ history, movieList }) {
 	const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
 	const handleDeleteOpen = () => setOpenDeleteDialog(true);
 
 	const classes = useStyles();
 	const handleDelete = () => handleDeleteOpen();
+
+	const handleVote = async () => {
+		const response = await axios.post('/vote', {
+			movieList: movieList
+		});
+		history.push(`/vote/${response.data.sessionId}`);
+	};
+
 	return (
 		<li className={classes.root}>
 			<MovieListAvatar list={movieList.movies} />
@@ -21,7 +31,9 @@ export default function MovieListItem({ movieList }) {
 				<Button variant="outlined">View</Button>
 			</Link>
 
-			<Button variant="outlined">Vote</Button>
+			<Button variant="outlined" onClick={handleVote}>
+				Vote
+			</Button>
 
 			<IconButton onClick={handleDelete}>
 				<DeleteIcon color="secondary" />
@@ -35,3 +47,5 @@ export default function MovieListItem({ movieList }) {
 		</li>
 	);
 }
+
+export default withRouter(MovieListItem);
