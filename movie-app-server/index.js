@@ -35,11 +35,11 @@ vote.on('connection', (socket) => {
 
 	// client ID: socket.client.nsps['/vote'].id
 	if (sessionData) {
-		console.log(socket.client.nsps['/vote'].conn.id);
+		console.log(socket.client.id);
 		socket.join(sessionId);
 
 		if (!sessionData.leaderId) {
-			sessionData.leaderId = socket.client.nsps['/vote'].conn.id;
+			sessionData.leaderId = socket.client.id;
 			socket.emit('userIsLeader', true);
 		}
 
@@ -47,7 +47,7 @@ vote.on('connection', (socket) => {
 		updateUserCount(sessionId);
 
 		socket.on('startVote', (startVote) => {
-			if (sessionData.leaderId === socket.client.nsps['/vote'].conn.id) {
+			if (sessionData.leaderId === socket.client.id) {
 				vote.to(sessionId).emit('startVote', startVote);
 			}
 		});

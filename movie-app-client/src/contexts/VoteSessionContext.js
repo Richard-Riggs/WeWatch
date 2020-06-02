@@ -1,8 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import { MovieListsContext } from '../contexts/MovieListsContext';
 
 export const VoteSessionContext = createContext();
 
 export function VoteSessionProvider({ children, socket }) {
+	const { clearSelectedMovies } = useContext(MovieListsContext);
 	const [ movieList, setMovieList ] = useState();
 	const [ userCount, setUserCount ] = useState(0);
 	const [ isLeader, setIsLeader ] = useState(false);
@@ -25,6 +27,12 @@ export function VoteSessionProvider({ children, socket }) {
 		socket.on('startVote', (startVote) => {
 			if (startVote) setStage('vote');
 		});
+
+		// Disconnect/cleanup on unmount
+		return () => {
+			socket.disconnect();
+			clearSelectedMovies();
+		};
 	}, []);
 
 	// Event emitters

@@ -13,11 +13,12 @@ import useStyles from './styles/MovieCardStyles';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import useToggleState from './hooks/useToggleState';
 
-function MovieCard({ movie, openInfo, selected, mode }) {
+function MovieCard(props) {
+	const { movie, openInfo, selected, mode, selectLimit = 0 } = props;
 	const { title, poster_path, ratings, id, list_id } = movie;
 	const theme = useTheme();
-	const classes = useStyles(theme);
-	const { toggleMovie } = useContext(MovieListsContext);
+	const classes = useStyles(props);
+	const { toggleMovie, selectedMovies } = useContext(MovieListsContext);
 	const [ isSelected, setIsSelected ] = useState(list_id || selected ? true : false);
 	const toggleIsSelected = () => setIsSelected(!isSelected);
 	const imgSrc = `https://image.tmdb.org/t/p/w300${poster_path}`;
@@ -28,9 +29,13 @@ function MovieCard({ movie, openInfo, selected, mode }) {
 	};
 
 	const handleCardClick = () => {
-		if (mode !== 'view') {
-			toggleMovie(movie);
-			toggleIsSelected();
+		// Card is toggleable if it's already selected, if there's no select limit,
+		// or if the number of selected movies is under the select limit
+		if (isSelected || (!selectLimit || selectedMovies.length < selectLimit)) {
+			if (mode !== 'view') {
+				toggleMovie(movie);
+				toggleIsSelected();
+			}
 		}
 	};
 
@@ -44,7 +49,12 @@ function MovieCard({ movie, openInfo, selected, mode }) {
 
 	return (
 		<Grid className={classes.gridItem} onClick={handleCardClick} item xs>
-			<Card className={`${classes.root} ${isSelected && classes.selected}`}>
+			<Card
+				className={`${classes.root} ${isSelected && classes.selected} ${!isSelected &&
+					selectLimit &&
+					selectedMovies.length >= selectLimit &&
+					classes.disabled}`}
+			>
 				<CardMedia className={classes.poster} component="img" alt={title} image={imgSrc} title={title} />
 				<CheckCircleRoundedIcon className={classes.selectedIcon} fontSize="large" />
 				<CardContent className={classes.cardContent}>

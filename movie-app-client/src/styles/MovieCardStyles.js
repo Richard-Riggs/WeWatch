@@ -1,16 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
-	root: {
+	root: (props) => ({
 		width: '300px',
 		maxWidth: '300px',
 		display: 'flex',
 		flexDirection: 'column',
 		position: 'relative',
 		transition: 'all 0.2s ease-in-out',
-		'&:hover&:not($selected)& $selectedIcon': (props) => ({
-			opacity: props.view ? 0 : 0.5
-		})
-	},
+		'&:hover&:not($selected)&:not($disabled)& $selectedIcon': {
+			opacity: props.mode === 'view' ? 0 : 0.5
+		}
+	}),
 	gridItem: {
 		display: 'flex',
 		boxSizing: 'content-box',
@@ -45,13 +45,13 @@ export default makeStyles((theme) => ({
 		width: '30px',
 		height: '30px'
 	},
-	selected: {
+	selected: (props) => ({
 		transform: 'scale(1.05)',
 		'& $selectedIcon': {
 			opacity: 1
 		}
-	},
-	selectedIcon: {
+	}),
+	selectedIcon: (props) => ({
 		position: 'absolute',
 		top: 10,
 		right: 10,
@@ -60,5 +60,8 @@ export default makeStyles((theme) => ({
 		borderRadius: '50%',
 		opacity: 0,
 		transition: 'all 0.2s ease-in-out'
-	}
+	}),
+	disabled: (props) => ({
+		opacity: 0.5
+	})
 }));

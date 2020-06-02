@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import MovieList from './MovieList';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import Button from '@material-ui/core/Button';
@@ -18,6 +18,11 @@ export default function MovieListViewer(props) {
 			setEdit(false);
 		}
 	};
+	useEffect(() => {
+		return () => {
+			clearSelectedMovies();
+		};
+	}, []);
 	return (
 		<div>
 			<MovieViewerNav movieList={movieList} />
