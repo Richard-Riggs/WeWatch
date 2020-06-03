@@ -4,9 +4,10 @@ import { MovieListsContext } from '../contexts/MovieListsContext';
 export const VoteSessionContext = createContext();
 
 export function VoteSessionProvider({ children, socket }) {
-	const { clearSelectedMovies } = useContext(MovieListsContext);
+	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
 	const [ movieList, setMovieList ] = useState();
 	const [ userCount, setUserCount ] = useState(0);
+	const [ voteLimit, setVoteLimit ] = useState(0);
 	const [ isLeader, setIsLeader ] = useState(false);
 	const [ stage, setStage ] = useState();
 	const [ error, setError ] = useState();
@@ -19,14 +20,16 @@ export function VoteSessionProvider({ children, socket }) {
 				setError(data.error);
 			} else {
 				setMovieList(data.movieList);
-				setStage('lobby');
+				setVoteLimit(data.voteLimit);
+				setStage(data.stage);
 			}
 		});
 		socket.on('updateUserCount', (count) => setUserCount(count));
 		socket.on('userIsLeader', (userIsLeader) => setIsLeader(userIsLeader));
-		socket.on('startVote', (startVote) => {
-			if (startVote) setStage('vote');
+		socket.on('startVote', (startData) => {
+			if (startData.startVote) setStage(startData.stage);
 		});
+		socket.on('voteComplete', (results) => console.log(results));
 
 		// Disconnect/cleanup on unmount
 		return () => {
@@ -42,6 +45,11 @@ export function VoteSessionProvider({ children, socket }) {
 		}
 	};
 
+	const submitVote = () => {
+		socket.emit('submitVote', selectedMovies);
+		clearSelectedMovies();
+	};
+
 	return (
 		<VoteSessionContext.Provider
 			value={{
@@ -50,7 +58,9 @@ export function VoteSessionProvider({ children, socket }) {
 				isLeader,
 				stage,
 				startVote,
-				error
+				error,
+				submitVote,
+				voteLimit
 			}}
 		>
 			{children}

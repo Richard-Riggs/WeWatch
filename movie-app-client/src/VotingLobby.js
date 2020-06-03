@@ -6,6 +6,7 @@ import { VoteSessionContext } from './contexts/VoteSessionContext';
 export default function VotingLobby() {
 	const { movieList, userCount, isLeader, startVote } = useContext(VoteSessionContext);
 	const classes = useStyles();
+	console.log(movieList);
 	return (
 		<div className={classes.root}>
 			<h1>
