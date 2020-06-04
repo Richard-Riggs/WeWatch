@@ -11,6 +11,7 @@ export function VoteSessionProvider({ children, socket }) {
 	const [ isLeader, setIsLeader ] = useState(false);
 	const [ stage, setStage ] = useState();
 	const [ error, setError ] = useState();
+	const [ results, setResults ] = useState();
 
 	// Event Listeners
 	useEffect(() => {
@@ -29,7 +30,10 @@ export function VoteSessionProvider({ children, socket }) {
 		socket.on('startVote', (startData) => {
 			if (startData.startVote) setStage(startData.stage);
 		});
-		socket.on('voteComplete', (results) => console.log(results));
+		socket.on('voteComplete', (results) => {
+			setResults(results);
+			setStage('results');
+		});
 
 		// Disconnect/cleanup on unmount
 		return () => {
@@ -60,7 +64,8 @@ export function VoteSessionProvider({ children, socket }) {
 				startVote,
 				error,
 				submitVote,
-				voteLimit
+				voteLimit,
+				results
 			}}
 		>
 			{children}

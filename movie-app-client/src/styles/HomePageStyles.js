@@ -17,7 +17,7 @@ export default makeStyles((theme) => ({
 			fontSize: '5rem',
 			fontFamily: theme.fonts.header,
 			fontWeight: 200,
-			letterSpacing: '1rem'
+			letterSpacing: '0.5rem'
 		}
 	},
 	headerBtns: {

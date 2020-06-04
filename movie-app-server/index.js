@@ -87,7 +87,14 @@ vote.on('connection', (socket) => {
 					// Triggers if votes have been received from all clients
 					if (clients.length === sessionData.votedClients.length) {
 						const results = getVoteWinner(sessionData.movieVotes);
-						if (results.winners.length > 1) {
+
+						// Triggers tiebreaker if there are 2 or more winners
+						// An equal tie between all movies results in a stalemate, which completes the vote
+						// (Else the exact same list would be voted on again)
+						if (
+							results.winners.length > 1 &&
+							results.winners.length < sessionData.movieList.movies.length
+						) {
 							sessionData.movieList.movies = [ ...results.winners ];
 							sessionData.voteLimit = getVoteLimit(sessionData.movieList.movies.length);
 							sessionData.movieVotes = [];

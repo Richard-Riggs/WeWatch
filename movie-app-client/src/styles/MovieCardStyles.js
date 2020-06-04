@@ -46,7 +46,8 @@ export default makeStyles((theme) => ({
 		height: '30px'
 	},
 	selected: (props) => ({
-		transform: 'scale(1.05)',
+		// transform: 'scale(1.05)',
+		boxShadow: '0px 0px 0px 5px rgba(76,175,80,1)',
 		'& $selectedIcon': {
 			opacity: 1
 		}

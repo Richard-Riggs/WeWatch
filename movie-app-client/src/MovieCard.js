@@ -40,9 +40,8 @@ function MovieCard(props) {
 	return (
 		<Grid className={classes.gridItem} onClick={handleCardClick} item xs>
 			<Card
-				className={`${classes.root} ${selected && classes.selected} ${!selected &&
-					selectLimit &&
-					selectedMovies.length >= selectLimit &&
+				className={`${classes.root} ${selected && classes.selected} ${((mode === 'edit' && !selected) ||
+					(!selected && selectLimit && selectedMovies.length >= selectLimit)) &&
 					classes.disabled}`}
 			>
 				<CardMedia className={classes.poster} component="img" alt={title} image={imgSrc} title={title} />
