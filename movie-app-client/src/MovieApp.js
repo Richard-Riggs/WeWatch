@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import { Route, Switch } from 'react-router-dom';
 import HomePage from './HomePage';
@@ -8,9 +8,11 @@ import useStyles from './styles/MovieAppStyles';
 import Navbar from './Navbar';
 import MovieVoter from './MovieVoter';
 import { VoteSessionProvider } from './contexts/VoteSessionContext';
+import { UserDataContext } from './contexts/UserDataContext';
 import io from 'socket.io-client';
 
 export default function MovieApp() {
+	const { clientId } = useContext(UserDataContext);
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	return (
@@ -25,7 +27,8 @@ export default function MovieApp() {
 					render={(routeProps) => {
 						const socket = io('/vote', {
 							query: {
-								sessionId: routeProps.match.params.sessionId
+								sessionId: routeProps.match.params.sessionId,
+								clientId: clientId
 							}
 						});
 						return (

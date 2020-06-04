@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import useStyles from './styles/MovieListItemStyles';
 import MovieListAvatar from './MovieListAvatar';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -8,8 +8,10 @@ import DeleteListDialog from './DeleteListDialog';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { withRouter } from 'react-router';
+import { UserDataContext } from './contexts/UserDataContext';
 
 function MovieListItem({ history, movieList }) {
+	const { clientId } = useContext(UserDataContext);
 	const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
 	const handleDeleteOpen = () => setOpenDeleteDialog(true);
 
@@ -18,7 +20,8 @@ function MovieListItem({ history, movieList }) {
 
 	const handleVote = async () => {
 		const response = await axios.post('/api/vote', {
-			movieList: movieList
+			movieList: movieList,
+			clientId: clientId
 		});
 		history.push(`/vote/${response.data.sessionId}`);
 	};

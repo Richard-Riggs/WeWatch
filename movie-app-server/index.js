@@ -28,13 +28,11 @@ const getVoteLimit = (listLength) => {
 
 vote.on('connection', (socket) => {
 	const sessionId = socket.handshake.query.sessionId;
+	const clientId = socket.handshake.query.clientId;
 	const sessionData = sessions.find((s) => s.id === sessionId);
 
 	const updateUserCount = (sessionId) => {
-		vote.in(sessionId).clients((err, clients) => {
-			if (err) console.log(err);
-			vote.to(sessionId).emit('updateUserCount', clients.length);
-		});
+		vote.to(sessionId).emit('updateUserCount', sessionData.clients.length);
 	};
 
 	const getVoteWinner = (movieVotes) => {
@@ -58,12 +56,12 @@ vote.on('connection', (socket) => {
 		return results;
 	};
 
-	if (sessionData) {
-		console.log(socket.client.id);
+	if (sessionData && !sessionData.clients.includes(clientId)) {
 		socket.join(sessionId);
+		sessionData.clients.push(clientId);
+		console.log(sessionData.clients);
 
-		if (!sessionData.leaderId) {
-			sessionData.leaderId = socket.client.id;
+		if (sessionData.leaderId === clientId) {
 			socket.emit('userIsLeader', true);
 		}
 
@@ -71,47 +69,43 @@ vote.on('connection', (socket) => {
 		updateUserCount(sessionId);
 
 		socket.on('startVote', (startVote) => {
-			if (sessionData.leaderId === socket.client.id) {
+			if (sessionData.leaderId === clientId) {
 				sessionData.stage = 'vote';
-				vote.to(sessionId).emit('startVote', { startVote: true, stage: sessionData.stage });
+				vote.to(sessionId).emit('startVote', { startVote: startVote, stage: sessionData.stage });
 			}
 		});
 
 		socket.on('submitVote', (selectedMovies) => {
-			if (!sessionData.votedClients.includes(socket.client.id)) {
+			if (!sessionData.votedClients.includes(clientId)) {
 				sessionData.movieVotes.push(...selectedMovies);
-				sessionData.votedClients.push(socket.client.id);
-				vote.in(sessionId).clients((err, clients) => {
-					if (err) console.log(err);
+				sessionData.votedClients.push(clientId);
 
-					// Triggers if votes have been received from all clients
-					if (clients.length === sessionData.votedClients.length) {
-						const results = getVoteWinner(sessionData.movieVotes);
+				// Triggers if votes have been received from all clients
+				if (sessionData.clients.length === sessionData.votedClients.length) {
+					const results = getVoteWinner(sessionData.movieVotes);
 
-						// Triggers tiebreaker if there are 2 or more winners
-						// An equal tie between all movies results in a stalemate, which completes the vote
-						// (Else the exact same list would be voted on again)
-						if (
-							results.winners.length > 1 &&
-							results.winners.length < sessionData.movieList.movies.length
-						) {
-							sessionData.movieList.movies = [ ...results.winners ];
-							sessionData.voteLimit = getVoteLimit(sessionData.movieList.movies.length);
-							sessionData.movieVotes = [];
-							sessionData.votedClients = [];
-							vote.to(sessionId).emit('loadMovies', sessionData);
-						} else {
-							vote.to(sessionId).emit('voteComplete', results);
-						}
+					// Triggers tiebreaker if there are 2 or more winners
+					// An equal tie between all movies results in a stalemate, which completes the vote
+					// (Else the exact same list would be voted on again)
+					if (results.winners.length > 1 && results.winners.length < sessionData.movieList.movies.length) {
+						sessionData.movieList.movies = [ ...results.winners ];
+						sessionData.voteLimit = getVoteLimit(sessionData.movieList.movies.length);
+						sessionData.movieVotes = [];
+						sessionData.votedClients = [];
+						vote.to(sessionId).emit('loadMovies', sessionData);
+					} else {
+						vote.to(sessionId).emit('voteComplete', results);
 					}
-				});
+				}
 			}
 		});
 
 		socket.on('disconnect', () => {
-			console.log('user disconnected');
+			sessionData.clients = [ ...sessionData.clients.filter((c) => c !== clientId) ];
 			updateUserCount(sessionId);
 		});
+	} else if (sessionData) {
+		socket.emit('loadMovies', { error: 'Your web browser is already connected to this voting lobby.' });
 	} else {
 		socket.emit('loadMovies', { error: 'Invalid Session URL.' });
 	}
@@ -122,7 +116,8 @@ app.post('/api/vote', (req, res) => {
 		id: short.generate(),
 		movieList: { ...req.body.movieList },
 		voteLimit: getVoteLimit(req.body.movieList.movies.length),
-		leaderId: '',
+		leaderId: req.body.clientId,
+		clients: [],
 		votedClients: [],
 		movieVotes: [],
 		stage: 'lobby'

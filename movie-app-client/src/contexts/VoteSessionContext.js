@@ -1,9 +1,11 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { MovieListsContext } from '../contexts/MovieListsContext';
+import { UserDataContext } from '../contexts/UserDataContext';
 
 export const VoteSessionContext = createContext();
 
 export function VoteSessionProvider({ children, socket }) {
+	const { clientId } = useContext(UserDataContext);
 	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
 	const [ movieList, setMovieList ] = useState();
 	const [ userCount, setUserCount ] = useState(0);
