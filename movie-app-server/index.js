@@ -40,9 +40,6 @@ vote.on('connection', (socket) => {
 	const getVoteWinner = (movieVotes) => {
 		const voteReducer = (voteMap, movieVote) => voteMap.set(movieVote.id, (voteMap.get(movieVote.id) || 0) + 1);
 		const resultsMap = movieVotes.reduce(voteReducer, new Map());
-		console.log(' ');
-		console.log('RESULTS MAP:');
-		console.log(resultsMap.entries());
 		const findWinner = (resultsMap) => {
 			let highVotes = 0,
 				winners = [];
@@ -61,7 +58,6 @@ vote.on('connection', (socket) => {
 		return results;
 	};
 
-	// client ID: socket.client.nsps['/vote'].id
 	if (sessionData) {
 		console.log(socket.client.id);
 		socket.join(sessionId);
@@ -114,7 +110,7 @@ vote.on('connection', (socket) => {
 	}
 });
 
-app.post('/vote', (req, res) => {
+app.post('/api/vote', (req, res) => {
 	const session = {
 		id: short.generate(),
 		movieList: { ...req.body.movieList },

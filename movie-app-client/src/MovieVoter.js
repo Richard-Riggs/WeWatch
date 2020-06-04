@@ -9,7 +9,14 @@ import MovieList from './MovieList';
 export default function MovieVoter(props) {
 	const { stage, error, movieList, voteLimit } = useContext(VoteSessionContext);
 	const classes = useStyles();
-	console.log(stage);
+	useEffect(
+		() => {
+			if (stage === 'vote') {
+				alert('next voting stage!');
+			}
+		},
+		[ movieList ]
+	);
 	return (
 		<div className={classes.root}>
 			<MovieVoterNav />

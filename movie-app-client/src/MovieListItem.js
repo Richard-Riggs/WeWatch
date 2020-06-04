@@ -17,7 +17,7 @@ function MovieListItem({ history, movieList }) {
 	const handleDelete = () => handleDeleteOpen();
 
 	const handleVote = async () => {
-		const response = await axios.post('/vote', {
+		const response = await axios.post('/api/vote', {
 			movieList: movieList
 		});
 		history.push(`/vote/${response.data.sessionId}`);
