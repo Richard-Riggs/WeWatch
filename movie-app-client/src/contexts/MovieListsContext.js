@@ -1,9 +1,11 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
+import { UserDataContext } from './UserDataContext';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 
 export const MovieListsContext = createContext();
 
 export function MovieListsProvider(props) {
+	const { notifyUser } = useContext(UserDataContext);
 	const [ selectedMovies, setSelectedMovies ] = useState([]);
 	const [ movieLists, setMovieLists ] = useLocalStorageState('movieLists', []);
 	const addMovie = (movie) => setSelectedMovies([ ...selectedMovies, movie ]);
@@ -18,6 +20,7 @@ export function MovieListsProvider(props) {
 		const listId = listName.toLowerCase().replace(/ /g, '-');
 		setMovieLists([ ...movieLists, { movies: [ ...selectedMovies ], id: listId, name: listName } ]);
 		setSelectedMovies([]);
+		notifyUser({ severity: 'success', message: `Saved ${listName}` });
 	};
 	const deleteMovieList = (id) => setMovieLists(movieLists.filter((ml) => ml.id !== id));
 	const clearSelectedMovies = () => setSelectedMovies([]);

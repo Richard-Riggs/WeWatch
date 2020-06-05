@@ -7,7 +7,8 @@ import axios from 'axios';
 export const VoteSessionContext = createContext();
 
 export function VoteSessionProvider({ children, routeProps, socket }) {
-	const { history } = routeProps;
+	const { history, location } = routeProps;
+	const { notifyUser } = useContext(UserDataContext);
 	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
 	const [ movieList, setMovieList ] = useState();
 	const [ userCount, setUserCount ] = useState(0);
@@ -49,6 +50,18 @@ export function VoteSessionProvider({ children, routeProps, socket }) {
 			clearSelectedMovies();
 		};
 	}, []);
+
+	useEffect(
+		() => {
+			if (stage === 'terminate') {
+				const message = isLeader
+					? 'You have ended the voting session'
+					: 'The leader has ended the voting session';
+				notifyUser({ severity: 'warning', message: message });
+			}
+		},
+		[ stage, isLeader ]
+	);
 
 	// Event emitters
 	const startVote = () => {

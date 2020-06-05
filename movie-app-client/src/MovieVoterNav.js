@@ -62,7 +62,11 @@ export default function MovieVoterNav() {
 		<div className={classes.root}>
 			<Prompt
 				when={isLeader && stage !== 'terminate'}
-				message="Leaving this page will close the voting lobby. Are you sure you want to continue?"
+				message={(location, action) => {
+					console.log(location);
+					console.log(action);
+					return 'Leaving this page will close the voting lobby. Are you sure you want to continue?';
+				}}
 			/>
 
 			<AppBar className={classes.AppBar} position="fixed">
