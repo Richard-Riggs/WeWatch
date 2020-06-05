@@ -4,6 +4,8 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const short = require('short-uuid');
+const axios = require('axios');
+const _ = require('lodash');
 
 //===================== SERVER SETUP ====================
 
@@ -21,6 +23,9 @@ app.use('/api/movieDB', require('./routes/movieDB'));
 
 const io = require('socket.io')(http);
 const sessions = [];
+const deleteSession = (sessionId) => {
+	_.remove(sessions, (s) => s.id === sessionId);
+};
 const vote = io.of('/vote');
 const getVoteLimit = (listLength) => {
 	return listLength >= 10 ? 5 : Math.ceil(listLength / 2);
@@ -30,11 +35,9 @@ vote.on('connection', (socket) => {
 	const sessionId = socket.handshake.query.sessionId;
 	const clientId = socket.handshake.query.clientId;
 	const sessionData = sessions.find((s) => s.id === sessionId);
-
 	const updateUserCount = (sessionId) => {
 		vote.to(sessionId).emit('updateUserCount', sessionData.clients.length);
 	};
-
 	const getVoteWinner = (movieVotes) => {
 		const voteReducer = (voteMap, movieVote) => voteMap.set(movieVote.id, (voteMap.get(movieVote.id) || 0) + 1);
 		const resultsMap = movieVotes.reduce(voteReducer, new Map());
@@ -54,6 +57,13 @@ vote.on('connection', (socket) => {
 		const results = findWinner(resultsMap);
 		results.winners = results.winners.map((w) => movieVotes.find((mv) => mv.id === w));
 		return results;
+	};
+	const terminateSession = () => {
+		const sessionSockets = vote.in(sessionId).connected;
+		for (const socket in sessionSockets) {
+			sessionSockets[socket].emit('terminate').disconnect(true);
+		}
+		deleteSession(sessionId);
 	};
 
 	if (sessionData && !sessionData.clients.includes(clientId)) {
@@ -103,11 +113,23 @@ vote.on('connection', (socket) => {
 		socket.on('disconnect', () => {
 			sessionData.clients = [ ...sessionData.clients.filter((c) => c !== clientId) ];
 			updateUserCount(sessionId);
+
+			// Terminates voting session if leader disconnects without emitting 'terminate'
+			if (clientId === sessionData.leaderId)
+				setTimeout(() => {
+					if (!sessionData.clients.includes(clientId)) {
+						terminateSession();
+					}
+				}, 3000);
+		});
+
+		socket.on('terminate', () => {
+			if (clientId === sessionData.leaderId) terminateSession();
 		});
 	} else if (sessionData) {
 		socket.emit('loadMovies', { error: 'Your web browser is already connected to this voting lobby.' });
 	} else {
-		socket.emit('loadMovies', { error: 'Invalid Session URL.' });
+		socket.emit('loadMovies', { error: 'Voting session does not exist.' });
 	}
 });
 
@@ -122,8 +144,13 @@ app.post('/api/vote', (req, res) => {
 		movieVotes: [],
 		stage: 'lobby'
 	};
+	console.log(sessions);
 	sessions.push(session);
 	res.status(201).json({ sessionId: session.id });
+});
+
+app.delete('/api/vote/:sessionId', (req, res) => {
+	deleteSession(req.params.sessionId);
 });
 
 //===================== START SERVER ====================

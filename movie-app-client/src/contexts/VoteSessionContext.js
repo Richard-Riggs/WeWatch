@@ -1,11 +1,13 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { MovieListsContext } from '../contexts/MovieListsContext';
 import { UserDataContext } from '../contexts/UserDataContext';
+import io from 'socket.io-client';
+import axios from 'axios';
 
 export const VoteSessionContext = createContext();
 
-export function VoteSessionProvider({ children, socket }) {
-	const { clientId } = useContext(UserDataContext);
+export function VoteSessionProvider({ children, routeProps, socket }) {
+	const { history } = routeProps;
 	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
 	const [ movieList, setMovieList ] = useState();
 	const [ userCount, setUserCount ] = useState(0);
@@ -36,6 +38,10 @@ export function VoteSessionProvider({ children, socket }) {
 			setResults(results);
 			setStage('results');
 		});
+		socket.on('terminate', () => {
+			setStage('terminate');
+			history.push('/');
+		});
 
 		// Disconnect/cleanup on unmount
 		return () => {
@@ -56,6 +62,10 @@ export function VoteSessionProvider({ children, socket }) {
 		clearSelectedMovies();
 	};
 
+	const terminateSession = () => {
+		socket.emit('terminate');
+	};
+
 	return (
 		<VoteSessionContext.Provider
 			value={{
@@ -67,7 +77,8 @@ export function VoteSessionProvider({ children, socket }) {
 				error,
 				submitVote,
 				voteLimit,
-				results
+				results,
+				terminateSession
 			}}
 		>
 			{children}

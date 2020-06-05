@@ -6,10 +6,11 @@ import MovieFinder from './MovieFinder';
 import MovieListViewer from './MovieListViewer';
 import useStyles from './styles/MovieAppStyles';
 import Navbar from './Navbar';
+import io from 'socket.io-client';
+
 import MovieVoter from './MovieVoter';
 import { VoteSessionProvider } from './contexts/VoteSessionContext';
 import { UserDataContext } from './contexts/UserDataContext';
-import io from 'socket.io-client';
 
 export default function MovieApp() {
 	const { clientId } = useContext(UserDataContext);
@@ -25,14 +26,15 @@ export default function MovieApp() {
 					exact
 					path="/vote/:sessionId"
 					render={(routeProps) => {
+						const sessionId = routeProps.match.params.sessionId;
 						const socket = io('/vote', {
 							query: {
-								sessionId: routeProps.match.params.sessionId,
+								sessionId: sessionId,
 								clientId: clientId
 							}
 						});
 						return (
-							<VoteSessionProvider socket={socket}>
+							<VoteSessionProvider socket={socket} routeProps={routeProps}>
 								<MovieVoter {...routeProps} />
 							</VoteSessionProvider>
 						);

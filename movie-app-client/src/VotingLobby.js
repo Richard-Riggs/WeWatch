@@ -1,11 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import useStyles from './styles/VotingLobbyStyles';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 import { VoteSessionContext } from './contexts/VoteSessionContext';
 
 export default function VotingLobby() {
-	const { movieList, userCount, isLeader, startVote } = useContext(VoteSessionContext);
+	const { movieList, userCount, isLeader, startVote, terminateSession } = useContext(VoteSessionContext);
 	const classes = useStyles();
+	const [ openTooltip, setOpenTooltip ] = useState(false);
+	const handleToolTipOpen = () => setOpenTooltip(true);
+	const handleToolTipClose = () => setOpenTooltip(false);
+
 	return (
 		<div className={classes.root}>
 			<h1>
@@ -30,10 +35,27 @@ export default function VotingLobby() {
 				<div className={classes.leaderSection}>
 					<h2>You are the lobby leader</h2>
 					<div className={classes.leaderBtns}>
-						<Button size="large" variant="contained" color="secondary" onClick={startVote}>
-							Start Vote
-						</Button>
-						<Button size="large" variant="outlined" color="default">
+						<Tooltip
+							title="At least 2 people must be in the lobby to start"
+							open={openTooltip && userCount < 2}
+							onOpen={handleToolTipOpen}
+							onClose={handleToolTipClose}
+							arrow
+						>
+							<span>
+								<Button
+									size="large"
+									variant="contained"
+									color="secondary"
+									onClick={startVote}
+									disabled={userCount < 2}
+								>
+									Start Vote
+								</Button>
+							</span>
+						</Tooltip>
+
+						<Button size="large" variant="outlined" color="default" onClick={terminateSession}>
 							Cancel Vote
 						</Button>
 					</div>

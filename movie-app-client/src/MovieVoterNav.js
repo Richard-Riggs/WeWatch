@@ -22,9 +22,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Prompt } from 'react-router-dom';
 
-export default function MovieVoterNav(props) {
+export default function MovieVoterNav() {
 	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
-	const { submitVote, movieList, stage, voteLimit } = useContext(VoteSessionContext);
+	const { submitVote, movieList, stage, voteLimit, isLeader } = useContext(VoteSessionContext);
 	const numSelected = selectedMovies.length;
 	const theme = useTheme();
 	const classes = useStyles(theme);
@@ -60,7 +60,10 @@ export default function MovieVoterNav(props) {
 
 	return (
 		<div className={classes.root}>
-			<Prompt message="Are you sure you want to leave?" />
+			<Prompt
+				when={isLeader && stage !== 'terminate'}
+				message="Leaving this page will close the voting lobby. Are you sure you want to continue?"
+			/>
 
 			<AppBar className={classes.AppBar} position="fixed">
 				<Toolbar>
