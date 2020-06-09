@@ -8,16 +8,18 @@ import MovieList from './MovieList';
 import VoteResults from './VoteResults';
 
 export default function MovieVoter({ history }) {
-	const { stage, error, movieList, voteLimit } = useContext(VoteSessionContext);
-	const classes = useStyles();
+  const { stage, error, movieList, voteLimit } = useContext(VoteSessionContext);
+  const classes = useStyles();
 
-	return (
-		<div className={classes.root}>
-			<MovieVoterNav history={history} />
-			{stage === 'lobby' && <VotingLobby />}
-			{stage === 'vote' && <MovieList mode="vote" movies={movieList.movies} selectLimit={voteLimit} />}
-			{stage === 'results' && <VoteResults />}
-			{stage === 'error' && <h2>Error: {error}</h2>}
-		</div>
-	);
+  return (
+    <div className={classes.root}>
+      <MovieVoterNav history={history} />
+      {stage === 'lobby' && <VotingLobby />}
+      {(stage === 'vote' || stage === 'revote') && (
+        <MovieList mode="vote" movies={movieList.movies} selectLimit={voteLimit} />
+      )}
+      {stage === 'results' && <VoteResults />}
+      {stage === 'error' && <h2>Error: {error}</h2>}
+    </div>
+  );
 }
