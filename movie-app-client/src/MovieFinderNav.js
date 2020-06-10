@@ -15,54 +15,38 @@ import { MovieListsContext } from './contexts/MovieListsContext';
 import useStyles from './styles/NavbarStyles';
 import { withRouter } from 'react-router';
 import SaveListDialog from './SaveListDialog';
+import { CSSTransition } from 'react-transition-group';
 
 export default function MovieFinderNav({ selectedMovies }) {
-	const numSelected = selectedMovies.length;
-	const theme = useTheme();
-	const classes = useStyles(theme);
-	const { isDarkMode, toggleTheme } = useContext(CustomThemeContext);
-	const [ openSave, setOpenSave ] = useState(false);
-	const handleOpenSave = () => setOpenSave(true);
+  const numSelected = selectedMovies.length;
+  const theme = useTheme();
+  const classes = useStyles(theme);
+  const { isDarkMode, toggleTheme } = useContext(CustomThemeContext);
+  const [ openSave, setOpenSave ] = useState(false);
+  const handleOpenSave = () => setOpenSave(true);
 
-	return (
-		<div className={classes.root}>
-			<AppBar className={classes.AppBar} position="fixed">
-				<Toolbar>
-					<IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-						<MenuIcon />
-					</IconButton>
-					<Link to="/" className={classes.title}>
-						<Typography variant="h5">Movie App</Typography>
-					</Link>
-
-					<div className={classes.listButtons} style={{ opacity: numSelected ? 1 : 0 }}>
-						<Typography variant="h6">
-							{numSelected || 'No'} Movie{numSelected === 1 ? '' : 's'} Selected
-						</Typography>
-						<Button
-							className={classes.navButton}
-							variant="contained"
-							color="secondary"
-							onClick={handleOpenSave}
-							startIcon={<SaveIcon />}
-						>
-							Save New List
-						</Button>
-						<Button
-							className={classes.navButton}
-							variant="contained"
-							color="primary"
-							startIcon={<AddIcon />}
-						>
-							Add to List
-						</Button>
-					</div>
-
-					<Switch checked={isDarkMode} onChange={toggleTheme} />
-				</Toolbar>
-			</AppBar>
-			<div className={classes.offset} />
-			<SaveListDialog open={openSave} setOpen={setOpenSave} />
-		</div>
-	);
+  return (
+    <React.Fragment>
+      <CSSTransition classNames="fade" in={numSelected > 0} timeout={200} appear mountOnEnter unmountOnExit>
+        <div className={classes.listButtons}>
+          <Typography variant="h6">
+            {numSelected || 'No'} Movie{numSelected === 1 ? '' : 's'} Selected
+          </Typography>
+          <Button
+            className={classes.navButton}
+            variant="contained"
+            color="secondary"
+            onClick={handleOpenSave}
+            startIcon={<SaveIcon />}
+          >
+            Save New List
+          </Button>
+          <Button className={classes.navButton} variant="contained" color="primary" startIcon={<AddIcon />}>
+            Add to List
+          </Button>
+        </div>
+      </CSSTransition>
+      <SaveListDialog open={openSave} setOpen={setOpenSave} />
+    </React.Fragment>
+  );
 }
