@@ -122,7 +122,7 @@ vote.on('connection', (socket) => {
           if (!sessionData.clients.includes(clientId)) {
             terminateSession();
           }
-        }, 3000);
+        }, 5000);
     });
 
     socket.on('terminate', () => {

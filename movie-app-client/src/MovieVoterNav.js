@@ -21,6 +21,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { Prompt } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
+import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
+import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 
 export default function MovieVoterNav() {
   const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
@@ -78,29 +81,31 @@ export default function MovieVoterNav() {
             <Typography variant="h5">Movie App</Typography>
           </Link>
 
-          <div className={classes.listButtons} style={{ opacity: numSelected ? 1 : 0 }}>
-            <Typography variant="h6">
-              {numSelected || 'No'} Movie{numSelected === 1 ? '' : 's'} Selected
-            </Typography>
-            <Button
-              className={classes.navButton}
-              variant="contained"
-              color="secondary"
-              onClick={handleVote}
-              startIcon={<SaveIcon />}
-            >
-              Submit Vote
-            </Button>
-            <Button
-              className={classes.navButton}
-              variant="contained"
-              color="primary"
-              startIcon={<AddIcon />}
-              onClick={clearSelectedMovies}
-            >
-              Clear Selection
-            </Button>
-          </div>
+          <CSSTransition classNames="fade" in={numSelected > 0} timeout={200} appear mountOnEnter unmountOnExit>
+            <div className={classes.listButtons}>
+              <Typography variant="h6">
+                {numSelected || 'No'} Movie{numSelected === 1 ? '' : 's'} Selected
+              </Typography>
+              <Button
+                className={classes.navButton}
+                variant="contained"
+                color="secondary"
+                onClick={handleVote}
+                startIcon={<CheckRoundedIcon />}
+              >
+                Submit Vote
+              </Button>
+              <Button
+                className={classes.navButton}
+                variant="contained"
+                color="primary"
+                startIcon={<ClearRoundedIcon />}
+                onClick={clearSelectedMovies}
+              >
+                Clear Selection
+              </Button>
+            </div>
+          </CSSTransition>
 
           <Switch checked={isDarkMode} onChange={toggleTheme} />
         </Toolbar>
