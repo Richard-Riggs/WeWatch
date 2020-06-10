@@ -8,7 +8,7 @@ import useStyles from './styles/NavbarStyles';
 import SaveListDialog from './SaveListDialog';
 import { CSSTransition } from 'react-transition-group';
 
-export default function MovieViewerNav({ movieList }) {
+export default function MovieViewerNav({ movieList, edit, toggleEdit }) {
   const theme = useTheme();
   const classes = useStyles(theme);
   const { selectedMovies, updateMovieList } = useContext(MovieListsContext);
@@ -34,6 +34,10 @@ export default function MovieViewerNav({ movieList }) {
           </Button>
         </div>
       </CSSTransition>
+      <Button className={classes.editBtn} variant="contained" onClick={toggleEdit}>
+        {edit ? 'Cancel' : 'Edit List'}
+      </Button>
+
       <SaveListDialog open={openSave} setOpen={setOpenSave} />
     </React.Fragment>
   );

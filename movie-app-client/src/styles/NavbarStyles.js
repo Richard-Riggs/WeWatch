@@ -2,7 +2,28 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
   root        : {},
+  drawer      : {
+    '& .MuiDrawer-paper' : {
+      width           : '300px',
+      backgroundColor : theme.palette.background.primary,
+      color           : theme.palette.text.primary
+    },
+    '& a'                : {},
+    '& .MuiToolbar-root' : {
+      display    : 'flex',
+      alignItems : 'center',
+      '& button' : {
+        marginTop       : '0.25rem',
+        backgroundColor : theme.palette.background.secondary,
+        opacity         : 0.75,
+        '&:hover'       : {
+          opacity : 1
+        }
+      }
+    }
+  },
   AppBar      : {
+    color           : theme.palette.text.primary,
     backgroundColor : theme.palette.background.primary
   },
   menuButton  : {
@@ -15,7 +36,8 @@ export default makeStyles((theme) => ({
     fontFamily     : theme.fonts.header,
     '& h2'         : {
       fontWeight : 400,
-      fontSize   : '2rem'
+      fontSize   : '2rem',
+      textAlign  : 'center'
     }
   },
   navButton   : {
@@ -25,6 +47,9 @@ export default makeStyles((theme) => ({
   listButtons : (props) => ({
     display : 'flex'
   }),
+  editBtn     : {
+    marginLeft : theme.spacing(2)
+  },
   '@global'   : {
     '.fade-enter'        : {
       opacity : 0
