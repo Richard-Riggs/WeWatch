@@ -23,7 +23,7 @@ export default function MovieList({ movies, isLoading, showSelected, toggleShowS
 
   return (
     <div>
-      <Grid className={classes.gridContainer} container spacing={0}>
+      <Grid className={classes.gridContainer} container justify="space-evenly">
         {mode === 'find' && (
           <Grid item xs={10}>
             <FormControlLabel
@@ -43,6 +43,12 @@ export default function MovieList({ movies, isLoading, showSelected, toggleShowS
             selectLimit={selectLimit}
           />
         ))}
+
+        <Grid item xs="auto" className={classes.cardSpacer} />
+        <Grid item xs className={classes.cardSpacer} />
+        <Grid item xs className={classes.cardSpacer} />
+        <Grid item xs className={classes.cardSpacer} />
+
         {isLoading &&
           [ ...Array(10) ].map((n, i) => (
             <Grid item xs className={classes.gridItem} style={{ display: 'block' }} key={`skel${i}`}>

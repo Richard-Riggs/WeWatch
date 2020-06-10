@@ -39,13 +39,14 @@ function MovieCard(props) {
 
   return (
     <Grid className={classes.gridItem} onClick={handleCardClick} item xs={12} sm={6} md={4} lg={3}>
+    <Grid className={classes.gridItem} onClick={handleCardClick} item xs="auto">
       <Card
         elevation={3}
         className={`${classes.root} ${selected && classes.selected} ${((mode === 'edit' && !selected) ||
           (!selected && selectLimit && selectedMovies.length >= selectLimit)) &&
           classes.disabled}`}
       >
-        <CardMedia className={classes.poster} component="img" alt={title} image={imgSrc} title={title} />
+        <CardMedia className={classes.poster} component="div" alt={title} title={title} />
         <CheckCircleRoundedIcon className={classes.selectedIcon} fontSize="large" />
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h6" component="h2" className={`${classes.title}`}>
