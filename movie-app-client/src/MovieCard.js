@@ -38,7 +38,6 @@ function MovieCard(props) {
   };
 
   return (
-    <Grid className={classes.gridItem} onClick={handleCardClick} item xs={12} sm={6} md={4} lg={3}>
     <Grid className={classes.gridItem} onClick={handleCardClick} item xs="auto">
       <Card
         elevation={3}
