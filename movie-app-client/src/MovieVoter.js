@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import Navbar from './Navbar';
 import MovieVoterNav from './MovieVoterNav';
 import useStyles from './styles/MovieVoterStyles';
 import VotingLobby from './VotingLobby';
@@ -12,7 +13,9 @@ export default function MovieVoter({ history }) {
 
   return (
     <div className={classes.root}>
-      <MovieVoterNav history={history} />
+      <Navbar>
+        <MovieVoterNav history={history} />
+      </Navbar>
       {stage === 'lobby' && <VotingLobby />}
       {(stage === 'vote' || stage === 'revote') && <VoteGrid />}
       {stage === 'results' && <VoteResults />}

@@ -11,7 +11,12 @@ export default makeStyles((theme) => ({
   title       : {
     marginRight    : 'auto',
     textDecoration : 'none',
-    color          : 'purple'
+    color          : theme.palette.text.logo,
+    fontFamily     : theme.fonts.header,
+    '& h2'         : {
+      fontWeight : 400,
+      fontSize   : '2rem'
+    }
   },
   navButton   : {
     marginLeft : theme.spacing(2)

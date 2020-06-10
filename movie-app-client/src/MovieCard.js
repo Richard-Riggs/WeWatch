@@ -40,6 +40,7 @@ function MovieCard(props) {
   return (
     <Grid className={classes.gridItem} onClick={handleCardClick} item xs={12} sm={6} md={4} lg={3}>
       <Card
+        elevation={3}
         className={`${classes.root} ${selected && classes.selected} ${((mode === 'edit' && !selected) ||
           (!selected && selectLimit && selectedMovies.length >= selectLimit)) &&
           classes.disabled}`}

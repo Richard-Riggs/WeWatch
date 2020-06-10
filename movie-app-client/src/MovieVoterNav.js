@@ -62,7 +62,7 @@ export default function MovieVoterNav() {
   );
 
   return (
-    <div className={classes.root}>
+    <React.Fragment>
       <Prompt
         when={isLeader && stage !== 'terminate'}
         message={(location, action) => {
@@ -71,46 +71,31 @@ export default function MovieVoterNav() {
           return 'Leaving this page will close the voting lobby. Are you sure you want to continue?';
         }}
       />
-
-      <AppBar className={classes.AppBar} position="fixed">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Link to="/" className={classes.title}>
-            <Typography variant="h5">Movie App</Typography>
-          </Link>
-
-          <CSSTransition classNames="fade" in={numSelected > 0} timeout={200} appear mountOnEnter unmountOnExit>
-            <div className={classes.listButtons}>
-              <Typography variant="h6">
-                {numSelected || 'No'} Movie{numSelected === 1 ? '' : 's'} Selected
-              </Typography>
-              <Button
-                className={classes.navButton}
-                variant="contained"
-                color="secondary"
-                onClick={handleVote}
-                startIcon={<CheckRoundedIcon />}
-              >
-                Submit Vote
-              </Button>
-              <Button
-                className={classes.navButton}
-                variant="contained"
-                color="primary"
-                startIcon={<ClearRoundedIcon />}
-                onClick={clearSelectedMovies}
-              >
-                Clear Selection
-              </Button>
-            </div>
-          </CSSTransition>
-
-          <Switch checked={isDarkMode} onChange={toggleTheme} />
-        </Toolbar>
-      </AppBar>
-      <div className={classes.offset} />
+      <CSSTransition classNames="fade" in={numSelected > 0} timeout={200} appear mountOnEnter unmountOnExit>
+        <div className={classes.listButtons}>
+          <Typography variant="h6">
+            {numSelected || 'No'} Movie{numSelected === 1 ? '' : 's'} Selected
+          </Typography>
+          <Button
+            className={classes.navButton}
+            variant="contained"
+            color="secondary"
+            onClick={handleVote}
+            startIcon={<CheckRoundedIcon />}
+          >
+            Submit Vote
+          </Button>
+          <Button
+            className={classes.navButton}
+            variant="contained"
+            color="primary"
+            startIcon={<ClearRoundedIcon />}
+            onClick={clearSelectedMovies}
+          >
+            Clear Selection
+          </Button>
+        </div>
+      </CSSTransition>
       <Dialog open={openVotedDialog} disableEscapeKeyDown disableBackdropClick>
         <DialogTitle style={{ textAlign: 'center' }}>
           <h2>Vote Submitted!</h2>
@@ -137,6 +122,6 @@ export default function MovieVoterNav() {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </React.Fragment>
   );
 }
