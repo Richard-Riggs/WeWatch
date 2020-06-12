@@ -28,7 +28,7 @@ function MovieListItem({ history, movieList }) {
 	};
 
 	return (
-		<Grid item xs={'auto'}>
+		<Grid className={classes.GridItem} item xs={'auto'}>
 			<div className={classes.root}>
 				<header>
 					<MovieListAvatar list={movieList.movies} />

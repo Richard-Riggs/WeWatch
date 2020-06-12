@@ -31,12 +31,17 @@ export default function HomePage() {
 				</div>
 			</header>
 			<Grid container className={classes.movieLists} spacing={3} justify="space-evenly">
-				<Grid item xs={12} xl={8}>
+				<Grid item xs={'auto'}>
 					<Typography variant="h6" className={classes.title}>
 						Your Movie Lists
 					</Typography>
+				</Grid>
+				<Grid className={classes.spacer} item xs={'auto'} />
+				<Grid className={classes.spacer} item xs={'auto'} />
+				<Grid className={classes.divider} item xs={12}>
 					<Divider />
 				</Grid>
+
 				{movieLists.map((list, i) => <MovieListItem movieList={list} />)}
 				<Grid className={classes.spacer} item xs={'auto'} />
 				<Grid className={classes.spacer} item xs={'auto'} />

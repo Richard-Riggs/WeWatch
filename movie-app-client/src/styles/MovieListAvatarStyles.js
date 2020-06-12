@@ -5,7 +5,7 @@ export default makeStyles((theme) => ({
 		flexWrap: 'wrap',
 		alignItems: 'flex-start',
 		alignContent: 'flex-start',
-		width: '225px',
+		width: '315px',
 		maxHeight: '135px',
 		overflow: 'hidden',
 		backgroundColor: theme.palette.background.primary

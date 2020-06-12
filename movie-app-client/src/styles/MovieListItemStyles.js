@@ -18,13 +18,13 @@ export default makeStyles((theme) => ({
 		backgroundColor: '#413d43',
 		display: 'flex',
 		flexDirection: 'column',
-		width: '225px'
+		width: '315px'
 	},
 	contentHeader: {
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		padding: '0.25rem 0.25rem 0 0.5rem'
+		padding: '0.25rem 0.25rem 0 0.75rem'
 	},
 	actionBtns: {
 		padding: '0.25rem 0 0.5rem 0',
@@ -57,5 +57,10 @@ export default makeStyles((theme) => ({
 			lineHeight: '1.25rem'
 		}
 	},
-	movieListItemTitle: {}
+	[theme.breakpoints.down('xs')]: {
+		GridItem: {
+			padding: '0 !important',
+			marginBottom: '0.5rem'
+		}
+	}
 }));
