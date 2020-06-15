@@ -23,8 +23,10 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import useToggleState from './hooks/useToggleState';
 import Checkbox from '@material-ui/core/Checkbox';
 import { GENRES } from './constants';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { CSSTransition } from 'react-transition-group';
 
-export default function FinderForm({ setQuery }) {
+export default function FinderForm({ setQuery, showSelected, toggleShowSelected, selectedMovies }) {
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const [ genreVal, setGenreVal ] = useState('');
@@ -102,7 +104,7 @@ export default function FinderForm({ setQuery }) {
 			<header className={classes.header}>
 				<h1 className={classes.headerText}>Find Movies</h1>
 			</header>
-			<ExpansionPanel expanded={expanded}>
+			<ExpansionPanel className={classes.formPanel} expanded={expanded}>
 				<ExpansionPanelSummary onClick={toggleExpanded} expandIcon={<ExpandMoreIcon />}>
 					{formSummary}
 				</ExpansionPanelSummary>
@@ -142,70 +144,89 @@ export default function FinderForm({ setQuery }) {
 						<h2>Discover</h2>
 						<div className={classes.discoverField}>
 							<h3>Popular</h3>
-							<label>Genre</label>
-							<FormControl className={classes.discoverSelect} variant="outlined">
-								<Select
-									input={<Input />}
-									value={genreVal}
-									onChange={handleGenreChange}
-									displayEmpty={true}
-									variant="outlined"
-									renderValue={(selected) =>
-										selected ? GENRES.find((g) => g.id === selected).name : 'Any'}
-								>
-									<MenuItem value={''}>
-										<ListItemText primary={'Any (Default)'} />
-									</MenuItem>
-									<Divider />
-									{GENRES.map((genre) => (
-										<MenuItem key={genre.id} value={genre.id}>
-											<ListItemText primary={genre.name} />
+
+							<div className={classes.discoverInput}>
+								<label>Genre</label>
+								<FormControl className={classes.discoverSelect} variant="outlined">
+									<Select
+										input={<Input />}
+										value={genreVal}
+										onChange={handleGenreChange}
+										displayEmpty={true}
+										variant="outlined"
+										renderValue={(selected) =>
+											selected ? GENRES.find((g) => g.id === selected).name : 'Any'}
+									>
+										<MenuItem value={''}>
+											<ListItemText primary={'Any (Default)'} />
 										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-							<Button
-								onClick={handleDiscoverPopular}
-								size="small"
-								color="primary"
-								variant="contained"
-								disableElevation
-							>
-								Go
-							</Button>
+										<Divider />
+										{GENRES.map((genre) => (
+											<MenuItem key={genre.id} value={genre.id}>
+												<ListItemText primary={genre.name} />
+											</MenuItem>
+										))}
+									</Select>
+								</FormControl>
+								<Button
+									onClick={handleDiscoverPopular}
+									size="small"
+									color="primary"
+									variant="contained"
+									disableElevation
+								>
+									Go
+								</Button>
+							</div>
 						</div>
 						<div className={classes.discoverField}>
 							<h3>Trending</h3>
-							<label>Time Frame</label>
-							<FormControl variant="outlined" className={classes.discoverSelect}>
-								<Select
-									input={<Input />}
-									value={trendingVal}
-									variant="outlined"
-									onChange={handleTrendingChange}
-									renderValue={(selected) => (selected === 'day' ? 'Past day' : 'Past week')}
+							<div className={classes.discoverInput}>
+								<label>Period</label>
+								<FormControl variant="outlined" className={classes.discoverSelect}>
+									<Select
+										input={<Input />}
+										value={trendingVal}
+										variant="outlined"
+										onChange={handleTrendingChange}
+										renderValue={(selected) => (selected === 'day' ? 'Past day' : 'Past week')}
+									>
+										<MenuItem value={'day'}>
+											<ListItemText primary={'Past day'} />
+										</MenuItem>
+										<MenuItem value={'week'}>
+											<ListItemText primary={'Past week'} />
+										</MenuItem>
+									</Select>
+								</FormControl>
+								<Button
+									size="small"
+									color="primary"
+									variant="contained"
+									disableElevation
+									onClick={handleDiscoverTrending}
 								>
-									<MenuItem value={'day'}>
-										<ListItemText primary={'Past day'} />
-									</MenuItem>
-									<MenuItem value={'week'}>
-										<ListItemText primary={'Past week'} />
-									</MenuItem>
-								</Select>
-							</FormControl>
-							<Button
-								size="small"
-								color="primary"
-								variant="contained"
-								disableElevation
-								onClick={handleDiscoverTrending}
-							>
-								Go
-							</Button>
+									Go
+								</Button>
+							</div>
 						</div>
 					</div>
 				</ExpansionPanelDetails>
 			</ExpansionPanel>
+			<div className={classes.selectionCheckbox}>
+				<CSSTransition
+					classNames="fade"
+					in={selectedMovies.length > 0}
+					timeout={200}
+					mountOnEnter
+					unmountOnExit
+				>
+					<FormControlLabel
+						control={<Checkbox color="primary" checked={showSelected} onChange={toggleShowSelected} />}
+						label="Only View Selection"
+					/>
+				</CSSTransition>
+			</div>
 		</div>
 	);
 }

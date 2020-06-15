@@ -2,19 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 	gridContainer: {
-		padding: '1rem',
-		margin: '0 auto'
+		padding: '0 1rem',
+		margin: '0 auto',
+		maxWidth: '1700px'
 	},
-	// '@media (min-width: 214px)' : {
-	//   gridContainer : {
-	//     maxWidth : '214px'
-	//   }
-	// },
-	// '@media (min-width: 396px)' : {
-	//   gridContainer : {
-	//     maxWidth : '396px'
-	//   }
-	// },
 	cardSpacer: {
 		minWidth: '300px',
 		maxWidth: '300px',

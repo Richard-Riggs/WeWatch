@@ -6,13 +6,9 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
-		marginBottom: '2rem',
-		'& .MuiExpansionPanel-root': {
-			width: '90vw',
-			'& .MuiExpansionPanelDetails-root': {
-				flexDirection: 'column'
-			}
-		}
+		maxWidth: '1200px',
+		marginLeft: 'auto',
+		marginRight: 'auto'
 	},
 	header: {
 		height: '20vh',
@@ -26,6 +22,14 @@ export default makeStyles((theme) => ({
 		letterSpacing: '0.35rem',
 		textAlign: 'center',
 		fontSize: '3rem'
+	},
+	formPanel: {
+		backgroundColor: theme.palette.background.secondary,
+		color: theme.palette.text.primary,
+		width: '95%',
+		'& .MuiExpansionPanelDetails-root': {
+			flexDirection: 'column'
+		}
 	},
 	fieldRow: {
 		marginBottom: '2rem',
@@ -63,7 +67,8 @@ export default makeStyles((theme) => ({
 		alignItems: 'center',
 		'& h3': {
 			width: '100%',
-			marginBottom: '0.5rem'
+			marginBottom: '0.5rem',
+			color: theme.palette.text.secondary
 		},
 		'& label': {
 			paddingRight: theme.spacing(2)
@@ -73,11 +78,76 @@ export default makeStyles((theme) => ({
 			borderRadius: '2rem'
 		}
 	},
+	discoverInput: {
+		display: 'flex',
+		alignItems: 'center',
+		width: '100%'
+	},
 	discoverSelect: {
 		flexGrow: 1,
+		flexShrink: 1,
 		marginRight: theme.spacing(3),
 		'& .MuiSelect-root': {
-			paddingLeft: theme.spacing(2)
+			paddingLeft: theme.spacing(2),
+			color: theme.palette.text.primary
+		}
+	},
+	'@global': {
+		'.MuiMenu-list': {
+			color: theme.palette.text.primary,
+			backgroundColor: theme.palette.background.secondary
+		}
+	},
+	selectionCheckbox: {
+		height: '42px',
+		width: '100%',
+		display: 'flex',
+		marginLeft: '0.5rem'
+	},
+	[theme.breakpoints.down('sm')]: {
+		header: {
+			height: 'auto',
+			marginBottom: '1rem'
+		},
+		formPanel: {
+			width: '95vw'
+		}
+	},
+
+	[theme.breakpoints.down('xs')]: {
+		formPanel: {
+			'& .MuiExpansionPanelDetails-root': {
+				paddingTop: 0,
+				paddingBottom: 0,
+				paddingRight: '0.5rem',
+				paddingLeft: '0.5rem'
+			}
+		},
+		fieldRow: {
+			marginBottom: '1rem',
+			'& h2': {
+				margin: '0 0.5rem'
+			}
+		},
+		discoverField: {
+			marginLeft: '0.5rem',
+			'& label': {
+				paddingRight: theme.spacing(1)
+			},
+			'& button': {
+				marginLeft: theme.spacing(1),
+				maxWidth: '10px !important'
+			},
+			'& h3': {
+				marginBottom: 0
+			}
+		},
+		discoverSelect: {
+			marginRight: '0',
+			flexShrink: 1,
+			'& .MuiSelect-root': {
+				paddingLeft: theme.spacing(1)
+			}
 		}
 	}
 }));
