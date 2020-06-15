@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { purple } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
 	root: {
@@ -26,7 +25,7 @@ export default makeStyles((theme) => ({
 	formPanel: {
 		backgroundColor: theme.palette.background.secondary,
 		color: theme.palette.text.primary,
-		width: '95%',
+		width: '95vw',
 		'& .MuiExpansionPanelDetails-root': {
 			flexDirection: 'column'
 		}
@@ -102,16 +101,17 @@ export default makeStyles((theme) => ({
 		height: '42px',
 		width: '100%',
 		display: 'flex',
-		marginLeft: '0.5rem'
+		justifyContent: 'flex-end',
+		'& .MuiFormControlLabel-root': {
+			marginRight: '2.5vw'
+		}
 	},
 	[theme.breakpoints.down('sm')]: {
 		header: {
 			height: 'auto',
 			marginBottom: '1rem'
 		},
-		formPanel: {
-			width: '95vw'
-		}
+		formPanel: {}
 	},
 
 	[theme.breakpoints.down('xs')]: {

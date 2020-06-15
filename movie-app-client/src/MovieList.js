@@ -35,19 +35,15 @@ export default function MovieList({ movies, isLoading, showSelected, mode, selec
 
 				{isLoading &&
 					[ ...Array(10) ].map((n, i) => (
-						<Grid item xs className={classes.gridItem} style={{ display: 'block' }} key={`skel${i}`}>
-							<Skeleton
-								className={classes.gridSkeleton}
-								variant="rect"
-								style={{ width: '300px', height: '450px' }}
-							/>
-							<Skeleton className={classes.gridSkeleton} variant="text" width={300} height={100} />
+						<Grid item xs="auto" className={classes.gridItem} style={{ display: 'block' }} key={`skel${i}`}>
+							<Skeleton className={classes.gridSkeletonPoster} variant="rect" />
+							<Skeleton className={classes.gridSkeletonText} variant="rect" />
 						</Grid>
 					))}
 				<Grid item xs="auto" className={classes.cardSpacer} />
-				<Grid item xs className={classes.cardSpacer} />
-				<Grid item xs className={classes.cardSpacer} />
-				<Grid item xs className={classes.cardSpacer} />
+				<Grid item xs="auto" className={classes.cardSpacer} />
+				<Grid item xs="auto" className={classes.cardSpacer} />
+				<Grid item xs="auto" className={classes.cardSpacer} />
 				<MovieInfoDialog showInfo={showInfo} closeInfo={closeInfo} movieInfo={movieInfo} />
 			</Grid>
 		</div>

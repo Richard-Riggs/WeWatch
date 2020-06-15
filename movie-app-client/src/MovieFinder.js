@@ -18,7 +18,8 @@ export default function MovieFinder() {
 	const [ isLoading, setIsLoading ] = useState(false);
 	const [ query, setQuery ] = useState({});
 	const [ resultsPage, setResultsPage ] = useState(0);
-	const [ showSelected, toggleShowSelected ] = useToggleState(false);
+	const [ showSelected, setShowSelected ] = useState(false);
+	const toggleShowSelected = () => setShowSelected(!showSelected);
 
 	const fetchMovies = async () => {
 		if (Object.keys(query).length) {
@@ -56,6 +57,15 @@ export default function MovieFinder() {
 			}
 		},
 		[ movies ]
+	);
+
+	useEffect(
+		() => {
+			if (selectedMovies.length === 0) {
+				setShowSelected(false);
+			}
+		},
+		[ selectedMovies ]
 	);
 
 	return (
