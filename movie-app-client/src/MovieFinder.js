@@ -83,7 +83,7 @@ export default function MovieFinder() {
 			<InfiniteScroll
 				dataLength={movies.length}
 				next={fetchMovies}
-				hasMore={!showSelected && !(movies.length >= 40)}
+				hasMore={!showSelected && !(movies.length >= 300)}
 			>
 				<MovieList
 					mode={'find'}

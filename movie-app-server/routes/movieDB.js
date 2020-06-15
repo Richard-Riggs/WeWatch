@@ -6,7 +6,8 @@ router.get('/:queryType', async (req, res) => {
 	const tmdbMovies = await movieUtils.getMovies(req.params.queryType, req.query);
 	const imdbMovies = await movieUtils.addImdbIds(tmdbMovies);
 	const omdbMovies = await movieUtils.addOmdbData(imdbMovies);
-	res.json(omdbMovies);
+	if (req.params.queryType === 'discover') res.json(movieUtils.filterResults(omdbMovies));
+	else res.json(omdbMovies);
 });
 
 module.exports = router;
