@@ -93,6 +93,9 @@ export default makeStyles((theme) => ({
 		},
 		numSelectedInfo: {
 			display: 'none'
+		},
+		navButton: {
+			marginLeft: theme.spacing(1)
 		}
 	}
 }));

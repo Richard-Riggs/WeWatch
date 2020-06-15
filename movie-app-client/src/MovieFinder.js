@@ -71,7 +71,7 @@ export default function MovieFinder() {
 	return (
 		<div className={classes.root}>
 			<Navbar>
-				<MovieFinderNav selectedMovies={selectedMovies} />
+				<MovieFinderNav selectedMovies={selectedMovies} clearSelectedMovies={clearSelectedMovies} />
 			</Navbar>
 			<FinderForm
 				setQuery={setQuery}

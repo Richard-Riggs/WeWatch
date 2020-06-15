@@ -7,8 +7,9 @@ import AddIcon from '@material-ui/icons/Add';
 import useStyles from './styles/NavbarStyles';
 import SaveListDialog from './SaveListDialog';
 import { CSSTransition } from 'react-transition-group';
+import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 
-export default function MovieFinderNav({ selectedMovies }) {
+export default function MovieFinderNav({ selectedMovies, clearSelectedMovies }) {
 	const numSelected = selectedMovies.length;
 	const theme = useTheme();
 	const classes = useStyles(theme);
@@ -20,7 +21,10 @@ export default function MovieFinderNav({ selectedMovies }) {
 			<CSSTransition classNames="fade" in={numSelected > 0} timeout={200} appear mountOnEnter unmountOnExit>
 				<div className={classes.listButtons}>
 					<Typography variant="h6">
-						{numSelected || 'No'} Movie{numSelected === 1 ? '' : 's'} Selected
+						<span className={classes.numSelected}>{numSelected}</span>
+						<span className={classes.numSelectedInfo}>
+							&nbsp;Movie{numSelected === 1 ? '' : 's'} Selected
+						</span>
 					</Typography>
 					<Button
 						className={classes.navButton}
@@ -29,10 +33,16 @@ export default function MovieFinderNav({ selectedMovies }) {
 						onClick={handleOpenSave}
 						startIcon={<SaveIcon />}
 					>
-						Save New List
+						Save
 					</Button>
-					<Button className={classes.navButton} variant="contained" color="primary" startIcon={<AddIcon />}>
-						Add to List
+					<Button
+						className={classes.navButton}
+						variant="contained"
+						color="default"
+						onClick={clearSelectedMovies}
+						startIcon={<ClearRoundedIcon />}
+					>
+						Clear
 					</Button>
 				</div>
 			</CSSTransition>
