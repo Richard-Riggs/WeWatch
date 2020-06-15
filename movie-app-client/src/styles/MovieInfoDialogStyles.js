@@ -41,10 +41,20 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		color: theme.palette.text.primary
+		color: theme.palette.text.primary,
+		[sizes.down('md')]: {
+			'& h4': {
+				fontSize: '1.5rem'
+			}
+		}
 	},
 	closeButton: {
-		height: '48px'
+		[sizes.down('md')]: {
+			width: '24px',
+			height: '24px',
+			padding: 0,
+			marginLeft: '0.75rem'
+		}
 	},
 	DialogContentText: {
 		padding: '0.5rem 1.5rem',
@@ -54,18 +64,26 @@ export default makeStyles((theme) => ({
 	},
 	infoRow: {
 		display: 'flex',
-		alignItems: 'flex-start',
+		alignItems: 'flex-start !important',
 		flexWrap: 'noWrap',
 		minHeight: '32px',
 		fontWeight: 'normal',
-		paddingBottom: '0.5rem',
-		color: theme.palette.text.secondary
+		paddingBottom: '1rem',
+		color: theme.palette.text.secondary,
+		flexDirection: 'column',
+		[sizes.up('md')]: {
+			flexDirection: 'row',
+			paddingBottom: '0.5rem'
+		}
 	},
 	infoRowHeader: {
 		width: '120px',
-		margin: 0,
+		marginBottom: '0.15rem',
 		flexShrink: 0,
 		fontWeight: 'bold',
-		color: theme.palette.text.primary
+		color: theme.palette.text.primary,
+		[sizes.up('md')]: {
+			margin: 0
+		}
 	}
 }));
