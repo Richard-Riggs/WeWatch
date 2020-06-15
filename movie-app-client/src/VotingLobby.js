@@ -44,7 +44,6 @@ export default function VotingLobby() {
 						>
 							<span>
 								<Button
-									size="large"
 									variant="contained"
 									color="secondary"
 									onClick={startVote}
@@ -55,7 +54,7 @@ export default function VotingLobby() {
 							</span>
 						</Tooltip>
 
-						<Button size="large" variant="outlined" color="default" onClick={terminateSession}>
+						<Button variant="outlined" color="default" onClick={terminateSession}>
 							Cancel Vote
 						</Button>
 					</div>
