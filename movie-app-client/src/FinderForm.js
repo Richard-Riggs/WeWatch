@@ -84,21 +84,6 @@ export default function FinderForm({ setQuery, showSelected, toggleShowSelected,
 		}
 	};
 
-	const handleDiscoverTrending = () => {
-		toggleExpanded();
-		setFormSummary(
-			<p>
-				Showing trending movies from the past <strong>{trendingVal}</strong>
-			</p>
-		);
-		setQuery({
-			type: 'trending',
-			params: {
-				trendTime: trendingVal
-			}
-		});
-	};
-
 	return (
 		<div className={classes.root}>
 			<header className={classes.header}>
