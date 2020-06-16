@@ -9,7 +9,9 @@ export default makeStyles((theme) => ({
 		marginLeft: 'auto',
 		marginRight: 'auto',
 		'&:hover&:not($selected)&:not($disabled)& $selectedIcon': {
-			opacity: props.mode === 'view' ? 0 : 0.5
+			'@media(pointer: fine)': {
+				opacity: props.toggleAble ? 0.5 : 0
+			}
 		}
 	}),
 	gridItem: {

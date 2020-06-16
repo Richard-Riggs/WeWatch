@@ -52,7 +52,7 @@ export default function MovieFinder() {
 	);
 	useEffect(
 		() => {
-			if (movies.length === 0) {
+			if (movies.length === 0 && Object.keys(query).length) {
 				(async () => await fetchMovies())();
 			}
 		},
@@ -89,7 +89,6 @@ export default function MovieFinder() {
 					mode={'find'}
 					movies={showSelected ? selectedMovies : movies}
 					isLoading={isLoading}
-					showSelected={showSelected}
 					toggleShowSelected={toggleShowSelected}
 				/>
 			</InfiniteScroll>

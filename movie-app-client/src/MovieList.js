@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect, memo } from 'react';
 import Grid from '@material-ui/core/Grid';
 import MovieCard from './MovieCard';
 import { useTheme } from '@material-ui/core/styles';
@@ -6,10 +6,12 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import useToggleState from './hooks/useToggleState';
 import MovieInfoDialog from './MovieInfoDialog';
 import useStyles from './styles/MovieListStyles';
+import { MovieListsContext } from './contexts/MovieListsContext';
 
-export default function MovieList({ movies, isLoading, showSelected, mode, selectLimit }) {
+export default memo(function MovieList({ movies, isLoading, mode, selectLimit }) {
 	const theme = useTheme();
 	const classes = useStyles(theme);
+	const { toggleMovie, selectedMovies } = useContext(MovieListsContext);
 	const [ showInfo, toggleInfo ] = useToggleState(false);
 	const [ movieInfo, setMovieInfo ] = useState('');
 
@@ -22,16 +24,25 @@ export default function MovieList({ movies, isLoading, showSelected, mode, selec
 	return (
 		<div>
 			<Grid className={classes.gridContainer} container justify="space-evenly">
-				{movies.map((m) => (
-					<MovieCard
-						mode={mode}
-						movie={m}
-						key={m.id}
-						openInfo={openInfo}
-						selected={showSelected}
-						selectLimit={selectLimit}
-					/>
-				))}
+				{movies.map((m) => {
+					const selected = selectedMovies.find((sm) => sm.id === m.id) ? true : false;
+					const disabled =
+						(mode === 'edit' && !selected) ||
+						(!selected && selectLimit && selectedMovies.length >= selectLimit);
+					const toggleAble =
+						(selected || (!selectLimit || selectedMovies.length < selectLimit)) && mode !== 'view';
+					return (
+						<MovieCard
+							movie={m}
+							key={m.id}
+							openInfo={openInfo}
+							selected={selected}
+							disabled={disabled}
+							toggleAble={toggleAble}
+							toggleMovie={toggleMovie}
+						/>
+					);
+				})}
 
 				{isLoading &&
 					[ ...Array(10) ].map((n, i) => (
@@ -48,4 +59,4 @@ export default function MovieList({ movies, isLoading, showSelected, mode, selec
 			</Grid>
 		</div>
 	);
-}
+});
