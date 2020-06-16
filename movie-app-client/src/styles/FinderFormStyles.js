@@ -27,23 +27,30 @@ export default makeStyles((theme) => ({
 		color: theme.palette.text.primary,
 		width: '95vw',
 		'& .MuiExpansionPanelDetails-root': {
-			flexDirection: 'column'
+			flexDirection: 'row',
+			flexWrap: 'wrap',
+			padding: '0',
+			justifyContent: 'space-evenly'
 		}
 	},
 	fieldRow: {
-		marginBottom: '2rem',
+		padding: '0 1rem 1.5rem 1rem',
+		width: '300px',
+		maxWidth: '500px',
+		flexGrow: 1,
 		display: 'flex',
-		justifyContent: 'space-around',
 		flexWrap: 'wrap',
 		'& h2': {
-			margin: '0.5rem',
-			paddingBottom: '0.5rem',
-			width: '100%'
+			width: '100%',
+			marginBottom: '0.5rem'
 		}
 	},
 	searchRow: {
-		width: '100%',
-		display: 'flex'
+		flexGrow: 1,
+		display: 'flex',
+		'& .MuiFormControl-root': {
+			flexGrow: 1
+		}
 	},
 	searchInput: {
 		'&.MuiFormControl-root': {
@@ -58,33 +65,22 @@ export default makeStyles((theme) => ({
 		borderRadius: '0 2rem 2rem 0'
 	},
 	discoverField: {
-		marginLeft: '2rem',
-		marginTop: '1rem',
+		flexGrow: 1,
 		display: 'flex',
-		flexWrap: 'wrap',
-		width: '400px',
-		alignItems: 'center',
-		'& h3': {
-			width: '100%',
-			marginBottom: '0.5rem',
-			color: theme.palette.text.secondary
-		},
 		'& label': {
-			paddingRight: theme.spacing(2)
+			paddingRight: theme.spacing(1),
+			display: 'flex',
+			alignItems: 'center',
+			paddingBottom: '0.3rem',
+			fontWeight: 'bold'
 		},
 		'& button': {
 			marginLeft: theme.spacing(2),
 			borderRadius: '2rem'
 		}
 	},
-	discoverInput: {
-		display: 'flex',
-		alignItems: 'center',
-		width: '100%'
-	},
 	discoverSelect: {
 		flexGrow: 1,
-		flexShrink: 1,
 		marginRight: theme.spacing(3),
 		'& .MuiSelect-root': {
 			paddingLeft: theme.spacing(2),
@@ -115,31 +111,13 @@ export default makeStyles((theme) => ({
 	},
 
 	[theme.breakpoints.down('xs')]: {
-		formPanel: {
-			'& .MuiExpansionPanelDetails-root': {
-				paddingTop: 0,
-				paddingBottom: 0,
-				paddingRight: '0.5rem',
-				paddingLeft: '0.5rem'
-			}
-		},
-		fieldRow: {
-			marginBottom: '1rem',
-			'& h2': {
-				margin: '0 0.5rem'
-			}
-		},
 		discoverField: {
-			marginLeft: '0.5rem',
 			'& label': {
 				paddingRight: theme.spacing(1)
 			},
 			'& button': {
 				marginLeft: theme.spacing(1),
 				maxWidth: '10px !important'
-			},
-			'& h3': {
-				marginBottom: 0
 			}
 		},
 		discoverSelect: {

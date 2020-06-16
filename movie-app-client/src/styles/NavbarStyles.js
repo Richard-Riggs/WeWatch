@@ -20,6 +20,9 @@ export default makeStyles((theme) => ({
 					opacity: 1
 				}
 			}
+		},
+		'& .MuiListItemIcon-root': {
+			color: theme.palette.text.secondary
 		}
 	},
 	AppBar: {

@@ -20,7 +20,7 @@ export default function HomePage() {
 			<header className={classes.header}>
 				<h1>WELCOME</h1>
 				<div className={classes.headerBtns}>
-					<Link to="/new">
+					<Link to="/find">
 						<Button variant="contained" color="primary">
 							Find Movies
 						</Button>

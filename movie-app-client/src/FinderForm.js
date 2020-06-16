@@ -143,72 +143,37 @@ export default function FinderForm({ setQuery, showSelected, toggleShowSelected,
 					<div className={classes.fieldRow}>
 						<h2>Discover</h2>
 						<div className={classes.discoverField}>
-							<h3>Popular</h3>
-
-							<div className={classes.discoverInput}>
-								<label>Genre</label>
-								<FormControl className={classes.discoverSelect} variant="outlined">
-									<Select
-										input={<Input />}
-										value={genreVal}
-										onChange={handleGenreChange}
-										displayEmpty={true}
-										variant="outlined"
-										renderValue={(selected) =>
-											selected ? GENRES.find((g) => g.id === selected).name : 'Any'}
-									>
-										<MenuItem value={''}>
-											<ListItemText primary={'Any (Default)'} />
-										</MenuItem>
-										<Divider />
-										{GENRES.map((genre) => (
-											<MenuItem key={genre.id} value={genre.id}>
-												<ListItemText primary={genre.name} />
-											</MenuItem>
-										))}
-									</Select>
-								</FormControl>
-								<Button
-									onClick={handleDiscoverPopular}
-									size="small"
-									color="primary"
-									variant="contained"
-									disableElevation
+							<label>Genre</label>
+							<FormControl className={classes.discoverSelect} variant="outlined">
+								<Select
+									input={<Input />}
+									value={genreVal}
+									onChange={handleGenreChange}
+									displayEmpty={true}
+									variant="outlined"
+									renderValue={(selected) =>
+										selected ? GENRES.find((g) => g.id === selected).name : 'Any'}
 								>
-									Go
-								</Button>
-							</div>
-						</div>
-						<div className={classes.discoverField}>
-							<h3>Trending</h3>
-							<div className={classes.discoverInput}>
-								<label>Period</label>
-								<FormControl variant="outlined" className={classes.discoverSelect}>
-									<Select
-										input={<Input />}
-										value={trendingVal}
-										variant="outlined"
-										onChange={handleTrendingChange}
-										renderValue={(selected) => (selected === 'day' ? 'Past day' : 'Past week')}
-									>
-										<MenuItem value={'day'}>
-											<ListItemText primary={'Past day'} />
+									<MenuItem value={''}>
+										<ListItemText primary={'Any (Default)'} />
+									</MenuItem>
+									<Divider />
+									{GENRES.map((genre) => (
+										<MenuItem key={genre.id} value={genre.id}>
+											<ListItemText primary={genre.name} />
 										</MenuItem>
-										<MenuItem value={'week'}>
-											<ListItemText primary={'Past week'} />
-										</MenuItem>
-									</Select>
-								</FormControl>
-								<Button
-									size="small"
-									color="primary"
-									variant="contained"
-									disableElevation
-									onClick={handleDiscoverTrending}
-								>
-									Go
-								</Button>
-							</div>
+									))}
+								</Select>
+							</FormControl>
+							<Button
+								onClick={handleDiscoverPopular}
+								size="small"
+								color="primary"
+								variant="contained"
+								disableElevation
+							>
+								Go
+							</Button>
 						</div>
 					</div>
 				</ExpansionPanelDetails>
