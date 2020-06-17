@@ -24,6 +24,41 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ChevronLeftRoundedIcon from '@material-ui/icons/ChevronLeftRounded';
 
+import Fab from '@material-ui/core/Fab';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import Zoom from '@material-ui/core/Zoom';
+
+function ScrollTop(props) {
+	const trigger = useScrollTrigger({
+		disableHysteresis: true,
+		threshold: 100
+	});
+	const handleClick = (event) => {
+		const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+		if (anchor) {
+			anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		}
+	};
+	return (
+		<Zoom in={trigger}>
+			<div
+				onClick={handleClick}
+				role="presentation"
+				style={{
+					position: 'fixed',
+					bottom: '0.5rem',
+					right: '0.5rem',
+					zIndex: 5
+				}}
+			>
+				<Fab color="default" aria-label="scroll back to top">
+					<KeyboardArrowUpIcon fontSize="large" />
+				</Fab>
+			</div>
+		</Zoom>
+	);
+}
+
 export default function Navbar(props) {
 	const theme = useTheme();
 	const classes = useStyles(theme);
@@ -102,7 +137,8 @@ export default function Navbar(props) {
 					{props.children}
 				</Toolbar>
 			</AppBar>
-			<div className={classes.offset} />
+			<div id="back-to-top-anchor" className={classes.offset} />
+			<ScrollTop />
 		</div>
 	);
 }

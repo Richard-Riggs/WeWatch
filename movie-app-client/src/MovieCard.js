@@ -14,14 +14,13 @@ function MovieCard(props) {
 	const { movie, openInfo, disabled, selected, toggleAble, toggleMovie } = props;
 	const { title, ratings, id } = movie;
 	const classes = useStyles(props);
+	console.log('rendering ' + title);
 	const handleInfoClick = (e) => {
 		e.stopPropagation();
 		openInfo(id);
 	};
 
 	const handleCardClick = () => {
-		// Card is toggleable if it's already selected, if there's no select limit,
-		// or if the number of selected movies is under the select limit
 		if (toggleAble) {
 			toggleMovie(movie);
 		}
