@@ -7,21 +7,45 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		flexDirection: 'column',
-		marginTop: '10vh',
+		marginTop: '5vh',
 		alignItems: 'center',
-		'& h1': {
-			fontSize: '3rem',
-			margin: '3rem 2rem',
+		'& header': {
 			textAlign: 'center',
-			[theme.breakpoints.down('xs')]: {
-				margin: '0 1rem 1rem 1rem',
-				fontSize: '1.5rem'
+			margin: '3rem 2rem 2rem 2rem',
+			'& h1': {
+				fontSize: '3rem',
+				textAlign: 'center',
+				marginBottom: '0.2rem',
+				[theme.breakpoints.down('xs')]: {
+					fontSize: '1.5rem',
+					marginBottom: '0.25rem'
+				}
+			},
+			'& h2': {
+				color: theme.palette.text.secondary,
+				marginBottom: '1rem'
 			}
 		},
+
 		[theme.breakpoints.down('sm')]: {
 			marginTop: 0,
-			'& h1': {
-				margin: '2rem 2rem 1rem 2rem'
+			'& header': {
+				margin: '2rem 2rem 1rem 2rem',
+				'& h1': {
+					marginBottom: '0.5rem'
+				}
+			}
+		},
+		[theme.breakpoints.down('xs')]: {
+			'& header': {
+				margin: '0 1rem 1rem 1rem',
+				'& h1': {
+					fontSize: '1.5rem',
+					marginBottom: '0.25rem'
+				},
+				'& h2': {
+					fontSize: '1.15rem'
+				}
 			}
 		}
 	},
@@ -30,6 +54,7 @@ export default makeStyles((theme) => ({
 		alignItems: 'center',
 		justifyContent: 'center',
 		flexWrap: 'wrap',
+		marginBottom: '0.5rem',
 		'& span': {
 			margin: 'auto 1rem',
 			fontSize: '1.35rem',
@@ -38,11 +63,14 @@ export default makeStyles((theme) => ({
 			}
 		}
 	},
+	shareBtn: {
+		borderRadius: '1rem'
+	},
 	instructions: {
 		width: '100%',
 		maxWidth: '600px',
 		textAlign: 'left',
-		margin: '2rem auto',
+		margin: '1rem auto 2rem auto',
 		'& h3': {
 			fontSize: '1.5rem',
 			padding: '0.5rem 1rem'

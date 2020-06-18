@@ -1,27 +1,48 @@
 import React, { useContext, useState } from 'react';
 import useStyles from './styles/VotingLobbyStyles';
+import LinkRoundedIcon from '@material-ui/icons/LinkRounded';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { VoteSessionContext } from './contexts/VoteSessionContext';
+import { UserDataContext } from './contexts/UserDataContext';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function VotingLobby() {
 	const { movieList, userCount, isLeader, startVote, terminateSession } = useContext(VoteSessionContext);
+	const { notifyUser } = useContext(UserDataContext);
 	const classes = useStyles();
 	const [ openTooltip, setOpenTooltip ] = useState(false);
 	const handleToolTipOpen = () => setOpenTooltip(true);
 	const handleToolTipClose = () => setOpenTooltip(false);
 
+	const handleLinkShare = () => {
+		notifyUser({ severity: 'info', message: 'Lobby Link Copied to Clipboard' });
+	};
+
 	return (
 		<div className={classes.root}>
-			<h1>
-				Voting Lobby for <strong>{movieList.name}</strong>
-			</h1>
+			<header>
+				<h1>{movieList.name}</h1>
+				<h2>Voting Lobby</h2>
+			</header>
 			<div className={classes.lobbyInfo}>
 				<span>
 					{userCount} {userCount === 1 ? 'person' : 'people'} in lobby
 				</span>
 				<span>{movieList.movies.length} movies in vote</span>
 			</div>
+			<CopyToClipboard text={window.location.href} onCopy={handleLinkShare}>
+				<Button
+					className={classes.shareBtn}
+					size="small"
+					variant="contained"
+					color="primary"
+					startIcon={<LinkRoundedIcon />}
+				>
+					Share Link
+				</Button>
+			</CopyToClipboard>
+
 			<div className={classes.instructions}>
 				<h3>Instructions</h3>
 				<p>
