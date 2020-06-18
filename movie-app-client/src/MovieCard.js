@@ -14,7 +14,6 @@ function MovieCard(props) {
 	const { movie, openInfo, disabled, selected, toggleAble, toggleMovie } = props;
 	const { title, ratings, id } = movie;
 	const classes = useStyles(props);
-	console.log('rendering ' + title);
 	const handleInfoClick = (e) => {
 		e.stopPropagation();
 		openInfo(id);

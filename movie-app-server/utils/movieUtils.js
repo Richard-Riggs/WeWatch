@@ -13,7 +13,7 @@ exports.getMovies = async (queryType, queryParams) => {
 			...queryParams
 		}
 	});
-	return movies.data.results;
+	return { totalPages: movies.data.total_pages, movies: movies.data.results };
 };
 
 // Input array of TMDb movie objects

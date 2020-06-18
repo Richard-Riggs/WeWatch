@@ -18,7 +18,9 @@ export default function MovieFinder() {
 	const [ isLoading, setIsLoading ] = useState(false);
 	const [ query, setQuery ] = useState({});
 	const [ resultsPage, setResultsPage ] = useState(0);
+	const [ totalPages, setTotalPages ] = useState(0);
 	const [ showSelected, setShowSelected ] = useState(false);
+	const [ hasMore, setHasMore ] = useState(false);
 	const toggleShowSelected = () => setShowSelected(!showSelected);
 
 	const fetchMovies = async () => {
@@ -28,8 +30,10 @@ export default function MovieFinder() {
 			const response = await axios.get(`/api/movieDB/${query.type}`, {
 				params: { ...query.params, page: nextPage }
 			});
-			setMovies([ ...movies, ...response.data ]);
+			if (response.data.movies.length) setMovies([ ...movies, ...response.data.movies ]);
 			setResultsPage(nextPage);
+			setTotalPages(response.data.totalPages);
+			setHasMore(!(movies.length >= 500) && response.data.totalPages > 0 && nextPage < response.data.totalPages);
 			setIsLoading(false);
 		}
 	};
@@ -45,6 +49,7 @@ export default function MovieFinder() {
 	// BEFORE processing the new query. Otherwise, the old movies are not removed.
 	useEffect(
 		() => {
+			setTotalPages(0);
 			setResultsPage(0);
 			setMovies([]);
 		},
@@ -83,8 +88,14 @@ export default function MovieFinder() {
 			<InfiniteScroll
 				dataLength={movies.length}
 				next={fetchMovies}
-				hasMore={!showSelected && !(movies.length >= 300)}
+				hasMore={hasMore && Object.keys(query).length && !showSelected}
 			>
+				{Object.keys(query).length > 0 &&
+				movies.length === 0 &&
+				!isLoading && (
+					<p style={{ textAlign: 'center' }}>No movies named "{query.params.query}" could be found</p>
+				)}
+
 				<MovieList
 					mode={'find'}
 					movies={showSelected ? selectedMovies : movies}

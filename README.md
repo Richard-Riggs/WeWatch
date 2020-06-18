@@ -5,10 +5,10 @@ X Remove discover by 'trending' feature (not obviously different from 'popular')
 X Filter movies without ratings from popular films (server side)
 - Add max limit to movie lists
 - Enforce minimum vote count
-- Add share buttons to vote page
 - Update colors across website
 X Update app bar
 - Add 'About' page
+X Add 'share' button to voting lobby
 - Refactor index.js (server)
 - Add 'Start a Vote' functionality (list is required)
 - Refactor MovieInfoDialog images (use CSS background url)

@@ -103,7 +103,7 @@ export default function FinderForm({ setQuery, showSelected, toggleShowSelected,
 								className={classes.searchInput}
 								type="search"
 								variant="outlined"
-								placeholder="Search"
+								placeholder="Search for a movie"
 								size="small"
 								InputProps={{
 									startAdornment: (
