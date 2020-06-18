@@ -95,12 +95,12 @@ export default function MovieFinder() {
 				!isLoading && (
 					<p style={{ textAlign: 'center' }}>No movies named "{query.params.query}" could be found</p>
 				)}
-
 				<MovieList
 					mode={'find'}
 					movies={showSelected ? selectedMovies : movies}
 					isLoading={isLoading}
 					toggleShowSelected={toggleShowSelected}
+					selectLimit={20}
 				/>
 			</InfiniteScroll>
 		</div>

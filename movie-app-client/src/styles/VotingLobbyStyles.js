@@ -38,7 +38,7 @@ export default makeStyles((theme) => ({
 		},
 		[theme.breakpoints.down('xs')]: {
 			'& header': {
-				margin: '0 1rem 1rem 1rem',
+				margin: '0 1rem 0.5rem 1rem',
 				'& h1': {
 					fontSize: '1.5rem',
 					marginBottom: '0.25rem'
@@ -64,13 +64,17 @@ export default makeStyles((theme) => ({
 		}
 	},
 	shareBtn: {
-		borderRadius: '1rem'
+		borderRadius: '1rem',
+		marginLeft: 'auto',
+		marginRight: 'auto'
 	},
 	instructions: {
 		width: '100%',
 		maxWidth: '600px',
 		textAlign: 'left',
 		margin: '1rem auto 2rem auto',
+		display: 'flex',
+		flexDirection: 'column',
 		'& h3': {
 			fontSize: '1.5rem',
 			padding: '0.5rem 1rem'
@@ -80,7 +84,7 @@ export default makeStyles((theme) => ({
 			fontSize: '1.15rem'
 		},
 		[theme.breakpoints.down('xs')]: {
-			margin: '0.5rem 0 0 0',
+			margin: '0.5rem 0 1rem 0',
 			'& h3': {
 				fontSize: '1.2rem'
 			},

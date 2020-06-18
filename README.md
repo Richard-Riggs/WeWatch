@@ -3,8 +3,8 @@ TODO:
 X Remove discover by 'trending' feature (not obviously different from 'popular'),
   only serves to confuse users
 X Filter movies without ratings from popular films (server side)
-- Add max limit to movie lists
-- Enforce minimum vote count
+X Add max limit to movie lists
+X Enforce minimum vote count
 - Update colors across website
 X Update app bar
 - Add 'About' page

@@ -6,5 +6,12 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center'
+	},
+	'@global': {
+		'.Mui-disabled': {
+			'&.MuiButton-contained': {
+				color: theme.palette.text.secondary
+			}
+		}
 	}
 }));

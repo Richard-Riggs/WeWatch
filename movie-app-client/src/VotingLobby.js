@@ -31,17 +31,6 @@ export default function VotingLobby() {
 				</span>
 				<span>{movieList.movies.length} movies in vote</span>
 			</div>
-			<CopyToClipboard text={window.location.href} onCopy={handleLinkShare}>
-				<Button
-					className={classes.shareBtn}
-					size="small"
-					variant="contained"
-					color="primary"
-					startIcon={<LinkRoundedIcon />}
-				>
-					Share Link
-				</Button>
-			</CopyToClipboard>
 
 			<div className={classes.instructions}>
 				<h3>Instructions</h3>
@@ -51,7 +40,19 @@ export default function VotingLobby() {
 					to submit your movie selection. The winner will be determined as soon as everyone in the lobby has
 					finished voting.
 				</p>
+				<CopyToClipboard text={window.location.href} onCopy={handleLinkShare}>
+					<Button
+						className={classes.shareBtn}
+						size="small"
+						variant="contained"
+						color="primary"
+						startIcon={<LinkRoundedIcon />}
+					>
+						Share Link
+					</Button>
+				</CopyToClipboard>
 			</div>
+
 			{isLeader && (
 				<div className={classes.leaderSection}>
 					<h2>You are the lobby leader</h2>
@@ -61,6 +62,8 @@ export default function VotingLobby() {
 							open={openTooltip && userCount < 2}
 							onOpen={handleToolTipOpen}
 							onClose={handleToolTipClose}
+							disableFocusListener
+							enterTouchDelay={0}
 							arrow
 						>
 							<span>

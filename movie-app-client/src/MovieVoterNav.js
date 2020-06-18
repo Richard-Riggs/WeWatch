@@ -85,6 +85,7 @@ export default function MovieVoterNav() {
 						color="secondary"
 						onClick={handleVote}
 						startIcon={<CheckRoundedIcon />}
+						disabled={numSelected !== voteLimit}
 					>
 						Submit
 					</Button>
