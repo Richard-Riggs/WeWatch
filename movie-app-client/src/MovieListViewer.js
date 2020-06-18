@@ -4,8 +4,10 @@ import { MovieListsContext } from './contexts/MovieListsContext';
 import Button from '@material-ui/core/Button';
 import Navbar from './Navbar';
 import MovieViewerNav from './MovieViewerNav';
+import useStyles from './styles/MovieListViewerStyles';
 
 export default function MovieListViewer(props) {
+  const classes = useStyles();
   const listId = props.match.params.listId;
   const { movieLists, selectMovieList, clearSelectedMovies } = useContext(MovieListsContext);
   const movieList = movieLists.find((ml) => ml.id === listId);
@@ -25,14 +27,11 @@ export default function MovieListViewer(props) {
     };
   }, []);
   return (
-    <div>
+    <div className={classes.root}>
       <Navbar>
-        <MovieViewerNav movieList={movieList} />
+        <MovieViewerNav edit={edit} toggleEdit={toggleEdit} movieList={movieList} />
       </Navbar>
-      <h1>Viewing movies in {listId}</h1>
-      <Button variant="contained" onClick={toggleEdit}>
-        Edit
-      </Button>
+      <h1>{movieList.name}</h1>
       <MovieList mode={edit ? 'edit' : 'view'} movies={movieList.movies} />
     </div>
   );

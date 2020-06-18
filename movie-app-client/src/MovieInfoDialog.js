@@ -67,11 +67,6 @@ export default function MovieInfoDialog({ showInfo, closeInfo, movieInfo }) {
 							<p>{movieInfo.overview}</p>
 						</Box>
 					</div>
-					<Divider />
-					<DialogActions>
-						<Button onClick={closeInfo}>Cancel</Button>
-						<Button onClick={closeInfo}>Subscribe</Button>
-					</DialogActions>
 				</DialogContent>
 			</Box>
 		</Dialog>

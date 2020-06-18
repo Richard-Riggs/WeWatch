@@ -58,3 +58,7 @@ exports.addOmdbData = async (movies) => {
 	);
 	return updatedMovies;
 };
+
+// Input array of TMDb movie objects with additional OMDb data
+// Returns filtered array of TMDb movie objects (excludes movies without ratings data)
+exports.filterResults = (movies) => movies.filter((m) => m.ratings && m.ratings.length);

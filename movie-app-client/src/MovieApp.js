@@ -13,29 +13,29 @@ import { VoteSessionProvider } from './contexts/VoteSessionContext';
 import { UserDataContext } from './contexts/UserDataContext';
 
 export default function MovieApp() {
-  const { clientId } = useContext(UserDataContext);
-  const theme = useTheme();
-  const classes = useStyles(theme);
-  return (
-    <div className={classes.root}>
-      <Switch>
-        <Route exact path="/" render={(routeProps) => <HomePage {...routeProps} />} />
-        <Route exact path="/new" render={(routeProps) => <MovieFinder {...routeProps} />} />
-        <Route exact path="/movie-lists/:listId" render={(routeProps) => <MovieListViewer {...routeProps} />} />
-        <Route
-          exact
-          path="/vote/:sessionId"
-          render={(routeProps) => {
-            const sessionId = routeProps.match.params.sessionId;
+	const { clientId } = useContext(UserDataContext);
+	const theme = useTheme();
+	const classes = useStyles(theme);
+	return (
+		<div className={classes.root}>
+			<Switch>
+				<Route exact path="/" render={(routeProps) => <HomePage {...routeProps} />} />
+				<Route exact path="/find" render={(routeProps) => <MovieFinder {...routeProps} />} />
+				<Route exact path="/movie-lists/:listId" render={(routeProps) => <MovieListViewer {...routeProps} />} />
+				<Route
+					exact
+					path="/vote/:sessionId"
+					render={(routeProps) => {
+						const sessionId = routeProps.match.params.sessionId;
 
-            return (
-              <VoteSessionProvider sessionId={sessionId} routeProps={routeProps}>
-                <MovieVoter {...routeProps} />
-              </VoteSessionProvider>
-            );
-          }}
-        />
-      </Switch>
-    </div>
-  );
+						return (
+							<VoteSessionProvider sessionId={sessionId} routeProps={routeProps}>
+								<MovieVoter {...routeProps} />
+							</VoteSessionProvider>
+						);
+					}}
+				/>
+			</Switch>
+		</div>
+	);
 }

@@ -1,18 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { purple } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
-		marginBottom: '2rem',
-		'& .MuiExpansionPanel-root': {
-			width: '90vw',
-			'& .MuiExpansionPanelDetails-root': {
-				flexDirection: 'column'
-			}
-		}
+		maxWidth: '1200px',
+		marginLeft: 'auto',
+		marginRight: 'auto'
 	},
 	header: {
 		height: '20vh',
@@ -27,20 +22,35 @@ export default makeStyles((theme) => ({
 		textAlign: 'center',
 		fontSize: '3rem'
 	},
+	formPanel: {
+		backgroundColor: theme.palette.background.secondary,
+		color: theme.palette.text.primary,
+		width: '95vw',
+		'& .MuiExpansionPanelDetails-root': {
+			flexDirection: 'row',
+			flexWrap: 'wrap',
+			padding: '0',
+			justifyContent: 'space-evenly'
+		}
+	},
 	fieldRow: {
-		marginBottom: '2rem',
+		padding: '0 1rem 1.5rem 1rem',
+		width: '300px',
+		maxWidth: '500px',
+		flexGrow: 1,
 		display: 'flex',
-		justifyContent: 'space-around',
 		flexWrap: 'wrap',
 		'& h2': {
-			margin: '0.5rem',
-			paddingBottom: '0.5rem',
-			width: '100%'
+			width: '100%',
+			marginBottom: '0.5rem'
 		}
 	},
 	searchRow: {
-		width: '100%',
-		display: 'flex'
+		flexGrow: 1,
+		display: 'flex',
+		'& .MuiFormControl-root': {
+			flexGrow: 1
+		}
 	},
 	searchInput: {
 		'&.MuiFormControl-root': {
@@ -55,18 +65,14 @@ export default makeStyles((theme) => ({
 		borderRadius: '0 2rem 2rem 0'
 	},
 	discoverField: {
-		marginLeft: '2rem',
-		marginTop: '1rem',
+		flexGrow: 1,
 		display: 'flex',
-		flexWrap: 'wrap',
-		width: '400px',
-		alignItems: 'center',
-		'& h3': {
-			width: '100%',
-			marginBottom: '0.5rem'
-		},
 		'& label': {
-			paddingRight: theme.spacing(2)
+			paddingRight: theme.spacing(1),
+			display: 'flex',
+			alignItems: 'center',
+			paddingBottom: '0.3rem',
+			fontWeight: 'bold'
 		},
 		'& button': {
 			marginLeft: theme.spacing(2),
@@ -77,7 +83,49 @@ export default makeStyles((theme) => ({
 		flexGrow: 1,
 		marginRight: theme.spacing(3),
 		'& .MuiSelect-root': {
-			paddingLeft: theme.spacing(2)
+			paddingLeft: theme.spacing(2),
+			color: theme.palette.text.primary
+		}
+	},
+	'@global': {
+		'.MuiMenu-list': {
+			color: theme.palette.text.primary,
+			backgroundColor: theme.palette.background.secondary
+		}
+	},
+	selectionCheckbox: {
+		height: '42px',
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'flex-end',
+		'& .MuiFormControlLabel-root': {
+			marginRight: '2.5vw'
+		}
+	},
+	[theme.breakpoints.down('sm')]: {
+		header: {
+			height: 'auto',
+			marginBottom: '1rem'
+		},
+		formPanel: {}
+	},
+
+	[theme.breakpoints.down('xs')]: {
+		discoverField: {
+			'& label': {
+				paddingRight: theme.spacing(1)
+			},
+			'& button': {
+				marginLeft: theme.spacing(1),
+				maxWidth: '10px !important'
+			}
+		},
+		discoverSelect: {
+			marginRight: '0',
+			flexShrink: 1,
+			'& .MuiSelect-root': {
+				paddingLeft: theme.spacing(1)
+			}
 		}
 	}
 }));
