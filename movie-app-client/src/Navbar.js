@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import useToggleState from './hooks/useToggleState';
 import { useTheme } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
@@ -24,12 +24,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ChevronLeftRoundedIcon from '@material-ui/icons/ChevronLeftRounded';
 import ScrollToTop from './ScrollToTop';
+import StartVoteDialog from './StartVoteDialog';
 
 export default function Navbar(props) {
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const { isDarkMode, toggleTheme } = useContext(CustomThemeContext);
 	const [ openDrawer, toggleOpenDrawer ] = useToggleState(false);
+	const [ openVoteDialog, setOpenVoteDialog ] = useState(false);
+	const handleVoteOpen = () => {
+		toggleOpenDrawer();
+		setOpenVoteDialog(true);
+	};
 	const trigger = useScrollTrigger({
 		disableHysteresis: true,
 		threshold: 0
@@ -60,7 +66,7 @@ export default function Navbar(props) {
 						</ListItemIcon>
 						<ListItemText primary="Find Movies" />
 					</ListItem>
-					<ListItem button component={Link} to="/">
+					<ListItem button onClick={handleVoteOpen}>
 						<ListItemIcon>
 							<CheckRoundedIcon />
 						</ListItemIcon>
@@ -105,6 +111,7 @@ export default function Navbar(props) {
 			</AppBar>
 			<div id="back-to-top-anchor" className={classes.offset} />
 			<ScrollToTop />
+			<StartVoteDialog open={openVoteDialog} setOpen={setOpenVoteDialog} />
 		</div>
 	);
 }

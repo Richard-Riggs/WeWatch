@@ -6,26 +6,19 @@ import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import DeleteListDialog from './DeleteListDialog';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { withRouter } from 'react-router';
 import { UserDataContext } from './contexts/UserDataContext';
 import Grid from '@material-ui/core/Grid';
 
-function MovieListItem({ history, movieList }) {
-	const { clientId } = useContext(UserDataContext);
+function MovieListItem({ movieList }) {
+	const { initiateVote } = useContext(UserDataContext);
 	const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
 	const handleDeleteOpen = () => setOpenDeleteDialog(true);
 
 	const classes = useStyles();
 	const handleDelete = () => handleDeleteOpen();
 
-	const handleVote = async () => {
-		const response = await axios.post('/api/vote', {
-			movieList: movieList,
-			clientId: clientId
-		});
-		history.push(`/vote/${response.data.sessionId}`);
-	};
+	const handleVote = () => initiateVote(movieList);
 
 	return (
 		<Grid className={classes.GridItem} item xs={'auto'}>

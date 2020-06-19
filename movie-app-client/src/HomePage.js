@@ -9,11 +9,14 @@ import Divider from '@material-ui/core/Divider';
 import MovieListItem from './MovieListItem';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import Navbar from './Navbar';
+import StartVoteDialog from './StartVoteDialog';
 
 export default function HomePage() {
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const { movieLists } = useContext(MovieListsContext);
+	const [ openVoteDialog, setOpenVoteDialog ] = useState(false);
+	const handleVoteOpen = () => setOpenVoteDialog(true);
 	return (
 		<div className={classes.root}>
 			<Navbar />
@@ -25,7 +28,7 @@ export default function HomePage() {
 							Find Movies
 						</Button>
 					</Link>
-					<Button variant="contained" color="secondary">
+					<Button variant="contained" color="secondary" onClick={handleVoteOpen}>
 						Start A Vote
 					</Button>
 				</div>
@@ -46,6 +49,7 @@ export default function HomePage() {
 				<Grid className={classes.spacer} item xs={'auto'} />
 				<Grid className={classes.spacer} item xs={'auto'} />
 			</Grid>
+			<StartVoteDialog open={openVoteDialog} setOpen={setOpenVoteDialog} />
 		</div>
 	);
 }
