@@ -29,6 +29,12 @@ export function MovieListsProvider(props) {
 		setMovieLists(movieLists.map((ml) => (ml.id === id ? { ...ml, movies: [ ...selectedMovies ] } : ml)));
 		clearSelectedMovies([]);
 	};
+	const addToMovieList = (id) => {
+		const oldMovieList = movieLists.find((ml) => ml.id === id);
+		const moviesToAdd = selectedMovies.filter((sm) => !oldMovieList.movies.find((om) => om.id === sm.id));
+		const newMovieList = { ...oldMovieList, movies: [ ...oldMovieList.movies, ...moviesToAdd ] };
+		setMovieLists(movieLists.map((ml) => (ml.id === id ? newMovieList : ml)));
+	};
 	return (
 		<MovieListsContext.Provider
 			value={{
@@ -40,7 +46,8 @@ export function MovieListsProvider(props) {
 				movieLists,
 				selectMovieList,
 				deleteMovieList,
-				updateMovieList
+				updateMovieList,
+				addToMovieList
 			}}
 		>
 			{props.children}

@@ -64,7 +64,6 @@ export default function VotingLobby() {
 							onClose={handleToolTipClose}
 							disableFocusListener
 							enterTouchDelay={0}
-							arrow
 						>
 							<span>
 								<Button

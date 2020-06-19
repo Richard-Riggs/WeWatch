@@ -9,13 +9,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import { withRouter } from 'react-router';
+import useStyles from './styles/SaveDialogStyles';
 
-function SaveListDialog(props) {
-	const { open, setOpen } = props;
+function SaveListDialog({ open, setStage, history }) {
 	const { saveMovies, movieLists } = useContext(MovieListsContext);
 	const [ nameInput, setNameInput ] = useState('');
 	const [ isValid, setIsValid ] = useState(true);
-	const handleClose = () => setOpen(false);
+	const classes = useStyles();
+	const handleClose = () => setStage('');
 	const handleChange = (e) => {
 		if (e.target.value.length < 50) {
 			setNameInput(e.target.value);
@@ -32,9 +33,9 @@ function SaveListDialog(props) {
 		e.preventDefault();
 		if (nameIsUnique(nameInput)) {
 			saveMovies(nameInput);
-			setOpen(false);
+			setStage('');
 			setNameInput('');
-			props.history.push('/');
+			history.push('/');
 		} else {
 			setIsValid(false);
 		}
@@ -43,8 +44,8 @@ function SaveListDialog(props) {
 	useEffect(() => setIsValid(true), [ nameInput ]);
 
 	return (
-		<Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-			<DialogTitle>Save List</DialogTitle>
+		<Dialog className={classes.root} open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+			<DialogTitle className={classes.title}>Save New List</DialogTitle>
 			<form onSubmit={handleSave}>
 				<DialogContent>
 					<DialogContentText>Please enter a name for your new list.</DialogContentText>

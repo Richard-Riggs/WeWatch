@@ -10,7 +10,6 @@ X Update app bar
 - Add 'About' page
 X Add 'share' button to voting lobby
 - Refactor index.js (server)
-- Add 'Start a Vote' functionality (list is required)
+X Add 'Start a Vote' functionality (list is required)
 - Refactor MovieInfoDialog images (use CSS background url)
 - Handle server-side errors
-- Refactor Navbar (use same component for all pages)

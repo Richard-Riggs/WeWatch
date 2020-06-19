@@ -54,13 +54,13 @@ export default function Navbar(props) {
 				</Toolbar>
 
 				<List>
-					<ListItem button component={Link} to="/">
+					<ListItem button component={Link} to="/" onClick={toggleOpenDrawer}>
 						<ListItemIcon>
 							<HomeRoundedIcon />
 						</ListItemIcon>
 						<ListItemText primary="Home" />
 					</ListItem>
-					<ListItem button component={Link} to="/find">
+					<ListItem button component={Link} to="/find" onClick={toggleOpenDrawer}>
 						<ListItemIcon>
 							<SearchRoundedIcon />
 						</ListItemIcon>
