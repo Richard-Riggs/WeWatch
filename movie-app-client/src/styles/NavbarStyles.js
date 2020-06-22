@@ -26,8 +26,8 @@ export default makeStyles((theme) => ({
 		}
 	},
 	AppBar: {
-		color: theme.palette.text.primary,
-		backgroundColor: 'transparent'
+		background: theme.palette.background.gradient,
+		backgroundSize: '100vw 100vh'
 	},
 	menuButton: {
 		marginRight: theme.spacing(2)
