@@ -30,7 +30,8 @@ export const darkTheme = createMuiTheme({
 		background: {
 			primary: '#262626',
 			secondary: '#404040',
-			nav: '#41003b'
+			nav: '#41003b',
+			gradient: 'linear-gradient(45deg, rgba(12,0,17,1) 0%, rgba(37,0,50,1) 100%)'
 		},
 		text: {
 			primary: '#e6e6e6',
