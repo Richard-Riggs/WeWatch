@@ -23,9 +23,11 @@ export default makeStyles((theme) => ({
 		fontSize: '3rem'
 	},
 	formPanel: {
-		backgroundColor: theme.palette.background.secondary,
+		backgroundColor: theme.palette.background.primary,
+		// backgroundColor: 'rgba(38, 36, 40, 0.75)',
 		color: theme.palette.text.primary,
 		width: '95vw',
+		borderRadius: '0.5rem',
 		'& .MuiExpansionPanelDetails-root': {
 			flexDirection: 'row',
 			flexWrap: 'wrap',
