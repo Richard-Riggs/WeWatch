@@ -12,4 +12,4 @@ X Add 'share' button to voting lobby
 - Refactor index.js (server)
 X Add 'Start a Vote' functionality (list is required)
 - Refactor MovieInfoDialog images (use CSS background url)
-- Handle server-side errors
+X Handle server-side errors

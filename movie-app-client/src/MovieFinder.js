@@ -27,7 +27,7 @@ export default function MovieFinder() {
 		if (Object.keys(query).length) {
 			setIsLoading(true);
 			const nextPage = resultsPage + 1;
-			const response = await axios.get(`/api/movieDB/${query.type}`, {
+			const response = await axios.get(`/api/movies/${query.type}`, {
 				params: { ...query.params, page: nextPage }
 			});
 			if (response.data.movies.length) setMovies([ ...movies, ...response.data.movies ]);
