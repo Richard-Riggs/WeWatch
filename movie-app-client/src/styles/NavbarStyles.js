@@ -27,10 +27,11 @@ export default makeStyles((theme) => ({
 	},
 	AppBar: {
 		background: theme.palette.background.gradient,
-		backgroundSize: '100vw 100vh'
+		backgroundSize: '100vw 120vh'
 	},
 	menuButton: {
-		marginRight: theme.spacing(2)
+		marginRight: theme.spacing(2),
+		color: theme.darkMode ? '#808080' : '#333333'
 	},
 	title: {
 		marginRight: 'auto',
@@ -56,7 +57,23 @@ export default makeStyles((theme) => ({
 		}
 	}),
 	editBtn: {
-		marginLeft: theme.spacing(2)
+		marginLeft: theme.spacing(2),
+		color: theme.palette.text.primary,
+		borderColor: theme.palette.text.secondary
+	},
+	numSelected: {
+		color: theme.palette.text.primary
+	},
+	numSelectedInfo: {
+		color: theme.palette.text.primary
+	},
+	saveBtn: {
+		marginLeft: theme.spacing(2),
+		backgroundColor: '#783ab6',
+		color: '#e6e6e6',
+		'&:hover': {
+			backgroundColor: '#66319b'
+		}
 	},
 	'@global': {
 		'.fade-enter': {

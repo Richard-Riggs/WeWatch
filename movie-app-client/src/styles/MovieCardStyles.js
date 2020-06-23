@@ -8,6 +8,8 @@ export default makeStyles((theme) => ({
 		transition: 'all 0.2s ease-in-out',
 		marginLeft: 'auto',
 		marginRight: 'auto',
+		borderRadius: '1rem',
+		backgroundColor: theme.darkMode ? '#333333' : '#FFFFFF',
 		'&:hover&:not($selected)&:not($disabled)& $selectedIcon': {
 			'@media(pointer: fine)': {
 				opacity: props.toggleAble ? 0.5 : 0
@@ -17,7 +19,7 @@ export default makeStyles((theme) => ({
 	gridItem: {
 		display: 'flex',
 		boxSizing: 'content-box',
-		margin: '1rem'
+		margin: '2rem'
 	},
 	poster: (props) => ({
 		width: '300px',
@@ -54,10 +56,14 @@ export default makeStyles((theme) => ({
 	}),
 
 	[theme.breakpoints.down('sm')]: {
-		root: {
-			width: '150px',
-			maxWidth: '150px'
+		gridItem: {
+			margin: '1rem'
 		},
+		root: (props) => ({
+			width: '150px',
+			maxWidth: '150px',
+			borderRadius: '0.5rem'
+		}),
 		poster: (props) => ({
 			width: '150px',
 			height: '225px',

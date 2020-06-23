@@ -35,6 +35,14 @@ export default makeStyles((theme) => ({
 			fontSize: '1.5rem'
 		}
 	},
+	saveBtn: {
+		marginLeft: theme.spacing(2),
+		backgroundColor: '#783ab6',
+		color: '#e6e6e6',
+		'&:hover': {
+			backgroundColor: '#66319b'
+		}
+	},
 	optionText: {
 		'& .MuiListItemText-primary': {
 			fontSize: '1.15rem'

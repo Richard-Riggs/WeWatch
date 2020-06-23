@@ -11,7 +11,7 @@ export default makeStyles((theme) => ({
 			left: 0,
 			top: 0,
 			width: '100%',
-			height: '100vh',
+			height: '120vh',
 			zIndex: -10,
 			background: theme.palette.background.gradient
 		}

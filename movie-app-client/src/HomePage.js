@@ -42,7 +42,7 @@ export default function HomePage() {
 				<Grid className={classes.spacer} item xs={'auto'} />
 				<Grid className={classes.spacer} item xs={'auto'} />
 				<Grid className={classes.divider} item xs={12}>
-					<Divider />
+					<Divider light />
 				</Grid>
 
 				{movieLists.map((list, i) => <MovieListItem movieList={list} />)}

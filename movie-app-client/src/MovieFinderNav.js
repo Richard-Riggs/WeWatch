@@ -35,7 +35,7 @@ export default function MovieFinderNav() {
 						</span>
 					</Typography>
 					<Button
-						className={classes.navButton}
+						className={classes.saveBtn}
 						variant="contained"
 						color="secondary"
 						onClick={handleOpenSave}
@@ -44,9 +44,8 @@ export default function MovieFinderNav() {
 						Save
 					</Button>
 					<Button
-						className={classes.navButton}
-						variant="contained"
-						color="default"
+						className={classes.editBtn}
+						variant="outlined"
 						onClick={clearSelectedMovies}
 						startIcon={<ClearRoundedIcon />}
 					>

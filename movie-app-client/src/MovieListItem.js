@@ -38,11 +38,17 @@ function MovieListItem({ movieList }) {
 					</div>
 					<div className={classes.actionBtns}>
 						<Link to={`/movie-lists/${movieList.id}`}>
-							<Button variant="contained" size="small">
+							<Button className={classes.viewBtn} variant="outlined" color="primary" size="small">
 								View
 							</Button>
 						</Link>
-						<Button variant="contained" size="small" onClick={handleVote}>
+						<Button
+							className={classes.voteBtn}
+							variant="outlined"
+							color="secondary"
+							size="small"
+							onClick={handleVote}
+						>
 							Vote
 						</Button>
 					</div>

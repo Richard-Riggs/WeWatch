@@ -10,11 +10,17 @@ export const lightTheme = createMuiTheme({
 	...shared,
 	darkMode: false,
 	palette: {
+		primary: {
+			main: '#3c3ab7'
+		},
+		secondary: {
+			main: '#bb002f'
+		},
 		background: {
 			primary: '#f2f2f2',
 			secondary: '#e6e6e6',
 			nav: '#600058',
-			gradient: 'linear-gradient(315deg, rgba(242,231,255,1) 0%, rgba(255,255,255,1) 100%)'
+			gradient: 'linear-gradient(315deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%)'
 		},
 		text: {
 			primary: '#1a1a1a',
@@ -28,9 +34,16 @@ export const darkTheme = createMuiTheme({
 	...shared,
 	darkMode: true,
 	palette: {
+		primary: {
+			main: '#3c3ab7'
+		},
+		secondary: {
+			main: '#bb002f'
+		},
 		background: {
 			primary: '#26222a',
-			secondary: '#403d43',
+			// secondary: '#403d43',
+			secondary: '#333036',
 			nav: '#41003b',
 			// gradient: 'linear-gradient(45deg, rgba(12,0,17,1) 0%, rgba(37,0,50,1) 100%)'
 			gradient: 'linear-gradient(45deg, rgba(7,0,10,1) 0%, rgba(37,0,50,1) 100%)'

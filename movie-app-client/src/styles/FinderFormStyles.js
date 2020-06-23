@@ -5,9 +5,24 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
-		maxWidth: '1200px',
+		width: '100%',
 		marginLeft: 'auto',
-		marginRight: 'auto'
+		marginRight: 'auto',
+		['@media (min-width: 600px)']: {
+			maxWidth: 'calc(450px + 4rem)'
+		},
+		['@media (min-width: 760px)']: {
+			maxWidth: 'calc(600px + 6rem)'
+		},
+		['@media (min-width: 942px)']: {
+			maxWidth: 'calc(942px + 8rem)'
+		},
+		['@media (min-width: 960px)']: {
+			maxWidth: 'calc(600px + 4rem)'
+		},
+		['@media (min-width: 1124px)']: {
+			maxWidth: 'calc(900px + 8rem)'
+		}
 	},
 	header: {
 		height: '20vh',
@@ -22,11 +37,15 @@ export default makeStyles((theme) => ({
 		textAlign: 'center',
 		fontSize: '3rem'
 	},
+	panelContainer: {
+		maxWidth: '100%'
+	},
 	formPanel: {
 		backgroundColor: theme.palette.background.primary,
 		// backgroundColor: 'rgba(38, 36, 40, 0.75)',
 		color: theme.palette.text.primary,
 		width: '95vw',
+		maxWidth: '100%',
 		borderRadius: '0.5rem',
 		'& .MuiExpansionPanelDetails-root': {
 			flexDirection: 'row',
@@ -59,6 +78,7 @@ export default makeStyles((theme) => ({
 			flexGrow: 1,
 			'& .MuiInputBase-root': {
 				borderRadius: '2rem 0 0 2rem',
+				color: theme.palette.text.primary,
 				'&.Mui-focused': {}
 			}
 		}
