@@ -6,6 +6,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { VoteSessionContext } from './contexts/VoteSessionContext';
 import { UserDataContext } from './contexts/UserDataContext';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
+import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 
 export default function VotingLobby() {
 	const { movieList, userCount, isLeader, startVote, terminateSession } = useContext(VoteSessionContext);
@@ -67,18 +69,25 @@ export default function VotingLobby() {
 						>
 							<span>
 								<Button
+									className={classes.startVoteBtn}
 									variant="contained"
 									color="secondary"
 									onClick={startVote}
 									disabled={userCount < 2}
+									startIcon={<CheckRoundedIcon />}
 								>
 									Start Vote
 								</Button>
 							</span>
 						</Tooltip>
 
-						<Button variant="outlined" color="default" onClick={terminateSession}>
-							Cancel Vote
+						<Button
+							className={classes.cancelBtn}
+							variant="outlined"
+							onClick={terminateSession}
+							startIcon={<ClearRoundedIcon />}
+						>
+							Cancel
 						</Button>
 					</div>
 				</div>

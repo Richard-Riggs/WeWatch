@@ -90,9 +90,9 @@ export default function MovieVoterNav() {
 						Submit
 					</Button>
 					<Button
-						className={classes.navButton}
-						variant="contained"
-						color="primary"
+						className={classes.editBtn}
+						variant="outlined"
+						color="default"
 						startIcon={<ClearRoundedIcon />}
 						onClick={clearSelectedMovies}
 					>
@@ -100,7 +100,7 @@ export default function MovieVoterNav() {
 					</Button>
 				</div>
 			</CSSTransition>
-			<Dialog open={openVotedDialog} disableEscapeKeyDown disableBackdropClick>
+			<Dialog className={classes.voteDialog} open={openVotedDialog} disableEscapeKeyDown disableBackdropClick>
 				<DialogTitle style={{ textAlign: 'center' }}>
 					<h2>Vote Submitted!</h2>
 				</DialogTitle>
@@ -112,6 +112,7 @@ export default function MovieVoterNav() {
 				</DialogContent>
 			</Dialog>
 			<Dialog
+				className={classes.voteDialog}
 				open={openTiebreakerDialog}
 				onClose={closeTiebreakerDialog}
 				disableEscapeKeyDown

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 export default makeStyles((theme) => ({
 	root: {
 		marginTop: '5vh',
+		marginBottom: '10vh',
 		textAlign: 'center',
 		[theme.breakpoints.down('xs')]: {
 			marginTop: 0

@@ -110,5 +110,15 @@ export default makeStyles((theme) => ({
 				margin: 'auto 0.5rem'
 			}
 		}
+	},
+	startVoteBtn: {
+		'&.Mui-disabled': {
+			color: theme.palette.text.secondary,
+			backgroundColor: `rgba(51, 51, 51, ${theme.darkMode ? '0.5' : '0.2'})`
+		}
+	},
+	cancelBtn: {
+		color: theme.palette.text.primary,
+		borderColor: theme.palette.text.secondary
 	}
 }));

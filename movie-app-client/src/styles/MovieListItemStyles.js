@@ -4,7 +4,6 @@ import pink from '@material-ui/core/colors/pink';
 
 export default makeStyles((theme) => ({
 	root: {
-		marginBottom: '1rem',
 		display: 'flex',
 		alignItems: 'flex-start',
 		flexDirection: 'column',
@@ -87,7 +86,7 @@ export default makeStyles((theme) => ({
 	[theme.breakpoints.down('xs')]: {
 		GridItem: {
 			padding: '0 !important',
-			marginBottom: '0.5rem'
+			marginBottom: '1.5rem'
 		}
 	}
 }));

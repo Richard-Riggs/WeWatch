@@ -10,6 +10,8 @@ import MovieListItem from './MovieListItem';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import Navbar from './Navbar';
 import StartVoteDialog from './StartVoteDialog';
+import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
+import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 
 export default function HomePage() {
 	const theme = useTheme();
@@ -23,28 +25,29 @@ export default function HomePage() {
 			<header className={classes.header}>
 				<h1>WELCOME</h1>
 				<div className={classes.headerBtns}>
-					<Link to="/find">
-						<Button variant="contained" color="primary">
+					<Link className={classes.headerBtn} to="/find">
+						<Button variant="contained" color="primary" startIcon={<SearchRoundedIcon />}>
 							Find Movies
 						</Button>
 					</Link>
-					<Button variant="contained" color="secondary" onClick={handleVoteOpen}>
+					<Button
+						className={classes.headerBtn}
+						variant="contained"
+						color="secondary"
+						onClick={handleVoteOpen}
+						startIcon={<CheckRoundedIcon />}
+					>
 						Start A Vote
 					</Button>
 				</div>
 			</header>
-			<Grid container className={classes.movieLists} spacing={3} justify="space-evenly">
-				<Grid item xs={'auto'}>
+			<Grid container className={classes.movieLists} spacing={5} justify="center">
+				<Grid item xs={12}>
 					<Typography variant="h6" className={classes.title}>
 						Your Movie Lists
 					</Typography>
+					<Divider className={classes.divider} />
 				</Grid>
-				<Grid className={classes.spacer} item xs={'auto'} />
-				<Grid className={classes.spacer} item xs={'auto'} />
-				<Grid className={classes.divider} item xs={12}>
-					<Divider light />
-				</Grid>
-
 				{movieLists.map((list, i) => <MovieListItem movieList={list} />)}
 				<Grid className={classes.spacer} item xs={'auto'} />
 				<Grid className={classes.spacer} item xs={'auto'} />

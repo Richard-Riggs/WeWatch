@@ -45,7 +45,11 @@ export default makeStyles((theme) => ({
 		}
 	},
 	navButton: {
-		marginLeft: theme.spacing(2)
+		marginLeft: theme.spacing(2),
+		'&.Mui-disabled': {
+			color: theme.palette.text.secondary,
+			backgroundColor: `rgba(51, 51, 51, ${theme.darkMode ? '0.5' : '0.2'})`
+		}
 	},
 	offset: theme.mixins.toolbar,
 	listButtons: (props) => ({
@@ -73,6 +77,12 @@ export default makeStyles((theme) => ({
 		color: '#e6e6e6',
 		'&:hover': {
 			backgroundColor: '#66319b'
+		}
+	},
+	voteDialog: {
+		'& .MuiPaper-root': {
+			backgroundColor: theme.palette.background.primary,
+			color: theme.palette.text.primary
 		}
 	},
 	'@global': {

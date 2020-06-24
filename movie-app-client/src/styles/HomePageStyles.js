@@ -24,26 +24,33 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
-		marginTop: '2rem',
-		'& a': {
-			textDecoration: 'none',
-			margin: '0 0.5rem'
-		},
+		marginTop: '2rem'
+	},
+	headerBtn: {
+		margin: '0.5rem !important',
+		width: '180px',
+		maxHeight: '40px',
+		textDecoration: 'none',
 		'& button': {
-			fontSize: '1rem',
-			margin: '0 0.5rem'
+			width: '180px'
 		}
 	},
 	movieLists: {
 		padding: theme.spacing(2),
+		width: '355px',
 		maxWidth: '100%',
-		margin: '0 auto !important'
-	},
-	[theme.breakpoints.up('lg')]: {
-		movieLists: {
-			maxWidth: '1100px'
+		margin: '0 auto !important',
+		['@media (min-width: 387px)']: {
+			maxWidth: '387px'
+		},
+		['@media (min-width: 742px)']: {
+			maxWidth: '742px'
+		},
+		['@media (min-width: 1097px)']: {
+			maxWidth: '1097px'
 		}
 	},
+
 	movieListItem: {
 		margin: '1rem auto',
 		display: 'flex',
@@ -52,18 +59,22 @@ export default makeStyles((theme) => ({
 	},
 	spacer: {
 		boxSizing: 'content-box !important',
-		width: '339px',
+		width: '315px',
+		paddingLeft: '20px !important',
+		paddingRight: '20px !important',
 		flexShrink: 1,
 
 		padding: '0 !important'
 		// marginBottom: '1rem'
 	},
 	title: {
-		width: '315px'
+		maxWidth: '100%'
 	},
 	divider: {
-		paddingTop: '0 !important',
-		paddingBottom: '1rem !important'
+		'&.MuiDivider-root': {
+			backgroundColor: theme.palette.text.secondary,
+			opacity: 0.5
+		}
 	},
 	[theme.breakpoints.down('md')]: {
 		header: {
@@ -73,9 +84,7 @@ export default makeStyles((theme) => ({
 			flexDirection: 'column',
 			alignItems: 'center',
 			justifyContent: 'center',
-			'& a, & button': {
-				margin: '0 0.25rem'
-			},
+
 			'& h1': {
 				fontSize: '4rem',
 				fontFamily: theme.fonts.header,
@@ -86,11 +95,6 @@ export default makeStyles((theme) => ({
 	},
 	[theme.breakpoints.down('sm')]: {},
 	[theme.breakpoints.down('xs')]: {
-		title: {
-			width: 'auto',
-
-			width: '275px'
-		},
 		divider: {
 			maxWidth: '330px !important'
 		}
