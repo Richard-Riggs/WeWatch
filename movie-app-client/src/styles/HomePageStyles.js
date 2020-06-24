@@ -13,11 +13,14 @@ export default makeStyles((theme) => ({
 		alignItems: 'center',
 		justifyContent: 'center',
 		'& h1': {
-			fontSize: '5rem',
+			fontSize: '4rem',
 			fontFamily: theme.fonts.header,
 			fontWeight: 200,
-			letterSpacing: '0.5rem',
-			marginRight: '-0.5rem'
+			letterSpacing: '0.25rem',
+			marginRight: '-0.25rem',
+			'& span': {
+				fontSize: '1.25em'
+			}
 		}
 	},
 	headerBtns: {
@@ -86,15 +89,21 @@ export default makeStyles((theme) => ({
 			justifyContent: 'center',
 
 			'& h1': {
-				fontSize: '4rem',
+				fontSize: '3rem',
 				fontFamily: theme.fonts.header,
 				fontWeight: 200,
-				letterSpacing: '0.5rem'
+				letterSpacing: '0.25rem'
 			}
 		}
 	},
 	[theme.breakpoints.down('sm')]: {},
 	[theme.breakpoints.down('xs')]: {
+		header: {
+			marginBottom: 0
+		},
+		headerBtns: {
+			marginTop: '1rem'
+		},
 		divider: {
 			maxWidth: '330px !important'
 		}

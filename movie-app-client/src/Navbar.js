@@ -46,7 +46,9 @@ export default function Navbar(props) {
 			<Drawer className={classes.drawer} anchor={'left'} open={openDrawer} onClose={toggleOpenDrawer}>
 				<Toolbar>
 					<Link to="/" className={classes.title}>
-						<h2>WeWatch</h2>
+						<h2>
+							<span>W</span>E<span>W</span>ATCH
+						</h2>
 					</Link>
 					<IconButton variant="contained" size="small" onClick={toggleOpenDrawer}>
 						<ChevronLeftRoundedIcon fontSize="large" />
@@ -104,7 +106,9 @@ export default function Navbar(props) {
 						<MenuIcon />
 					</IconButton>
 					<Link to="/" className={classes.title}>
-						<h2>WeWatch</h2>
+						<h2>
+							<span>W</span>E<span>W</span>ATCH
+						</h2>
 					</Link>
 					{props.children}
 				</Toolbar>

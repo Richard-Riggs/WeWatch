@@ -23,7 +23,9 @@ export default function HomePage() {
 		<div className={classes.root}>
 			<Navbar />
 			<header className={classes.header}>
-				<h1>WELCOME</h1>
+				<h1>
+					<span>W</span>E<span>W</span>ATCH
+				</h1>
 				<div className={classes.headerBtns}>
 					<Link className={classes.headerBtn} to="/find">
 						<Button variant="contained" color="primary" startIcon={<SearchRoundedIcon />}>
