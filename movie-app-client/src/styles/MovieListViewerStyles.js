@@ -4,7 +4,9 @@ export default makeStyles((theme) => ({
 		'& h1': {
 			margin: '1.5rem',
 			fontSize: '2.5rem',
-			textAlign: 'center'
+			textAlign: 'center',
+			fontFamily: theme.fonts.header,
+			color: theme.palette.text.header
 		}
 	},
 	[theme.breakpoints.down('xs')]: {

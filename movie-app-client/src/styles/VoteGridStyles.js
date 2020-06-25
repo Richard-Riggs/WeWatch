@@ -7,7 +7,9 @@ export default makeStyles((theme) => ({
 			textAlign: 'center',
 			'& h1': {
 				marginBottom: '0.75rem',
-				fontSize: '3rem'
+				fontSize: '3rem',
+				fontFamily: theme.fonts.header,
+				color: theme.palette.text.header
 			},
 			'& p': {
 				fontSize: '1.25rem'

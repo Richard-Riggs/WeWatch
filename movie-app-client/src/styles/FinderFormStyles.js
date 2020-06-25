@@ -32,6 +32,7 @@ export default makeStyles((theme) => ({
 	},
 	headerText: {
 		fontFamily: theme.fonts.header,
+		color: theme.palette.text.header,
 		fontWeight: 200,
 		letterSpacing: '0.35rem',
 		textAlign: 'center',

@@ -39,7 +39,8 @@ export const lightTheme = createMuiTheme({
 		text: {
 			primary: '#1a1a1a',
 			secondary: '#666666',
-			logo: '#600080'
+			logo: '#600080',
+			header: '#4b0066'
 		}
 	}
 });
@@ -65,7 +66,8 @@ export const darkTheme = createMuiTheme({
 		text: {
 			primary: '#e6e6e6',
 			secondary: '#999999',
-			logo: '#8600b3'
+			logo: '#8600b3',
+			header: '#e6e6e6'
 		}
 	}
 });

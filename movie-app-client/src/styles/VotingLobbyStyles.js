@@ -13,6 +13,8 @@ export default makeStyles((theme) => ({
 			textAlign: 'center',
 			margin: '3rem 2rem 2rem 2rem',
 			'& h1': {
+				fontFamily: theme.fonts.header,
+				color: theme.palette.text.header,
 				fontSize: '3rem',
 				textAlign: 'center',
 				marginBottom: '0.2rem',

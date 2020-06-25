@@ -13,6 +13,7 @@ export default makeStyles((theme) => ({
 		alignItems: 'center',
 		justifyContent: 'center',
 		'& h1': {
+			color: theme.palette.text.header,
 			fontSize: '4rem',
 			fontFamily: theme.fonts.header,
 			fontWeight: 200,
