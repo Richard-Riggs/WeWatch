@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import { Route, Switch } from 'react-router-dom';
 import HomePage from './HomePage';
+import AboutPage from './AboutPage';
 import MovieFinder from './MovieFinder';
 import MovieListViewer from './MovieListViewer';
 import useStyles from './styles/MovieAppStyles';
@@ -20,6 +21,7 @@ export default function MovieApp() {
 		<div className={classes.root}>
 			<Switch>
 				<Route exact path="/" render={(routeProps) => <HomePage {...routeProps} />} />
+				<Route exact path="/about" render={(routeProps) => <AboutPage />} />
 				<Route exact path="/find" render={(routeProps) => <MovieFinder {...routeProps} />} />
 				<Route exact path="/movie-lists/:listId" render={(routeProps) => <MovieListViewer {...routeProps} />} />
 				<Route
