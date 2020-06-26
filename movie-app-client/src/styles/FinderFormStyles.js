@@ -11,10 +11,10 @@ export default makeStyles((theme) => ({
 		['@media (min-width: 600px)']: {
 			maxWidth: 'calc(450px + 4rem)'
 		},
-		['@media (min-width: 760px)']: {
+		['@media (min-width: 775px)']: {
 			maxWidth: 'calc(600px + 6rem)'
 		},
-		['@media (min-width: 942px)']: {
+		['@media (min-width: 957px)']: {
 			maxWidth: 'calc(942px + 8rem)'
 		},
 		['@media (min-width: 960px)']: {

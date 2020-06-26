@@ -30,10 +30,17 @@ export default makeStyles((theme) => ({
 		marginTop: theme.spacing(3),
 		'& h3': {
 			fontSize: '1.75rem',
-			marginBottom: theme.spacing(1)
+			marginBottom: theme.spacing(1),
+			[theme.breakpoints.down('xs')]: {
+				fontSize: '1.5rem'
+			}
 		},
 		'& p': {
-			marginLeft: theme.spacing(3)
+			marginLeft: theme.spacing(3),
+			[theme.breakpoints.down('xs')]: {
+				marginLeft: 0,
+				fontSize: '1.2rem !important'
+			}
 		}
 	},
 	source: {

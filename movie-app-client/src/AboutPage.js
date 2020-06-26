@@ -50,9 +50,8 @@ export default function AboutPage() {
 					<Box className={classes.step}>
 						<Text component="h3">1. Find Some Movies</Text>
 						<Text>
-							Use the discover feature (powered by <a href="https://www.themoviedb.org/">TMDb</a>) to find
-							popular movies in your favorite genres. If you have specific movies in mind, simply search
-							by movie title.
+							Use the discover feature to find popular movies in your favorite genres. If you have
+							specific movies in mind, simply search by movie title.
 						</Text>
 					</Box>
 					<Box className={classes.step}>
@@ -85,7 +84,7 @@ export default function AboutPage() {
 					</Text>
 					<Box className={classes.source}>
 						<img src={TMDbLogo} alt="TMDb Logo" />
-						<Box pt={1.5} pl={3}>
+						<Box pt={1.5} pl={{ xs: 0, sm: 3 }}>
 							<Text className={classes.sourceText}>
 								The Movie Database (TMDb) is this app's primary movie data resource. TMDb's API powers
 								WeWatch's search and discover features, and it provides poster images and general
@@ -100,7 +99,7 @@ export default function AboutPage() {
 						<Text component="h3" fontSize="2.65rem">
 							OMDb
 						</Text>
-						<Text className={classes.sourceText} pt={1} pl={3}>
+						<Text className={classes.sourceText} pt={1} pl={{ xs: 0, sm: 3 }}>
 							WeWatch relies on The Open Movie Database (OMDb) for supplementary movie data. WeWatch uses
 							OMDb's API to get additional information (e.g., runtime, ratings, and actors) for each
 							result provided by TMDb.
