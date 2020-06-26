@@ -37,10 +37,10 @@ export default function AboutPage() {
 						Welcome to W<span>E</span>W<span>ATCH</span>
 					</Text>
 					<Text mt={3} textAlign={{ xs: 'center', sm: 'justify' }}>
-						WeWatch is an app for helping people find and select movies to watch. As the range of digital
-						streaming options continues to expand, it can become difficult for groups of movie-watchers to
-						be decisive. WeWatch helps groups of movie watchers overcome indecisiveness by streamlining the
-						decision-making process.
+						WeWatch is an app for helping people find and select movies to watch. With an ever-expanding
+						range of digital streaming options at our fingertips, simply deciding what to watch can be a
+						time-consuming process. WeWatch helps groups of would-be movie watchers overcome indecisiveness
+						by streamlining the decision-making process.
 					</Text>
 				</Box>
 				<Box mb={4}>

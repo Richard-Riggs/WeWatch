@@ -70,6 +70,7 @@ export default makeStyles((theme) => ({
 			textAlign: 'center',
 			lineHeight: '1.25rem',
 			color: 'white',
+			fontFamily: theme.fonts.header,
 			// textShadow: '-1px 1px 0 #222, 1px 1px 0 #222, 1px -1px 0 #222, -1px -1px 0 #222',
 			textShadow: `
 			-2px -2px 10px rgba(0,0,0,0.6),

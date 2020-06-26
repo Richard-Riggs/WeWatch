@@ -19,10 +19,12 @@ export default makeStyles((theme) => ({
 				[theme.breakpoints.up('md')]: {
 					fontSize: theme.typography.h2.fontSize
 				}
-			},
-
-			'& p': {
-				fontSize: '1.35rem'
+			}
+		},
+		'& p': {
+			fontSize: '1.35rem',
+			[theme.breakpoints.down('xs')]: {
+				fontSize: '1.2rem'
 			}
 		}
 	},
@@ -38,8 +40,7 @@ export default makeStyles((theme) => ({
 		'& p': {
 			marginLeft: theme.spacing(3),
 			[theme.breakpoints.down('xs')]: {
-				marginLeft: 0,
-				fontSize: '1.2rem !important'
+				marginLeft: 0
 			}
 		}
 	},

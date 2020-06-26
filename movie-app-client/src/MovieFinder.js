@@ -91,6 +91,7 @@ export default function MovieFinder() {
 				hasMore={hasMore && Object.keys(query).length && !showSelected}
 			>
 				{Object.keys(query).length > 0 &&
+				query.type === 'search' &&
 				movies.length === 0 &&
 				!isLoading && (
 					<p style={{ textAlign: 'center' }}>No movies named "{query.params.query}" could be found</p>
