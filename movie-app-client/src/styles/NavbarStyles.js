@@ -130,6 +130,12 @@ export default makeStyles((theme) => ({
 		},
 		navButton: {
 			marginLeft: theme.spacing(1)
+		},
+		editBtn: {
+			marginLeft: theme.spacing(1)
+		},
+		saveBtn: {
+			marginLeft: theme.spacing(1)
 		}
 	}
 }));

@@ -87,20 +87,16 @@ export default makeStyles((theme) => ({
 			display: 'flex',
 			flexDirection: 'column',
 			alignItems: 'center',
-			justifyContent: 'center',
-
-			'& h1': {
-				fontSize: '3rem',
-				fontFamily: theme.fonts.header,
-				fontWeight: 200,
-				letterSpacing: '0.25rem'
-			}
+			justifyContent: 'center'
 		}
 	},
 	[theme.breakpoints.down('sm')]: {},
 	[theme.breakpoints.down('xs')]: {
 		header: {
-			marginBottom: 0
+			marginBottom: 0,
+			'& h1': {
+				fontSize: '3rem'
+			}
 		},
 		headerBtns: {
 			marginTop: '1rem'

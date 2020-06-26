@@ -19,7 +19,7 @@ export default makeStyles((theme) => ({
 				textAlign: 'center',
 				marginBottom: '0.2rem',
 				[theme.breakpoints.down('xs')]: {
-					fontSize: '1.5rem',
+					fontSize: '2rem',
 					marginBottom: '0.25rem'
 				}
 			},
@@ -41,10 +41,6 @@ export default makeStyles((theme) => ({
 		[theme.breakpoints.down('xs')]: {
 			'& header': {
 				margin: '0 1rem 0.5rem 1rem',
-				'& h1': {
-					fontSize: '1.5rem',
-					marginBottom: '0.25rem'
-				},
 				'& h2': {
 					fontSize: '1.15rem'
 				}

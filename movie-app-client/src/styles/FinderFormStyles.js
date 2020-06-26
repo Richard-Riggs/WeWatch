@@ -36,7 +36,10 @@ export default makeStyles((theme) => ({
 		fontWeight: 200,
 		letterSpacing: '0.35rem',
 		textAlign: 'center',
-		fontSize: '3rem'
+		fontSize: '4rem',
+		[theme.breakpoints.down('xs')]: {
+			fontSize: '3rem'
+		}
 	},
 	panelContainer: {
 		maxWidth: '100%'
