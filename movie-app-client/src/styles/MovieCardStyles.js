@@ -41,7 +41,8 @@ export default makeStyles((theme) => ({
 		paddingBottom: '1rem',
 		display: 'flex',
 		alignItems: 'flex-start',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		width: '100%'
 	},
 	icon: {
 		width: '30px',
@@ -70,10 +71,16 @@ export default makeStyles((theme) => ({
 			backgroundImage: `url(https://image.tmdb.org/t/p/w154${props.movie.poster_path})`
 		}),
 		cardContent: {
-			padding: '0.5rem !important'
+			padding: '0.5rem !important',
+			justifyContent: 'center'
 		},
 		title: {
-			fontSize: '1rem'
+			padding: 0,
+			flexDirection: 'row-reverse',
+			marginBottom: 0,
+			'& h2': {
+				display: 'none'
+			}
 		},
 		icon: {
 			position: 'absolute',
@@ -81,7 +88,8 @@ export default makeStyles((theme) => ({
 			top: '-45px',
 			backgroundColor: 'white',
 			borderRadius: '50%',
-			color: 'grey'
+			color: 'grey',
+			opacity: 0.5
 		}
 	},
 
