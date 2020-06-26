@@ -39,6 +39,14 @@ export default makeStyles((theme) => ({
 			width: '180px'
 		}
 	},
+	infoIcon: {
+		transform: 'translate(16px, 0)',
+		'& svg': {
+			fontSize: '30px',
+			color: theme.palette.text.primary,
+			opacity: 0.7
+		}
+	},
 	movieLists: {
 		padding: theme.spacing(2),
 		width: '355px',

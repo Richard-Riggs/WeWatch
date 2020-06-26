@@ -12,6 +12,8 @@ import Navbar from './Navbar';
 import StartVoteDialog from './StartVoteDialog';
 import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
+import IconButton from '@material-ui/core/IconButton';
+import HelpRoundedIcon from '@material-ui/icons/HelpRounded';
 
 export default function HomePage() {
 	const theme = useTheme();
@@ -21,7 +23,11 @@ export default function HomePage() {
 	const handleVoteOpen = () => setOpenVoteDialog(true);
 	return (
 		<div className={classes.root}>
-			<Navbar />
+			<Navbar>
+				<IconButton className={classes.infoIcon} component={Link} to="/about">
+					<HelpRoundedIcon />
+				</IconButton>
+			</Navbar>
 			<header className={classes.header}>
 				<h1>
 					<span>W</span>E<span>W</span>ATCH
