@@ -43,6 +43,13 @@ export default makeStyles((theme) => ({
 		'& img': {
 			width: '125px',
 			height: '125px'
+		},
+		[theme.breakpoints.down('xs')]: {
+			flexDirection: 'column',
+			'& img, & h3': {
+				marginLeft: 'auto',
+				marginRight: 'auto'
+			}
 		}
 	},
 	sourceText: {

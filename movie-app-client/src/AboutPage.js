@@ -31,12 +31,12 @@ export default function AboutPage() {
 	return (
 		<div className={classes.root}>
 			<Navbar />
-			<Box component="main" p={{ xs: 2, sm: 3 }} mt={4} maxWidth={800} mx="auto" mb="15vh">
+			<Box component="main" p={{ xs: 2, sm: 3 }} mt={{ xs: 0, sm: 4 }} maxWidth={800} mx="auto" mb="15vh">
 				<Box mb={5}>
 					<Text component="h2">
 						Welcome to W<span>E</span>W<span>ATCH</span>
 					</Text>
-					<Text mt={3} textAlign="justify">
+					<Text mt={3} textAlign={{ xs: 'center', sm: 'justify' }}>
 						WeWatch is an app for helping people find and select movies to watch. As the range of digital
 						streaming options continues to expand, it can become difficult for groups of movie-watchers to
 						be decisive. WeWatch helps groups of movie watchers overcome indecisiveness by streamlining the
