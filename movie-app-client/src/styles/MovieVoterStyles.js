@@ -7,6 +7,7 @@ export default makeStyles((theme) => ({
 		flexDirection: 'column',
 		alignItems: 'center'
 	},
+	offset: theme.mixins.toolbar,
 	'@global': {
 		'.Mui-disabled': {
 			'&.MuiButton-contained': {

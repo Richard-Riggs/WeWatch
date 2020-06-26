@@ -74,7 +74,7 @@ export default function Navbar(props) {
 						</ListItemIcon>
 						<ListItemText primary="Start a Vote" />
 					</ListItem>
-					<ListItem button component={Link} to="/about">
+					<ListItem button component={Link} to="/about" onClick={toggleOpenDrawer}>
 						<ListItemIcon>
 							<InfoRoundedIcon />
 						</ListItemIcon>

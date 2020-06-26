@@ -30,7 +30,14 @@ export default function StartVoteDialog({ open, setOpen }) {
 			<List>
 				{movieLists.length ? (
 					movieLists.map((ml) => (
-						<ListItem button onClick={() => initiateVote(ml)} alignItems="flex-start">
+						<ListItem
+							button
+							onClick={() => {
+								initiateVote(ml);
+								setOpen(false);
+							}}
+							alignItems="flex-start"
+						>
 							<ListItemAvatar>
 								<Avatar
 									variant="rounded"
