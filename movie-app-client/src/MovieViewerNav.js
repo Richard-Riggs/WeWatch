@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -10,19 +10,48 @@ import SaveListDialog from './SaveListDialog';
 import { CSSTransition } from 'react-transition-group';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
+import { useRouteMatch } from 'react-router-dom';
 
-export default function MovieViewerNav({ movieList, edit, toggleEdit }) {
+export default function MovieViewerNav() {
+	const {
+		selectedMovies,
+		updateMovieList,
+		editList,
+		setEditList,
+		movieLists,
+		selectMovieList,
+		clearSelectedMovies
+	} = useContext(MovieListsContext);
+	const match = useRouteMatch('/movie-lists/:listId');
+	const movieList = movieLists.find((ml) => ml.id === match.params.listId);
 	const theme = useTheme();
 	const classes = useStyles(theme);
-	const { selectedMovies, updateMovieList } = useContext(MovieListsContext);
 	const { notifyUser } = useContext(UserDataContext);
 	const numSelected = selectedMovies.length;
 	const [ openSave, setOpenSave ] = useState(false);
+
+	const toggleEdit = () => {
+		if (editList) {
+			setEditList('');
+			clearSelectedMovies();
+		} else {
+			selectMovieList(movieList.id);
+			setEditList(movieList.id);
+		}
+	};
+
 	const handleListSave = () => {
 		updateMovieList(movieList.id);
 		toggleEdit();
 		notifyUser({ severity: 'success', message: `Updated ${movieList.name}` });
 	};
+
+	useEffect(() => {
+		return () => {
+			setEditList('');
+			clearSelectedMovies();
+		};
+	}, []);
 
 	return (
 		<React.Fragment>
@@ -49,9 +78,9 @@ export default function MovieViewerNav({ movieList, edit, toggleEdit }) {
 				variant="outlined"
 				color="default"
 				onClick={toggleEdit}
-				startIcon={edit ? <ClearRoundedIcon /> : <EditRoundedIcon />}
+				startIcon={editList ? <ClearRoundedIcon /> : <EditRoundedIcon />}
 			>
-				{edit ? 'Cancel' : 'Edit'}
+				{editList ? 'Cancel' : 'Edit'}
 			</Button>
 
 			<SaveListDialog open={openSave} setOpen={setOpenSave} />
