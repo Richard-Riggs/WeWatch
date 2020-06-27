@@ -83,6 +83,15 @@ export default makeStyles((theme) => ({
 			backgroundColor: '#66319b'
 		}
 	},
+	infoIcon: {
+		transform: 'translate(16px, 0)',
+		'& svg': {
+			fontSize: '30px',
+			color: theme.palette.text.primary,
+			opacity: 0.7
+		}
+	},
+
 	voteDialog: {
 		'& .MuiPaper-root': {
 			backgroundColor: theme.palette.background.primary,

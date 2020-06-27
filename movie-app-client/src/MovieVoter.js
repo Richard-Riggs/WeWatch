@@ -1,6 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import Navbar from './Navbar';
-import MovieVoterNav from './MovieVoterNav';
+import React, { useContext } from 'react';
 import useStyles from './styles/MovieVoterStyles';
 import VotingLobby from './VotingLobby';
 import { VoteSessionContext } from './contexts/VoteSessionContext';
@@ -12,18 +10,13 @@ import Page from './Page';
 export default function MovieVoter({ history }) {
 	const { stage, error } = useContext(VoteSessionContext);
 	const classes = useStyles();
-	const Offset = () => <div className={classes.offset} />;
 
 	return (
 		<div className={classes.root}>
-			<Navbar>
-				<MovieVoterNav history={history} />
-			</Navbar>
 			<TransitionGroup>
 				{stage === 'lobby' && (
 					<CSSTransition classNames="page" timeout={300}>
 						<Page>
-							<Offset />
 							<VotingLobby />
 						</Page>
 					</CSSTransition>
@@ -31,15 +24,13 @@ export default function MovieVoter({ history }) {
 				{(stage === 'vote' || stage === 'revote') && (
 					<CSSTransition classNames="page" timeout={300}>
 						<Page>
-							<Offset />
-							<VoteGrid />
+							\ <VoteGrid />
 						</Page>
 					</CSSTransition>
 				)}
 				{stage === 'results' && (
 					<CSSTransition classNames="page" timeout={300}>
 						<Page>
-							<Offset />
 							<VoteResults />
 						</Page>
 					</CSSTransition>
@@ -47,7 +38,6 @@ export default function MovieVoter({ history }) {
 				{stage === 'error' && (
 					<CSSTransition classNames="page" timeout={300}>
 						<Page>
-							<Offset />
 							<h2>Error: {error}</h2>
 						</Page>
 					</CSSTransition>

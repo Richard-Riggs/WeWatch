@@ -25,6 +25,11 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ChevronLeftRoundedIcon from '@material-ui/icons/ChevronLeftRounded';
 import ScrollToTop from './ScrollToTop';
 import StartVoteDialog from './StartVoteDialog';
+import { Route, Switch as NavSwitch } from 'react-router';
+import HelpRoundedIcon from '@material-ui/icons/HelpRounded';
+import MovieFinderNav from './MovieFinderNav';
+import MovieVoterNav from './MovieVoterNav';
+import MovieViewerNav from './MovieViewerNav';
 
 export default function Navbar(props) {
 	const theme = useTheme();
@@ -110,10 +115,23 @@ export default function Navbar(props) {
 							<span>W</span>E<span>W</span>ATCH
 						</h2>
 					</Link>
-					{props.children}
+
+					<NavSwitch>
+						<Route
+							exact
+							path="/"
+							render={() => (
+								<IconButton className={classes.infoIcon} component={Link} to="/about">
+									<HelpRoundedIcon />
+								</IconButton>
+							)}
+						/>
+						<Route exact path="/find" render={() => <MovieFinderNav />} />
+						<Route exact path="/vote/:sessionId" render={() => <MovieVoterNav />} />
+						<Route exact path="/movie-lists/:listId" render={() => <MovieViewerNav />} />
+					</NavSwitch>
 				</Toolbar>
 			</AppBar>
-			<div id="back-to-top-anchor" className={classes.offset} />
 			<ScrollToTop />
 			<StartVoteDialog open={openVoteDialog} setOpen={setOpenVoteDialog} />
 		</div>

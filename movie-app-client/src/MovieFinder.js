@@ -75,9 +75,6 @@ export default function MovieFinder() {
 
 	return (
 		<div className={classes.root}>
-			<Navbar>
-				<MovieFinderNav />
-			</Navbar>
 			<FinderForm
 				setQuery={setQuery}
 				showSelected={showSelected}

@@ -10,6 +10,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import MovieVoter from './MovieVoter';
 import { VoteSessionProvider } from './contexts/VoteSessionContext';
 import Page from './Page';
+import Navbar from './Navbar';
 
 export default function MovieApp() {
 	const theme = useTheme();
@@ -17,6 +18,7 @@ export default function MovieApp() {
 	const location = useLocation();
 	return (
 		<div className={classes.root}>
+			<Navbar />
 			<TransitionGroup>
 				<CSSTransition
 					key={location.key}
@@ -45,22 +47,32 @@ export default function MovieApp() {
 								</Page>
 							)}
 						/>
-						<Route exact path="/find" render={(routeProps) => <MovieFinder {...routeProps} />} />
+						<Route
+							exact
+							path="/find"
+							render={(routeProps) => (
+								<Page>
+									<MovieFinder {...routeProps} />
+								</Page>
+							)}
+						/>
 						<Route
 							exact
 							path="/movie-lists/:listId"
-							render={(routeProps) => <MovieListViewer {...routeProps} />}
+							render={(routeProps) => (
+								<Page>
+									<MovieListViewer {...routeProps} />
+								</Page>
+							)}
 						/>
 						<Route
 							exact
 							path="/vote/:sessionId"
 							render={(routeProps) => {
-								const sessionId = routeProps.match.params.sessionId;
-
 								return (
-									<VoteSessionProvider sessionId={sessionId} routeProps={routeProps}>
+									<Page>
 										<MovieVoter {...routeProps} />
-									</VoteSessionProvider>
+									</Page>
 								);
 							}}
 						/>

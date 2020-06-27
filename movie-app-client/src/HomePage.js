@@ -23,11 +23,6 @@ export default function HomePage() {
 	const handleVoteOpen = () => setOpenVoteDialog(true);
 	return (
 		<div className={classes.root}>
-			<Navbar>
-				<IconButton className={classes.infoIcon} component={Link} to="/about">
-					<HelpRoundedIcon />
-				</IconButton>
-			</Navbar>
 			<header className={classes.header}>
 				<h1>
 					<span>W</span>E<span>W</span>ATCH
