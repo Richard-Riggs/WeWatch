@@ -4,14 +4,17 @@ export default makeStyles((theme) => ({
 	root: {
 		width: '100%',
 		maxWidth: '1000px',
+		marginLeft: 'auto',
+		marginRight: 'auto',
 		display: 'flex',
 		flexWrap: 'wrap',
 		flexDirection: 'column',
 		marginTop: '5vh',
+		marginBottom: '10vh',
 		alignItems: 'center',
 		'& header': {
 			textAlign: 'center',
-			margin: '3rem 2rem 2rem 2rem',
+			margin: '2rem',
 			'& h1': {
 				fontFamily: theme.fonts.header,
 				color: theme.palette.text.header,

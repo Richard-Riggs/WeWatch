@@ -38,8 +38,10 @@ exports.updateUserCount = (namespace, sessionData) => {
 
 exports.terminateSession = (sessions, namespace, sessionId) => {
 	const sessionSockets = namespace.in(sessionId).connected;
+	console.log(sessionSockets);
 	for (const socket in sessionSockets) {
-		sessionSockets[socket].emit('terminate').disconnect(true);
+		sessionSockets[socket].emit('terminate');
+		sessionSockets[socket].disconnect(true);
 	}
 	deleteSession(sessions, sessionId);
 };

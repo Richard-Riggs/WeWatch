@@ -19,69 +19,7 @@ export function VoteSessionProvider({ children }) {
 	const [ stage, setStage ] = useState();
 	const [ error, setError ] = useState();
 	const [ results, setResults ] = useState();
-	const [ sessionSocket, setSessionSocket ] = useState();
-
-	if (match && match.isExact) {
-		if (match.params.sessionId !== sessionId) {
-			setSessionId(match.params.sessionId);
-		}
-	} else if (sessionId && sessionSocket) {
-		// Cleanup when leaving page
-		setSessionId('');
-		sessionSocket.disconnect();
-		clearSelectedMovies();
-	}
-
-	// Event Listeners
-	useEffect(
-		() => {
-			const socket = io('/vote', {
-				query: {
-					sessionId: sessionId,
-					clientId: clientId
-				}
-			});
-			setSessionSocket(socket);
-
-			socket.on('loadSessionData', (data) => {
-				if (data.error) {
-					setStage('error');
-					setError(data.error);
-				} else {
-					if (Object.keys(data.results).length) {
-						setResults(data.results);
-					} else {
-						setMovieList(data.movieList);
-						setVoteLimit(data.voteLimit);
-					}
-					setStage(data.stage);
-				}
-			});
-			socket.on('updateUserCount', (count) => setUserCount(count));
-			socket.on('userIsLeader', (userIsLeader) => setIsLeader(userIsLeader));
-			socket.on('startVote', (startData) => {
-				if (startData.startVote) setStage(startData.stage);
-			});
-			socket.on('terminate', () => {
-				setStage('terminate');
-				console.log(history);
-				history.push('/');
-			});
-		},
-		[ sessionId ]
-	);
-
-	useEffect(
-		() => {
-			if (stage === 'terminate') {
-				const message = isLeader
-					? 'You have ended the voting session'
-					: 'The leader has ended the voting session';
-				notifyUser({ severity: 'warning', message: message });
-			}
-		},
-		[ stage, isLeader ]
-	);
+	const [ sessionSocket, setSessionSocket ] = useState({});
 
 	const startVote = () => {
 		if (sessionSocket) {
@@ -103,6 +41,73 @@ export function VoteSessionProvider({ children }) {
 			sessionSocket.emit('terminate');
 		}
 	};
+
+	if (match && match.isExact) {
+		if (match.params.sessionId !== sessionId) {
+			setSessionId(match.params.sessionId);
+		}
+	} else if (sessionId && sessionSocket) {
+		// Cleanup when leaving page
+		if (isLeader && stage !== 'terminate') {
+			notifyUser({ severity: 'warning', message: 'Ending voting session...' });
+		}
+		setSessionId('');
+		sessionSocket.disconnect();
+		setSessionSocket();
+		clearSelectedMovies();
+	}
+
+	// Event Listeners
+	useEffect(
+		() => {
+			if (sessionId) {
+				const socket = io('/vote', {
+					query: {
+						sessionId: sessionId,
+						clientId: clientId
+					}
+				});
+				setSessionSocket(socket);
+
+				socket.on('loadSessionData', (data) => {
+					if (data.error) {
+						setStage('error');
+						setError(data.error);
+					} else {
+						if (Object.keys(data.results).length) {
+							setResults(data.results);
+						} else {
+							setMovieList(data.movieList);
+							setVoteLimit(data.voteLimit);
+						}
+						setStage(data.stage);
+					}
+				});
+				socket.on('updateUserCount', (count) => setUserCount(count));
+				socket.on('userIsLeader', (userIsLeader) => setIsLeader(userIsLeader));
+				socket.on('startVote', (startData) => {
+					if (startData.startVote) setStage(startData.stage);
+				});
+				socket.on('terminate', () => {
+					setStage('terminate');
+					history.push('/');
+				});
+			}
+		},
+		[ sessionId ]
+	);
+
+	useEffect(
+		() => {
+			if (stage === 'terminate') {
+				const message = isLeader
+					? 'You have ended the voting session'
+					: 'The leader has ended the voting session';
+				notifyUser({ severity: 'warning', message: message });
+			}
+		},
+		[ stage, isLeader ]
+	);
 
 	return (
 		<VoteSessionContext.Provider

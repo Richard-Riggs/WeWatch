@@ -22,7 +22,6 @@ export default function MovieVoterNav() {
 	const numSelected = selectedMovies.length;
 	const theme = useTheme();
 	const classes = useStyles(theme);
-	const { isDarkMode, toggleTheme } = useContext(CustomThemeContext);
 	const [ openVotedDialog, setOpenVotedDialog ] = useState(false);
 	const [ openTiebreakerDialog, setOpenTieBreakerDialog ] = useState(false);
 
@@ -57,8 +56,6 @@ export default function MovieVoterNav() {
 			<Prompt
 				when={isLeader && stage !== 'terminate'}
 				message={(location, action) => {
-					console.log(location);
-					console.log(action);
 					return 'Leaving this page will close the voting lobby. Are you sure you want to continue?';
 				}}
 			/>

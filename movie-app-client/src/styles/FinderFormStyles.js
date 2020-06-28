@@ -107,7 +107,6 @@ export default makeStyles((theme) => ({
 	},
 	discoverSelect: {
 		flexGrow: 1,
-		marginRight: theme.spacing(3),
 		'& .MuiSelect-root': {
 			paddingLeft: theme.spacing(2),
 			color: theme.palette.text.primary

@@ -24,7 +24,7 @@ export default function MovieVoter({ history }) {
 				{(stage === 'vote' || stage === 'revote') && (
 					<CSSTransition classNames="page" timeout={300}>
 						<Page>
-							\ <VoteGrid />
+							<VoteGrid />
 						</Page>
 					</CSSTransition>
 				)}
