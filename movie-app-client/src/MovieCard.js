@@ -32,7 +32,7 @@ function MovieCard(props) {
 				className={`${classes.root} ${selected && classes.selected} ${disabled && classes.disabled}`}
 			>
 				<CardMedia className={classes.poster} component="div" alt={title} title={title} />
-				<CheckCircleRoundedIcon className={classes.selectedIcon} fontSize="large" />
+				<CheckCircleRoundedIcon className={classes.selectedIcon} fontSize="default" />
 				<CardContent className={classes.cardContent}>
 					<div className={classes.title}>
 						<Typography gutterBottom variant="h6" component="h2">

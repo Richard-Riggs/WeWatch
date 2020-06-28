@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import ImageNotFound from '../assets/images/image-not-found.svg';
 export default makeStyles((theme) => ({
 	root: (props) => ({
 		width: '300px',
@@ -9,7 +10,7 @@ export default makeStyles((theme) => ({
 		marginLeft: 'auto',
 		marginRight: 'auto',
 		borderRadius: '1rem',
-		backgroundColor: theme.darkMode ? '#333333' : '#FFFFFF',
+		backgroundColor: theme.palette.background.primary,
 		'&:hover&:not($selected)&:not($disabled)& $selectedIcon': {
 			'@media(pointer: fine)': {
 				opacity: props.toggleAble ? 0.5 : 0
@@ -25,7 +26,9 @@ export default makeStyles((theme) => ({
 		width: '300px',
 		height: '450px',
 		objectFit: 'cover',
-		backgroundImage: `url(https://image.tmdb.org/t/p/w300${props.movie.poster_path})`
+		backgroundImage: `url(https://image.tmdb.org/t/p/w300${props.movie.poster_path}), url(${ImageNotFound})`,
+		backgroundSize: '300px 450px, 100px 100px',
+		backgroundPosition: 'center'
 	}),
 	cardContent: {
 		padding: '1rem !important',
@@ -46,7 +49,8 @@ export default makeStyles((theme) => ({
 	},
 	icon: {
 		width: '30px',
-		height: '30px'
+		height: '30px',
+		zIndex: 2
 	},
 
 	selected: (props) => ({
@@ -63,12 +67,29 @@ export default makeStyles((theme) => ({
 		root: (props) => ({
 			width: '150px',
 			maxWidth: '150px',
-			borderRadius: '0.5rem'
+			borderRadius: '0.5rem',
+			'&:before': {
+				content: `"${props.movie.title}"`,
+				display: 'block',
+				position: 'absolute',
+				top: 90,
+				left: 5,
+				width: '140px',
+				textAlign: 'center',
+				color: '#777',
+				// fontWeight: 'bold',
+
+				fontSize: '1.0rem',
+				zIndex: 1
+			}
 		}),
 		poster: (props) => ({
+			zIndex: 1,
 			width: '150px',
 			height: '225px',
-			backgroundImage: `url(https://image.tmdb.org/t/p/w154${props.movie.poster_path})`
+			backgroundImage: `url(https://image.tmdb.org/t/p/w154${props.movie.poster_path}), url(${ImageNotFound})`,
+			backgroundSize: '150px 225px, 50px 50px',
+			backgroundPosition: 'center, 50px 30px'
 		}),
 		cardContent: {
 			padding: '0.5rem !important',
@@ -110,6 +131,7 @@ export default makeStyles((theme) => ({
 	},
 
 	selectedIcon: (props) => ({
+		zIndex: 2,
 		position: 'absolute',
 		top: 10,
 		right: 10,
