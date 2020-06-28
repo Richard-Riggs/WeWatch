@@ -61,7 +61,7 @@ export const darkTheme = createMuiTheme({
 			secondary: '#333036',
 			nav: '#41003b',
 			// gradient: 'linear-gradient(45deg, rgba(12,0,17,1) 0%, rgba(37,0,50,1) 100%)'
-			gradient: 'linear-gradient(45deg, rgba(7,0,10,1) 0%, rgba(37,0,50,1) 100%)'
+			gradient: 'linear-gradient(45deg, rgba(7,0,10,1) 40%, rgba(37,0,50,1) 100%)'
 		},
 		text: {
 			primary: '#e6e6e6',

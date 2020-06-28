@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import ImageNotFound from '../assets/images/image-not-found.svg';
 import sizes from './sizes';
 export default makeStyles((theme) => ({
 	infoDialog: {
@@ -11,20 +12,29 @@ export default makeStyles((theme) => ({
 			alignItems: 'flex-start'
 		}
 	},
-	infoPoster: {
+	infoPoster: (props) => ({
 		display: 'none',
 		flexGrow: 0,
 		objectFit: 'cover',
-		[sizes.up('sm')]: {
-			width: '300px',
+		backgroundColor: theme.palette.background.primary,
+		backgroundPosition: 'center',
+		backgroundRepeat: 'no-repeat',
+		[sizes.up('sm')]: (props) => ({
+			display: 'block',
+			minWidth: '300px',
 			height: '450px',
-			display: 'block'
-		},
-		[sizes.up('lg')]: {
-			width: '500px',
-			height: '750px'
-		}
-	},
+			backgroundImage: `url(https://image.tmdb.org/t/p/w300${props.movieInfo
+				.poster_path}), url(${ImageNotFound})`,
+			backgroundSize: '300px 450px, 100px 100px'
+		}),
+		[sizes.up('lg')]: (props) => ({
+			minWidth: '500px',
+			height: '750px',
+			backgroundImage: `url(https://image.tmdb.org/t/p/w500${props.movieInfo.poster_path}),
+			url(${ImageNotFound})`,
+			backgroundSize: '500px 750px, 100px 100px'
+		})
+	}),
 	DialogContent: {
 		backgroundColor: theme.palette.background.secondary,
 		padding: 0,
@@ -32,6 +42,7 @@ export default makeStyles((theme) => ({
 		flexDirection: 'column',
 		height: '450px',
 		maxHeight: '450px',
+		width: '100%',
 		[sizes.up('lg')]: {
 			height: '750px',
 			maxHeight: '750px'
