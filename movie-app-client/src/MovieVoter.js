@@ -1,25 +1,48 @@
-import React, { useContext, useEffect } from 'react';
-import Navbar from './Navbar';
-import MovieVoterNav from './MovieVoterNav';
+import React, { useContext } from 'react';
 import useStyles from './styles/MovieVoterStyles';
 import VotingLobby from './VotingLobby';
 import { VoteSessionContext } from './contexts/VoteSessionContext';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import VoteResults from './VoteResults';
 import VoteGrid from './VoteGrid';
+import Page from './Page';
 
 export default function MovieVoter({ history }) {
-  const { stage, error } = useContext(VoteSessionContext);
-  const classes = useStyles();
+	const { stage, error } = useContext(VoteSessionContext);
+	const classes = useStyles();
 
-  return (
-    <div className={classes.root}>
-      <Navbar>
-        <MovieVoterNav history={history} />
-      </Navbar>
-      {stage === 'lobby' && <VotingLobby />}
-      {(stage === 'vote' || stage === 'revote') && <VoteGrid />}
-      {stage === 'results' && <VoteResults />}
-      {stage === 'error' && <h2>Error: {error}</h2>}
-    </div>
-  );
+	return (
+		<div className={classes.root}>
+			<TransitionGroup>
+				{stage === 'lobby' && (
+					<CSSTransition classNames="page" timeout={300}>
+						<Page disableOffset>
+							<VotingLobby />
+						</Page>
+					</CSSTransition>
+				)}
+				{(stage === 'vote' || stage === 'revote') && (
+					<CSSTransition classNames="page" timeout={300}>
+						<Page disableOffset>
+							<VoteGrid />
+						</Page>
+					</CSSTransition>
+				)}
+				{stage === 'results' && (
+					<CSSTransition classNames="page" timeout={300}>
+						<Page disableOffset>
+							<VoteResults />
+						</Page>
+					</CSSTransition>
+				)}
+				{stage === 'error' && (
+					<CSSTransition classNames="page" timeout={300}>
+						<Page disableOffset>
+							<h2>Error: {error}</h2>
+						</Page>
+					</CSSTransition>
+				)}
+			</TransitionGroup>
+		</div>
+	);
 }

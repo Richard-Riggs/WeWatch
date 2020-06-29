@@ -6,5 +6,13 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center'
+	},
+	offset: theme.mixins.toolbar,
+	'@global': {
+		'.Mui-disabled': {
+			'&.MuiButton-contained': {
+				color: theme.palette.text.secondary
+			}
+		}
 	}
 }));

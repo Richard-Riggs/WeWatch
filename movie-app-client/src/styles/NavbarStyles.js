@@ -26,11 +26,12 @@ export default makeStyles((theme) => ({
 		}
 	},
 	AppBar: {
-		color: theme.palette.text.primary,
-		backgroundColor: theme.palette.background.primary
+		background: theme.palette.background.gradient,
+		backgroundSize: '100vw 120vh'
 	},
 	menuButton: {
-		marginRight: theme.spacing(2)
+		marginRight: theme.spacing(2),
+		color: theme.darkMode ? '#808080' : '#333333'
 	},
 	title: {
 		marginRight: 'auto',
@@ -39,12 +40,20 @@ export default makeStyles((theme) => ({
 		fontFamily: theme.fonts.header,
 		'& h2': {
 			fontWeight: 400,
-			fontSize: '2rem',
-			textAlign: 'center'
+			fontSize: '1.6rem',
+			textAlign: 'center',
+			letterSpacing: '0.05rem',
+			'& span': {
+				fontSize: '1.25em'
+			}
 		}
 	},
 	navButton: {
-		marginLeft: theme.spacing(2)
+		marginLeft: theme.spacing(2),
+		'&.Mui-disabled': {
+			color: theme.palette.text.secondary,
+			backgroundColor: `rgba(51, 51, 51, ${theme.darkMode ? '0.5' : '0.2'})`
+		}
 	},
 	offset: theme.mixins.toolbar,
 	listButtons: (props) => ({
@@ -56,7 +65,38 @@ export default makeStyles((theme) => ({
 		}
 	}),
 	editBtn: {
-		marginLeft: theme.spacing(2)
+		marginLeft: theme.spacing(2),
+		color: theme.palette.text.primary,
+		borderColor: theme.palette.text.secondary
+	},
+	numSelected: {
+		color: theme.palette.text.primary
+	},
+	numSelectedInfo: {
+		color: theme.palette.text.primary
+	},
+	saveBtn: {
+		marginLeft: theme.spacing(2),
+		backgroundColor: '#783ab6',
+		color: '#e6e6e6',
+		'&:hover': {
+			backgroundColor: '#66319b'
+		}
+	},
+	infoIcon: {
+		transform: 'translate(16px, 0)',
+		'& svg': {
+			fontSize: '30px',
+			color: theme.palette.text.primary,
+			opacity: 0.7
+		}
+	},
+
+	voteDialog: {
+		'& .MuiPaper-root': {
+			backgroundColor: theme.palette.background.primary,
+			color: theme.palette.text.primary
+		}
 	},
 	'@global': {
 		'.fade-enter': {
@@ -98,6 +138,12 @@ export default makeStyles((theme) => ({
 			display: 'none'
 		},
 		navButton: {
+			marginLeft: theme.spacing(1)
+		},
+		editBtn: {
+			marginLeft: theme.spacing(1)
+		},
+		saveBtn: {
 			marginLeft: theme.spacing(1)
 		}
 	}

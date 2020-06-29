@@ -87,82 +87,85 @@ export default function FinderForm({ setQuery, showSelected, toggleShowSelected,
 	return (
 		<div className={classes.root}>
 			<header className={classes.header}>
-				<h1 className={classes.headerText}>Find Movies</h1>
+				<h1 className={classes.headerText}>FIND MOVIES</h1>
 			</header>
-			<ExpansionPanel className={classes.formPanel} expanded={expanded}>
-				<ExpansionPanelSummary onClick={toggleExpanded} expandIcon={<ExpandMoreIcon />}>
-					{formSummary}
-				</ExpansionPanelSummary>
-				<ExpansionPanelDetails>
-					<div className={classes.fieldRow}>
-						<h2>Search</h2>
-						<div className={classes.searchRow}>
-							<TextField
-								value={searchVal}
-								onChange={handleSearchChange}
-								className={classes.searchInput}
-								type="search"
-								variant="outlined"
-								placeholder="Search"
-								size="small"
-								InputProps={{
-									startAdornment: (
-										<InputAdornment position="start">
-											<SearchIcon />
-										</InputAdornment>
-									)
-								}}
-							/>
-							<Button
-								className={classes.searchBtn}
-								size="small"
-								color="primary"
-								variant="contained"
-								disableElevation
-								onClick={handleSearch}
-							>
-								Go
-							</Button>
-						</div>
-					</div>
-					<div className={classes.fieldRow}>
-						<h2>Discover</h2>
-						<div className={classes.discoverField}>
-							<label>Genre</label>
-							<FormControl className={classes.discoverSelect} variant="outlined">
-								<Select
-									input={<Input />}
-									value={genreVal}
-									onChange={handleGenreChange}
-									displayEmpty={true}
+			<div className={classes.panelContainer}>
+				<ExpansionPanel className={classes.formPanel} expanded={expanded}>
+					<ExpansionPanelSummary onClick={toggleExpanded} expandIcon={<ExpandMoreIcon />}>
+						{formSummary}
+					</ExpansionPanelSummary>
+					<ExpansionPanelDetails>
+						<div className={classes.fieldRow}>
+							<h2>Search</h2>
+							<div className={classes.searchRow}>
+								<TextField
+									value={searchVal}
+									onChange={handleSearchChange}
+									className={classes.searchInput}
+									type="search"
 									variant="outlined"
-									renderValue={(selected) =>
-										selected ? GENRES.find((g) => g.id === selected).name : 'Any'}
+									placeholder="Search for a movie"
+									size="small"
+									InputProps={{
+										startAdornment: (
+											<InputAdornment position="start">
+												<SearchIcon />
+											</InputAdornment>
+										)
+									}}
+								/>
+								<Button
+									className={classes.searchBtn}
+									size="small"
+									color="primary"
+									variant="contained"
+									disableElevation
+									onClick={handleSearch}
 								>
-									<MenuItem value={''}>
-										<ListItemText primary={'Any (Default)'} />
-									</MenuItem>
-									<Divider />
-									{GENRES.map((genre) => (
-										<MenuItem key={genre.id} value={genre.id}>
-											<ListItemText primary={genre.name} />
-										</MenuItem>
-									))}
-								</Select>
-							</FormControl>
-							<Button
-								onClick={handleDiscoverPopular}
-								size="small"
-								color="primary"
-								variant="contained"
-								disableElevation
-							>
-								Go
-							</Button>
+									Go
+								</Button>
+							</div>
 						</div>
-					</div>
-				</ExpansionPanelDetails>
-			</ExpansionPanel>
+						<div className={classes.fieldRow}>
+							<h2>Discover</h2>
+							<div className={classes.discoverField}>
+								<label>Genre</label>
+								<FormControl className={classes.discoverSelect} variant="outlined">
+									<Select
+										input={<Input />}
+										value={genreVal}
+										onChange={handleGenreChange}
+										displayEmpty={true}
+										variant="outlined"
+										renderValue={(selected) =>
+											selected ? GENRES.find((g) => g.id === selected).name : 'Any'}
+									>
+										<MenuItem value={''}>
+											<ListItemText primary={'Any (Default)'} />
+										</MenuItem>
+										<Divider />
+										{GENRES.map((genre) => (
+											<MenuItem key={genre.id} value={genre.id}>
+												<ListItemText primary={genre.name} />
+											</MenuItem>
+										))}
+									</Select>
+								</FormControl>
+								<Button
+									onClick={handleDiscoverPopular}
+									size="small"
+									color="primary"
+									variant="contained"
+									disableElevation
+								>
+									Go
+								</Button>
+							</div>
+						</div>
+					</ExpansionPanelDetails>
+				</ExpansionPanel>
+			</div>
+
 			<div className={classes.selectionCheckbox}>
 				<CSSTransition
 					classNames="fade"

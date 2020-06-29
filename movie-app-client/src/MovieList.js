@@ -37,7 +37,7 @@ export default memo(function MovieList({ movies, isLoading, mode, selectLimit })
 
 	return (
 		<div>
-			<Grid className={classes.gridContainer} container justify="space-evenly">
+			<Grid className={classes.gridContainer} container>
 				{movies.map((m) => {
 					const selected = selectedMovies.find((sm) => sm.id === m.id) ? true : false;
 					const disabled =

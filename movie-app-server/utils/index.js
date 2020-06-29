@@ -1,3 +1,2 @@
-const movieUtils = require('./movieUtils');
-
-exports.movieUtils = movieUtils;
+exports.movieUtils = require('./movieUtils');
+exports.voteUtils = require('./voteUtils');

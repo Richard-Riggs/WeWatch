@@ -14,7 +14,6 @@ function MovieCard(props) {
 	const { movie, openInfo, disabled, selected, toggleAble, toggleMovie } = props;
 	const { title, ratings, id } = movie;
 	const classes = useStyles(props);
-	console.log('rendering ' + title);
 	const handleInfoClick = (e) => {
 		e.stopPropagation();
 		openInfo(id);
@@ -33,14 +32,17 @@ function MovieCard(props) {
 				className={`${classes.root} ${selected && classes.selected} ${disabled && classes.disabled}`}
 			>
 				<CardMedia className={classes.poster} component="div" alt={title} title={title} />
-				<CheckCircleRoundedIcon className={classes.selectedIcon} fontSize="large" />
+				<CheckCircleRoundedIcon className={classes.selectedIcon} fontSize="default" />
 				<CardContent className={classes.cardContent}>
-					<Typography gutterBottom variant="h6" component="h2" className={`${classes.title}`}>
-						{title}
+					<div className={classes.title}>
+						<Typography gutterBottom variant="h6" component="h2">
+							<span>{title}</span>
+						</Typography>
 						<IconButton className={classes.infoButton} size={'medium'} onClick={handleInfoClick}>
 							<InfoIcon className={classes.icon} fontSize="large" />
 						</IconButton>
-					</Typography>
+					</div>
+
 					{ratings && <MovieRatings ratings={ratings} id={id} />}
 				</CardContent>
 			</Card>

@@ -9,43 +9,53 @@ import Divider from '@material-ui/core/Divider';
 import MovieListItem from './MovieListItem';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import Navbar from './Navbar';
+import StartVoteDialog from './StartVoteDialog';
+import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
+import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
+import IconButton from '@material-ui/core/IconButton';
+import HelpRoundedIcon from '@material-ui/icons/HelpRounded';
 
 export default function HomePage() {
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const { movieLists } = useContext(MovieListsContext);
+	const [ openVoteDialog, setOpenVoteDialog ] = useState(false);
+	const handleVoteOpen = () => setOpenVoteDialog(true);
 	return (
 		<div className={classes.root}>
-			<Navbar />
 			<header className={classes.header}>
-				<h1>WELCOME</h1>
+				<h1>
+					<span>W</span>E<span>W</span>ATCH
+				</h1>
 				<div className={classes.headerBtns}>
-					<Link to="/find">
-						<Button variant="contained" color="primary">
+					<Link className={classes.headerBtn} to="/find">
+						<Button variant="contained" color="primary" startIcon={<SearchRoundedIcon />}>
 							Find Movies
 						</Button>
 					</Link>
-					<Button variant="contained" color="secondary">
+					<Button
+						className={classes.headerBtn}
+						variant="contained"
+						color="secondary"
+						onClick={handleVoteOpen}
+						startIcon={<CheckRoundedIcon />}
+					>
 						Start A Vote
 					</Button>
 				</div>
 			</header>
-			<Grid container className={classes.movieLists} spacing={3} justify="space-evenly">
-				<Grid item xs={'auto'}>
+			<Grid container className={classes.movieLists} spacing={5} justify="center">
+				<Grid item xs={12}>
 					<Typography variant="h6" className={classes.title}>
 						Your Movie Lists
 					</Typography>
+					<Divider className={classes.divider} />
 				</Grid>
-				<Grid className={classes.spacer} item xs={'auto'} />
-				<Grid className={classes.spacer} item xs={'auto'} />
-				<Grid className={classes.divider} item xs={12}>
-					<Divider />
-				</Grid>
-
 				{movieLists.map((list, i) => <MovieListItem movieList={list} />)}
 				<Grid className={classes.spacer} item xs={'auto'} />
 				<Grid className={classes.spacer} item xs={'auto'} />
 			</Grid>
+			<StartVoteDialog open={openVoteDialog} setOpen={setOpenVoteDialog} />
 		</div>
 	);
 }

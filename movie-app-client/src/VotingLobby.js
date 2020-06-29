@@ -1,27 +1,39 @@
 import React, { useContext, useState } from 'react';
 import useStyles from './styles/VotingLobbyStyles';
+import LinkRoundedIcon from '@material-ui/icons/LinkRounded';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import { VoteSessionContext } from './contexts/VoteSessionContext';
+import { UserDataContext } from './contexts/UserDataContext';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
+import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 
 export default function VotingLobby() {
 	const { movieList, userCount, isLeader, startVote, terminateSession } = useContext(VoteSessionContext);
+	const { notifyUser } = useContext(UserDataContext);
 	const classes = useStyles();
 	const [ openTooltip, setOpenTooltip ] = useState(false);
 	const handleToolTipOpen = () => setOpenTooltip(true);
 	const handleToolTipClose = () => setOpenTooltip(false);
 
+	const handleLinkShare = () => {
+		notifyUser({ severity: 'info', message: 'Lobby Link Copied to Clipboard' });
+	};
+
 	return (
 		<div className={classes.root}>
-			<h1>
-				Voting Lobby for <strong>{movieList.name}</strong>
-			</h1>
+			<header>
+				<h1>{movieList.name}</h1>
+				<h2>Voting Lobby</h2>
+			</header>
 			<div className={classes.lobbyInfo}>
 				<span>
 					{userCount} {userCount === 1 ? 'person' : 'people'} in lobby
 				</span>
 				<span>{movieList.movies.length} movies in vote</span>
 			</div>
+
 			<div className={classes.instructions}>
 				<h3>Instructions</h3>
 				<p>
@@ -30,7 +42,19 @@ export default function VotingLobby() {
 					to submit your movie selection. The winner will be determined as soon as everyone in the lobby has
 					finished voting.
 				</p>
+				<CopyToClipboard text={window.location.href} onCopy={handleLinkShare}>
+					<Button
+						className={classes.shareBtn}
+						size="small"
+						variant="contained"
+						color="primary"
+						startIcon={<LinkRoundedIcon />}
+					>
+						Share Link
+					</Button>
+				</CopyToClipboard>
 			</div>
+
 			{isLeader && (
 				<div className={classes.leaderSection}>
 					<h2>You are the lobby leader</h2>
@@ -40,22 +64,30 @@ export default function VotingLobby() {
 							open={openTooltip && userCount < 2}
 							onOpen={handleToolTipOpen}
 							onClose={handleToolTipClose}
-							arrow
+							disableFocusListener
+							enterTouchDelay={0}
 						>
 							<span>
 								<Button
+									className={classes.startVoteBtn}
 									variant="contained"
 									color="secondary"
 									onClick={startVote}
 									disabled={userCount < 2}
+									startIcon={<CheckRoundedIcon />}
 								>
 									Start Vote
 								</Button>
 							</span>
 						</Tooltip>
 
-						<Button variant="outlined" color="default" onClick={terminateSession}>
-							Cancel Vote
+						<Button
+							className={classes.cancelBtn}
+							variant="outlined"
+							onClick={terminateSession}
+							startIcon={<ClearRoundedIcon />}
+						>
+							Cancel
 						</Button>
 					</div>
 				</div>

@@ -1,20 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTheme } from '@material-ui/core/styles';
-import Switch from '@material-ui/core/Switch';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import SaveIcon from '@material-ui/icons/Save';
-import MenuIcon from '@material-ui/icons/Menu';
-import AddIcon from '@material-ui/icons/Add';
-import { Link } from 'react-router-dom';
 import { CustomThemeContext } from './contexts/CustomThemeContext';
 import { MovieListsContext } from './contexts/MovieListsContext';
 import { VoteSessionContext } from './contexts/VoteSessionContext';
 import useStyles from './styles/NavbarStyles';
-import { withRouter } from 'react-router';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -31,7 +22,6 @@ export default function MovieVoterNav() {
 	const numSelected = selectedMovies.length;
 	const theme = useTheme();
 	const classes = useStyles(theme);
-	const { isDarkMode, toggleTheme } = useContext(CustomThemeContext);
 	const [ openVotedDialog, setOpenVotedDialog ] = useState(false);
 	const [ openTiebreakerDialog, setOpenTieBreakerDialog ] = useState(false);
 
@@ -66,8 +56,6 @@ export default function MovieVoterNav() {
 			<Prompt
 				when={isLeader && stage !== 'terminate'}
 				message={(location, action) => {
-					console.log(location);
-					console.log(action);
 					return 'Leaving this page will close the voting lobby. Are you sure you want to continue?';
 				}}
 			/>
@@ -85,13 +73,14 @@ export default function MovieVoterNav() {
 						color="secondary"
 						onClick={handleVote}
 						startIcon={<CheckRoundedIcon />}
+						disabled={numSelected !== voteLimit}
 					>
 						Submit
 					</Button>
 					<Button
-						className={classes.navButton}
-						variant="contained"
-						color="primary"
+						className={classes.editBtn}
+						variant="outlined"
+						color="default"
 						startIcon={<ClearRoundedIcon />}
 						onClick={clearSelectedMovies}
 					>
@@ -99,7 +88,7 @@ export default function MovieVoterNav() {
 					</Button>
 				</div>
 			</CSSTransition>
-			<Dialog open={openVotedDialog} disableEscapeKeyDown disableBackdropClick>
+			<Dialog className={classes.voteDialog} open={openVotedDialog} disableEscapeKeyDown disableBackdropClick>
 				<DialogTitle style={{ textAlign: 'center' }}>
 					<h2>Vote Submitted!</h2>
 				</DialogTitle>
@@ -111,6 +100,7 @@ export default function MovieVoterNav() {
 				</DialogContent>
 			</Dialog>
 			<Dialog
+				className={classes.voteDialog}
 				open={openTiebreakerDialog}
 				onClose={closeTiebreakerDialog}
 				disableEscapeKeyDown

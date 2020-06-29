@@ -1,20 +1,57 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import { MovieListsContext } from './contexts/MovieListsContext';
+import { UserDataContext } from './contexts/UserDataContext';
 import useStyles from './styles/NavbarStyles';
 import SaveListDialog from './SaveListDialog';
 import { CSSTransition } from 'react-transition-group';
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
+import { useRouteMatch } from 'react-router-dom';
 
-export default function MovieViewerNav({ movieList, edit, toggleEdit }) {
+export default function MovieViewerNav() {
+	const {
+		selectedMovies,
+		updateMovieList,
+		editList,
+		setEditList,
+		movieLists,
+		selectMovieList,
+		clearSelectedMovies
+	} = useContext(MovieListsContext);
+	const match = useRouteMatch('/movie-lists/:listId');
+	const movieList = movieLists.find((ml) => ml.id === match.params.listId);
 	const theme = useTheme();
 	const classes = useStyles(theme);
-	const { selectedMovies, updateMovieList } = useContext(MovieListsContext);
+	const { notifyUser } = useContext(UserDataContext);
 	const numSelected = selectedMovies.length;
 	const [ openSave, setOpenSave ] = useState(false);
-	const handleListSave = () => updateMovieList(movieList.id);
+
+	const toggleEdit = () => {
+		if (editList) {
+			setEditList('');
+			clearSelectedMovies();
+		} else {
+			selectMovieList(movieList.id);
+			setEditList(movieList.id);
+		}
+	};
+
+	const handleListSave = () => {
+		updateMovieList(movieList.id);
+		toggleEdit();
+		notifyUser({ severity: 'success', message: `Updated ${movieList.name}` });
+	};
+
+	useEffect(() => {
+		return () => {
+			setEditList('');
+			clearSelectedMovies();
+		};
+	}, []);
 
 	return (
 		<React.Fragment>
@@ -27,9 +64,8 @@ export default function MovieViewerNav({ movieList, edit, toggleEdit }) {
 						</span>
 					</Typography>
 					<Button
-						className={classes.navButton}
+						className={`${classes.navButton} ${classes.saveBtn}`}
 						variant="contained"
-						color="secondary"
 						onClick={handleListSave}
 						startIcon={<SaveIcon />}
 					>
@@ -37,8 +73,14 @@ export default function MovieViewerNav({ movieList, edit, toggleEdit }) {
 					</Button>
 				</div>
 			</CSSTransition>
-			<Button className={classes.editBtn} variant="contained" onClick={toggleEdit}>
-				{edit ? 'Cancel' : 'Edit'}
+			<Button
+				className={classes.editBtn}
+				variant="outlined"
+				color="default"
+				onClick={toggleEdit}
+				startIcon={editList ? <ClearRoundedIcon /> : <EditRoundedIcon />}
+			>
+				{editList ? 'Cancel' : 'Edit'}
 			</Button>
 
 			<SaveListDialog open={openSave} setOpen={setOpenSave} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -8,13 +8,21 @@ import useStyles from './styles/NavbarStyles';
 import SaveListDialog from './SaveListDialog';
 import { CSSTransition } from 'react-transition-group';
 import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
+import SaveOptionsDialog from './SaveOptionsDialog';
+import { MovieListsContext } from './contexts/MovieListsContext';
+import AddToListDialog from './AddToListDialog';
 
-export default function MovieFinderNav({ selectedMovies, clearSelectedMovies }) {
+export default function MovieFinderNav() {
+	const { selectedMovies, clearSelectedMovies, movieLists } = useContext(MovieListsContext);
 	const numSelected = selectedMovies.length;
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const [ openSave, setOpenSave ] = useState(false);
-	const handleOpenSave = () => setOpenSave(true);
+	const [ stage, setStage ] = useState('');
+	const handleOpenSave = () => {
+		if (movieLists.length) setStage('options');
+		else setStage('newList');
+	};
 
 	return (
 		<React.Fragment>
@@ -27,7 +35,7 @@ export default function MovieFinderNav({ selectedMovies, clearSelectedMovies }) 
 						</span>
 					</Typography>
 					<Button
-						className={classes.navButton}
+						className={classes.saveBtn}
 						variant="contained"
 						color="secondary"
 						onClick={handleOpenSave}
@@ -36,9 +44,8 @@ export default function MovieFinderNav({ selectedMovies, clearSelectedMovies }) 
 						Save
 					</Button>
 					<Button
-						className={classes.navButton}
-						variant="contained"
-						color="default"
+						className={classes.editBtn}
+						variant="outlined"
 						onClick={clearSelectedMovies}
 						startIcon={<ClearRoundedIcon />}
 					>
@@ -46,7 +53,9 @@ export default function MovieFinderNav({ selectedMovies, clearSelectedMovies }) 
 					</Button>
 				</div>
 			</CSSTransition>
-			<SaveListDialog open={openSave} setOpen={setOpenSave} />
+			<SaveOptionsDialog open={stage === 'options'} setStage={setStage} />
+			<SaveListDialog open={stage === 'newList'} setStage={setStage} />
+			<AddToListDialog open={stage === 'addToList'} setStage={setStage} />
 		</React.Fragment>
 	);
 }

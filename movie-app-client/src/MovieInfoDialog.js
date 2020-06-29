@@ -1,9 +1,7 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
@@ -13,14 +11,15 @@ import CloseIcon from '@material-ui/icons/Close';
 import MovieRatings from './MovieRatings';
 import useStyles from './styles/MovieInfoDialogStyles';
 
-export default function MovieInfoDialog({ showInfo, closeInfo, movieInfo }) {
+export default function MovieInfoDialog(props) {
+	const { showInfo, closeInfo, movieInfo } = props;
 	const theme = useTheme();
-	const classes = useStyles(theme);
+	const classes = useStyles(props);
 	const releaseDate = new Date(movieInfo.release_date);
 	return (
 		<Dialog open={showInfo} onClose={closeInfo} fullWidth maxWidth={'lg'}>
 			<Box className={classes.infoDialog}>
-				<img className={classes.infoPoster} src={`https://image.tmdb.org/t/p/w500${movieInfo.poster_path}`} />
+				<div className={classes.infoPoster} />
 				<DialogContent className={classes.DialogContent}>
 					<DialogTitle className={classes.DialogTitle} disableTypography={true}>
 						<Typography variant="h4">{movieInfo.title}</Typography>

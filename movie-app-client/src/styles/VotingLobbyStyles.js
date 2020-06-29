@@ -4,24 +4,49 @@ export default makeStyles((theme) => ({
 	root: {
 		width: '100%',
 		maxWidth: '1000px',
+		marginLeft: 'auto',
+		marginRight: 'auto',
 		display: 'flex',
 		flexWrap: 'wrap',
 		flexDirection: 'column',
-		marginTop: '10vh',
+		marginTop: '5vh',
+		marginBottom: '10vh',
 		alignItems: 'center',
-		'& h1': {
-			fontSize: '3rem',
-			margin: '3rem 2rem',
+		'& header': {
 			textAlign: 'center',
-			[theme.breakpoints.down('xs')]: {
-				margin: '0 1rem 1rem 1rem',
-				fontSize: '1.5rem'
+			margin: '2rem',
+			'& h1': {
+				fontFamily: theme.fonts.header,
+				color: theme.palette.text.header,
+				fontSize: '3rem',
+				textAlign: 'center',
+				marginBottom: '0.2rem',
+				[theme.breakpoints.down('xs')]: {
+					fontSize: '2rem',
+					marginBottom: '0.25rem'
+				}
+			},
+			'& h2': {
+				color: theme.palette.text.secondary,
+				marginBottom: '1rem'
 			}
 		},
+
 		[theme.breakpoints.down('sm')]: {
 			marginTop: 0,
-			'& h1': {
-				margin: '2rem 2rem 1rem 2rem'
+			'& header': {
+				margin: '2rem 2rem 1rem 2rem',
+				'& h1': {
+					marginBottom: '0.5rem'
+				}
+			}
+		},
+		[theme.breakpoints.down('xs')]: {
+			'& header': {
+				margin: '0 1rem 0.5rem 1rem',
+				'& h2': {
+					fontSize: '1.15rem'
+				}
 			}
 		}
 	},
@@ -30,6 +55,7 @@ export default makeStyles((theme) => ({
 		alignItems: 'center',
 		justifyContent: 'center',
 		flexWrap: 'wrap',
+		marginBottom: '0.5rem',
 		'& span': {
 			margin: 'auto 1rem',
 			fontSize: '1.35rem',
@@ -38,11 +64,18 @@ export default makeStyles((theme) => ({
 			}
 		}
 	},
+	shareBtn: {
+		borderRadius: '1rem',
+		marginLeft: 'auto',
+		marginRight: 'auto'
+	},
 	instructions: {
 		width: '100%',
 		maxWidth: '600px',
 		textAlign: 'left',
-		margin: '2rem auto',
+		margin: '1rem auto 2rem auto',
+		display: 'flex',
+		flexDirection: 'column',
 		'& h3': {
 			fontSize: '1.5rem',
 			padding: '0.5rem 1rem'
@@ -52,7 +85,7 @@ export default makeStyles((theme) => ({
 			fontSize: '1.15rem'
 		},
 		[theme.breakpoints.down('xs')]: {
-			margin: '0.5rem 0 0 0',
+			margin: '0.5rem 0 1rem 0',
 			'& h3': {
 				fontSize: '1.2rem'
 			},
@@ -78,5 +111,15 @@ export default makeStyles((theme) => ({
 				margin: 'auto 0.5rem'
 			}
 		}
+	},
+	startVoteBtn: {
+		'&.Mui-disabled': {
+			color: theme.palette.text.secondary,
+			backgroundColor: `rgba(51, 51, 51, ${theme.darkMode ? '0.5' : '0.2'})`
+		}
+	},
+	cancelBtn: {
+		color: theme.palette.text.primary,
+		borderColor: theme.palette.text.secondary
 	}
 }));

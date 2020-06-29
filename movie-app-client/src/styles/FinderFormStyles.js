@@ -5,9 +5,24 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
-		maxWidth: '1200px',
+		width: '100%',
 		marginLeft: 'auto',
-		marginRight: 'auto'
+		marginRight: 'auto',
+		['@media (min-width: 600px)']: {
+			maxWidth: 'calc(450px + 4rem)'
+		},
+		['@media (min-width: 775px)']: {
+			maxWidth: 'calc(600px + 6rem)'
+		},
+		['@media (min-width: 957px)']: {
+			maxWidth: 'calc(942px + 8rem)'
+		},
+		['@media (min-width: 960px)']: {
+			maxWidth: 'calc(600px + 4rem)'
+		},
+		['@media (min-width: 1124px)']: {
+			maxWidth: 'calc(900px + 8rem)'
+		}
 	},
 	header: {
 		height: '20vh',
@@ -17,15 +32,25 @@ export default makeStyles((theme) => ({
 	},
 	headerText: {
 		fontFamily: theme.fonts.header,
+		color: theme.palette.text.header,
 		fontWeight: 200,
 		letterSpacing: '0.35rem',
 		textAlign: 'center',
-		fontSize: '3rem'
+		fontSize: '4rem',
+		[theme.breakpoints.down('xs')]: {
+			fontSize: '3rem'
+		}
+	},
+	panelContainer: {
+		maxWidth: '100%'
 	},
 	formPanel: {
-		backgroundColor: theme.palette.background.secondary,
+		backgroundColor: theme.palette.background.primary,
+		// backgroundColor: 'rgba(38, 36, 40, 0.75)',
 		color: theme.palette.text.primary,
 		width: '95vw',
+		maxWidth: '100%',
+		borderRadius: '0.5rem',
 		'& .MuiExpansionPanelDetails-root': {
 			flexDirection: 'row',
 			flexWrap: 'wrap',
@@ -57,6 +82,7 @@ export default makeStyles((theme) => ({
 			flexGrow: 1,
 			'& .MuiInputBase-root': {
 				borderRadius: '2rem 0 0 2rem',
+				color: theme.palette.text.primary,
 				'&.Mui-focused': {}
 			}
 		}
@@ -81,7 +107,6 @@ export default makeStyles((theme) => ({
 	},
 	discoverSelect: {
 		flexGrow: 1,
-		marginRight: theme.spacing(3),
 		'& .MuiSelect-root': {
 			paddingLeft: theme.spacing(2),
 			color: theme.palette.text.primary

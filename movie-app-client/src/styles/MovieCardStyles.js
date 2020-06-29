@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import ImageNotFound from '../assets/images/image-not-found.svg';
 export default makeStyles((theme) => ({
 	root: (props) => ({
 		width: '300px',
@@ -8,6 +9,8 @@ export default makeStyles((theme) => ({
 		transition: 'all 0.2s ease-in-out',
 		marginLeft: 'auto',
 		marginRight: 'auto',
+		borderRadius: '1rem',
+		backgroundColor: theme.palette.background.primary,
 		'&:hover&:not($selected)&:not($disabled)& $selectedIcon': {
 			'@media(pointer: fine)': {
 				opacity: props.toggleAble ? 0.5 : 0
@@ -17,13 +20,15 @@ export default makeStyles((theme) => ({
 	gridItem: {
 		display: 'flex',
 		boxSizing: 'content-box',
-		margin: '1rem'
+		margin: '2rem'
 	},
 	poster: (props) => ({
 		width: '300px',
 		height: '450px',
 		objectFit: 'cover',
-		backgroundImage: `url(https://image.tmdb.org/t/p/w300${props.movie.poster_path})`
+		backgroundImage: `url(https://image.tmdb.org/t/p/w300${props.movie.poster_path}), url(${ImageNotFound})`,
+		backgroundSize: '300px 450px, 100px 100px',
+		backgroundPosition: 'center'
 	}),
 	cardContent: {
 		padding: '1rem !important',
@@ -39,11 +44,13 @@ export default makeStyles((theme) => ({
 		paddingBottom: '1rem',
 		display: 'flex',
 		alignItems: 'flex-start',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		width: '100%'
 	},
 	icon: {
 		width: '30px',
-		height: '30px'
+		height: '30px',
+		zIndex: 2
 	},
 
 	selected: (props) => ({
@@ -54,20 +61,47 @@ export default makeStyles((theme) => ({
 	}),
 
 	[theme.breakpoints.down('sm')]: {
-		root: {
-			width: '150px',
-			maxWidth: '150px'
+		gridItem: {
+			margin: '1rem'
 		},
+		root: (props) => ({
+			width: '150px',
+			maxWidth: '150px',
+			borderRadius: '0.5rem',
+			'&:before': {
+				content: `"${props.movie.title}"`,
+				display: 'block',
+				position: 'absolute',
+				top: 90,
+				left: 5,
+				width: '140px',
+				textAlign: 'center',
+				color: '#777',
+				// fontWeight: 'bold',
+
+				fontSize: '1.0rem',
+				zIndex: 1
+			}
+		}),
 		poster: (props) => ({
+			zIndex: 1,
 			width: '150px',
 			height: '225px',
-			backgroundImage: `url(https://image.tmdb.org/t/p/w154${props.movie.poster_path})`
+			backgroundImage: `url(https://image.tmdb.org/t/p/w154${props.movie.poster_path}), url(${ImageNotFound})`,
+			backgroundSize: '150px 225px, 50px 50px',
+			backgroundPosition: 'center, 50px 30px'
 		}),
 		cardContent: {
-			padding: '0.5rem !important'
+			padding: '0.5rem !important',
+			justifyContent: 'center'
 		},
 		title: {
-			fontSize: '1rem'
+			padding: 0,
+			flexDirection: 'row-reverse',
+			marginBottom: 0,
+			'& h2': {
+				display: 'none'
+			}
 		},
 		icon: {
 			position: 'absolute',
@@ -75,7 +109,8 @@ export default makeStyles((theme) => ({
 			top: '-45px',
 			backgroundColor: 'white',
 			borderRadius: '50%',
-			color: 'grey'
+			color: 'grey',
+			opacity: 0.5
 		}
 	},
 
@@ -96,6 +131,7 @@ export default makeStyles((theme) => ({
 	},
 
 	selectedIcon: (props) => ({
+		zIndex: 2,
 		position: 'absolute',
 		top: 10,
 		right: 10,
