@@ -18,6 +18,7 @@ export default function MovieRatings(props) {
 									<img
 										className={classes.icon}
 										src="https://img.icons8.com/color/48/000000/imdb.png"
+										alt="IMDb icon"
 									/>
 									{r['Value']}
 								</span>
@@ -28,6 +29,7 @@ export default function MovieRatings(props) {
 									<img
 										className={classes.icon}
 										src="https://img.icons8.com/color/48/000000/tomato.png"
+										alt="Tomato icon"
 									/>
 									{r['Value']}
 								</span>

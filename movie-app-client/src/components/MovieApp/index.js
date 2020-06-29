@@ -15,7 +15,6 @@ export default function MovieApp() {
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const location = useLocation();
-	console.log(theme.mixins.toolbar);
 	return (
 		<div className={classes.root}>
 			<CustomNavWindow>

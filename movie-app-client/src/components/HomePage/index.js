@@ -48,7 +48,7 @@ export default function HomePage() {
 					</Typography>
 					<Divider className={classes.divider} />
 				</Grid>
-				{movieLists.map((list, i) => <MovieListItem movieList={list} />)}
+				{movieLists.map((list, i) => <MovieListItem key={`listItem-${list.id}`} movieList={list} />)}
 				<Grid className={classes.spacer} item xs={'auto'} />
 				<Grid className={classes.spacer} item xs={'auto'} />
 			</Grid>

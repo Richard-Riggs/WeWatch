@@ -19,12 +19,12 @@ export default makeStyles((theme) => ({
 		margin: '2rem'
 	},
 	gridSkeletonPoster: {
-		backgroundColor: 'rgba(0,0,0,0.25)',
+		backgroundColor: theme.darkMode ? 'rgba(120,120,120,0.25)' : 'rgba(0,0,0,0.25)',
 		width: '300px',
 		height: '450px'
 	},
 	gridSkeletonText: {
-		backgroundColor: 'rgba(0,0,0,0.25)',
+		backgroundColor: theme.darkMode ? 'rgba(120,120,120,0.25)' : 'rgba(0,0,0,0.25)',
 		width: '300px',
 		height: '100px',
 		marginTop: '1rem',

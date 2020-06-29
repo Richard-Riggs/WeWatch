@@ -8,19 +8,19 @@ export default makeStyles((theme) => ({
 		width: '100%',
 		marginLeft: 'auto',
 		marginRight: 'auto',
-		['@media (min-width: 600px)']: {
+		'@media (min-width: 600px)': {
 			maxWidth: 'calc(450px + 4rem)'
 		},
-		['@media (min-width: 775px)']: {
+		'@media (min-width: 775px)': {
 			maxWidth: 'calc(600px + 6rem)'
 		},
-		['@media (min-width: 957px)']: {
+		'@media (min-width: 957px)': {
 			maxWidth: 'calc(942px + 8rem)'
 		},
-		['@media (min-width: 960px)']: {
+		'@media (min-width: 960px)': {
 			maxWidth: 'calc(600px + 4rem)'
 		},
-		['@media (min-width: 1124px)']: {
+		'@media (min-width: 1124px)': {
 			maxWidth: 'calc(900px + 8rem)'
 		}
 	},

@@ -1,7 +1,7 @@
 import React from 'react';
 import useStyles from './styles';
 
-export default function MovieListAvatar({ list }) {
+export default function MovieListAvatar({ list, id }) {
 	const classes = useStyles();
 	const posters = list.slice(0, 7).map((movie) => `https://image.tmdb.org/t/p/w45${movie.poster_path}`);
 	const getPosterImgs = (posters) => {
@@ -11,6 +11,7 @@ export default function MovieListAvatar({ list }) {
 			const idx = i % posters.length;
 			posterImgs.push(
 				<div
+					key={`miniposter-${id}-${i}`}
 					className={classes.miniPoster}
 					style={{
 						backgroundImage: `url(${posters[idx]})`,

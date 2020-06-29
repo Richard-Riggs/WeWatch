@@ -16,7 +16,6 @@ export default function MovieFinder() {
 	const [ isLoading, setIsLoading ] = useState(false);
 	const [ query, setQuery ] = useState({});
 	const [ resultsPage, setResultsPage ] = useState(0);
-	const [ totalPages, setTotalPages ] = useState(0);
 	const [ showSelected, setShowSelected ] = useState(false);
 	const [ hasMore, setHasMore ] = useState(false);
 	const toggleShowSelected = () => setShowSelected(!showSelected);
@@ -30,7 +29,6 @@ export default function MovieFinder() {
 			});
 			if (response.data.movies.length) setMovies([ ...movies, ...response.data.movies ]);
 			setResultsPage(nextPage);
-			setTotalPages(response.data.totalPages);
 			setHasMore(!(movies.length >= 500) && response.data.totalPages > 0 && nextPage < response.data.totalPages);
 			setIsLoading(false);
 		}
@@ -40,7 +38,6 @@ export default function MovieFinder() {
 	// BEFORE processing the new query. Otherwise, the old movies are not removed.
 	useEffect(
 		() => {
-			setTotalPages(0);
 			setResultsPage(0);
 			setMovies([]);
 		},

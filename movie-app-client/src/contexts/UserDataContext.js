@@ -12,7 +12,7 @@ function Alert(props) {
 
 export const UserDataContext = createContext();
 export function UserDataProvider({ children }) {
-	const [ clientId, setClientId ] = useLocalStorageState('clientId', uuid());
+	const [ clientId ] = useLocalStorageState('clientId', uuid());
 	const history = useHistory();
 	const [ notification, setNotification ] = useState({});
 	const [ openSnackbar, setOpenSnackbar ] = useState(false);

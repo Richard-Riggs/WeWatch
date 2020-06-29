@@ -25,6 +25,7 @@ export default function StartVoteDialog({ open, setOpen }) {
 				{movieLists.length ? (
 					movieLists.map((ml) => (
 						<ListItem
+							key={`start-vote-${ml.id}`}
 							button
 							onClick={() => {
 								initiateVote(ml);

@@ -24,7 +24,7 @@ function MovieListItem({ movieList }) {
 		<Grid className={classes.GridItem} item xs={'auto'}>
 			<div className={classes.root}>
 				<header>
-					<MovieListAvatar list={movieList.movies} />
+					<MovieListAvatar list={movieList.movies} id={movieList.id} />
 					<div className={classes.overlay}>
 						<h1 className={classes.movieListItemTitle}>{movieList.name}</h1>
 					</div>
@@ -33,7 +33,7 @@ function MovieListItem({ movieList }) {
 					<div className={classes.contentHeader}>
 						<span>{movieList.movies.length} Movies</span>
 						<IconButton onClick={handleDelete} size="small">
-							<DeleteIcon color="default" fontSize="small" />
+							<DeleteIcon fontSize="small" />
 						</IconButton>
 					</div>
 					<div className={classes.actionBtns}>
