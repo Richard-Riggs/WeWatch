@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import useToggleState from './hooks/useToggleState';
 import { useTheme } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
@@ -9,7 +9,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import { CustomThemeContext } from './contexts/CustomThemeContext';
 import useStyles from './styles/NavbarStyles';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -30,6 +29,7 @@ import HelpRoundedIcon from '@material-ui/icons/HelpRounded';
 import MovieFinderNav from './MovieFinderNav';
 import MovieVoterNav from './MovieVoterNav';
 import MovieViewerNav from './MovieViewerNav';
+import _ from 'lodash';
 
 export default function Navbar(props) {
 	const theme = useTheme();
@@ -37,14 +37,24 @@ export default function Navbar(props) {
 	const { isDarkMode, toggleTheme } = useContext(CustomThemeContext);
 	const [ openDrawer, toggleOpenDrawer ] = useToggleState(false);
 	const [ openVoteDialog, setOpenVoteDialog ] = useState(false);
+	const [ trigger, setTrigger ] = useState(false);
 	const handleVoteOpen = () => {
 		toggleOpenDrawer();
 		setOpenVoteDialog(true);
 	};
-	const trigger = useScrollTrigger({
-		disableHysteresis: true,
-		threshold: 0
-	});
+
+	const updateTrigger = (e) => {
+		if (e.target.scrollTop > 0) {
+			setTrigger(true);
+		} else {
+			setTrigger(false);
+		}
+	};
+
+	useEffect(() => {
+		const customScroller = document.getElementById('scroller');
+		customScroller.addEventListener('scroll', _.throttle(updateTrigger, 200));
+	}, []);
 
 	return (
 		<div className={classes.root}>

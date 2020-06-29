@@ -38,13 +38,6 @@ export default function MovieFinder() {
 		}
 	};
 
-	// Clears movie selection when leaving page
-	useEffect(() => {
-		return () => {
-			clearSelectedMovies();
-		};
-	}, []);
-
 	// This useEffect chain is used to ensure that the movies and resultsPage state resets
 	// BEFORE processing the new query. Otherwise, the old movies are not removed.
 	useEffect(
@@ -86,6 +79,7 @@ export default function MovieFinder() {
 				dataLength={movies.length}
 				next={fetchMovies}
 				hasMore={hasMore && Object.keys(query).length && !showSelected}
+				scrollableTarget="scroller"
 			>
 				{Object.keys(query).length > 0 &&
 				query.type === 'search' &&
