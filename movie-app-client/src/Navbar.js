@@ -29,31 +29,27 @@ import HelpRoundedIcon from '@material-ui/icons/HelpRounded';
 import MovieFinderNav from './MovieFinderNav';
 import MovieVoterNav from './MovieVoterNav';
 import MovieViewerNav from './MovieViewerNav';
-import _ from 'lodash';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
-export default function Navbar(props) {
+export default function Navbar() {
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const { isDarkMode, toggleTheme } = useContext(CustomThemeContext);
 	const [ openDrawer, toggleOpenDrawer ] = useToggleState(false);
 	const [ openVoteDialog, setOpenVoteDialog ] = useState(false);
-	const [ trigger, setTrigger ] = useState(false);
+	const [ target, setTarget ] = useState();
 	const handleVoteOpen = () => {
 		toggleOpenDrawer();
 		setOpenVoteDialog(true);
 	};
 
-	const updateTrigger = (e) => {
-		if (e.target.scrollTop > 0) {
-			setTrigger(true);
-		} else {
-			setTrigger(false);
-		}
-	};
+	const trigger = useScrollTrigger({
+		threshold: 0,
+		target: target
+	});
 
 	useEffect(() => {
-		const customScroller = document.getElementById('scroller');
-		customScroller.addEventListener('scroll', _.throttle(updateTrigger, 200));
+		setTarget(document.getElementById('scroller') || window);
 	}, []);
 
 	return (
@@ -142,7 +138,7 @@ export default function Navbar(props) {
 					</NavSwitch>
 				</Toolbar>
 			</AppBar>
-			<ScrollToTop />
+			<ScrollToTop trigger={trigger} />
 			<StartVoteDialog open={openVoteDialog} setOpen={setOpenVoteDialog} />
 		</div>
 	);

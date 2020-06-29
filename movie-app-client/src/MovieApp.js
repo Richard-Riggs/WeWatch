@@ -12,6 +12,7 @@ import MovieVoter from './MovieVoter';
 import Page from './Page';
 import Navbar from './Navbar';
 import { Scrollbars } from 'react-custom-scrollbars';
+import CustomNavWindow from './CustomNavWindow';
 
 export default function MovieApp() {
 	const theme = useTheme();
@@ -20,76 +21,68 @@ export default function MovieApp() {
 	console.log(theme.mixins.toolbar);
 	return (
 		<div className={classes.root}>
-			<Navbar />
-			<div className={classes.appWindow}>
-				<Toolbar />
-				<Scrollbars
-					renderView={(props) => <div {...props} id="scroller" />}
-					renderThumbVertical={(props) => <div {...props} className={classes.verticalScroll} />}
-					autoHide
-				>
-					<TransitionGroup>
-						<CSSTransition
-							key={location.key}
-							classNames="page"
-							timeout={{
-								enter: 300,
-								exit: 300
-							}}
-						>
-							<Switch location={location}>
-								<Route
-									exact
-									path="/"
-									render={(routeProps) => (
+			<CustomNavWindow>
+				<TransitionGroup>
+					<CSSTransition
+						key={location.key}
+						classNames="page"
+						timeout={{
+							enter: 300,
+							exit: 300
+						}}
+					>
+						<Switch location={location}>
+							<Route
+								exact
+								path="/"
+								render={(routeProps) => (
+									<Page>
+										<HomePage {...routeProps} />
+									</Page>
+								)}
+							/>
+							<Route
+								exact
+								path="/about"
+								render={(routeProps) => (
+									<Page>
+										<AboutPage />
+									</Page>
+								)}
+							/>
+							<Route
+								exact
+								path="/find"
+								render={(routeProps) => (
+									<Page>
+										<MovieFinder {...routeProps} />
+									</Page>
+								)}
+							/>
+							<Route
+								exact
+								path="/movie-lists/:listId"
+								render={(routeProps) => (
+									<Page>
+										<MovieListViewer {...routeProps} />
+									</Page>
+								)}
+							/>
+							<Route
+								exact
+								path="/vote/:sessionId"
+								render={(routeProps) => {
+									return (
 										<Page>
-											<HomePage {...routeProps} />
+											<MovieVoter {...routeProps} />
 										</Page>
-									)}
-								/>
-								<Route
-									exact
-									path="/about"
-									render={(routeProps) => (
-										<Page>
-											<AboutPage />
-										</Page>
-									)}
-								/>
-								<Route
-									exact
-									path="/find"
-									render={(routeProps) => (
-										<Page>
-											<MovieFinder {...routeProps} />
-										</Page>
-									)}
-								/>
-								<Route
-									exact
-									path="/movie-lists/:listId"
-									render={(routeProps) => (
-										<Page>
-											<MovieListViewer {...routeProps} />
-										</Page>
-									)}
-								/>
-								<Route
-									exact
-									path="/vote/:sessionId"
-									render={(routeProps) => {
-										return (
-											<Page>
-												<MovieVoter {...routeProps} />
-											</Page>
-										);
-									}}
-								/>
-							</Switch>
-						</CSSTransition>
-					</TransitionGroup>
-				</Scrollbars>
-			</div>
+									);
+								}}
+							/>
+						</Switch>
+					</CSSTransition>
+				</TransitionGroup>
+			</CustomNavWindow>
 		</div>
 	);
 }

@@ -15,15 +15,5 @@ export default makeStyles((theme) => ({
 			zIndex: -10,
 			background: theme.palette.background.gradient
 		}
-	},
-	appWindow: {
-		display: 'flex',
-		flexDirection: 'column',
-		height: '100vh',
-		width: '100vw'
-	},
-	verticalScroll: {
-		backgroundColor: theme.darkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)',
-		borderRadius: '3px'
 	}
 }));
