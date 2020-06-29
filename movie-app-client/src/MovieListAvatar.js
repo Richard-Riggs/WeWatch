@@ -7,10 +7,16 @@ export default function MovieListAvatar({ list }) {
 	const getPosterImgs = (posters) => {
 		const posterImgs = [];
 		for (let i = 0; i < 7; i++) {
-			// Loops over array until posterImgs contains 7 elements
-
-			const idx = Math.ceil((i / posters.length - Math.floor(i / posters.length)) * posters.length);
-			posterImgs.push(<img className={classes.miniPoster} src={posters[idx]} />);
+			// Iterates over array until posterImgs contains 7 elements
+			const idx = i % posters.length;
+			posterImgs.push(
+				<div
+					className={classes.miniPoster}
+						backgroundImage: `url(${posters[idx]})`,
+						backgroundSize: '45px 67.5px'
+					}}
+				/>
+			);
 		}
 		return posterImgs;
 	};
