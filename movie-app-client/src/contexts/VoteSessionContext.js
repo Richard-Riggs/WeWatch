@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { MovieListsContext } from '../contexts/MovieListsContext';
-import { UserDataContext } from '../contexts/UserDataContext';
+import { MovieListsContext } from './MovieListsContext';
+import { UserDataContext } from './UserDataContext';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import io from 'socket.io-client';
 
