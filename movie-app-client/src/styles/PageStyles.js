@@ -6,8 +6,9 @@ export default makeStyles((theme) => ({
 		left: 0,
 		width: '100%'
 	},
-	offset: theme.mixins.toolbar,
-
+	PageContent: {
+		position: 'relative'
+	},
 	'@global': {
 		'.page-enter': {
 			transition: 'opacity 0.15s ease-in-out',

@@ -16,28 +16,28 @@ export default function MovieVoter({ history }) {
 			<TransitionGroup>
 				{stage === 'lobby' && (
 					<CSSTransition classNames="page" timeout={300}>
-						<Page>
+						<Page disableOffset>
 							<VotingLobby />
 						</Page>
 					</CSSTransition>
 				)}
 				{(stage === 'vote' || stage === 'revote') && (
 					<CSSTransition classNames="page" timeout={300}>
-						<Page>
+						<Page disableOffset>
 							<VoteGrid />
 						</Page>
 					</CSSTransition>
 				)}
 				{stage === 'results' && (
 					<CSSTransition classNames="page" timeout={300}>
-						<Page>
+						<Page disableOffset>
 							<VoteResults />
 						</Page>
 					</CSSTransition>
 				)}
 				{stage === 'error' && (
 					<CSSTransition classNames="page" timeout={300}>
-						<Page>
+						<Page disableOffset>
 							<h2>Error: {error}</h2>
 						</Page>
 					</CSSTransition>

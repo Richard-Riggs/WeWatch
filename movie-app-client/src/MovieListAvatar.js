@@ -12,6 +12,7 @@ export default function MovieListAvatar({ list }) {
 			posterImgs.push(
 				<div
 					className={classes.miniPoster}
+					style={{
 						backgroundImage: `url(${posters[idx]})`,
 						backgroundSize: '45px 67.5px'
 					}}
