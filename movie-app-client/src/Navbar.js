@@ -45,7 +45,8 @@ export default function Navbar() {
 
 	const trigger = useScrollTrigger({
 		threshold: 0,
-		target: target
+		target: target,
+		disableHysteresis: true
 	});
 
 	useEffect(() => {

@@ -23,7 +23,13 @@ export default function CustomNavWindow({ children }) {
 			return (
 				<React.Fragment>
 					<Navbar />
-					<NavbarOffset>{children}</NavbarOffset>
+					<NavbarOffset>
+						<div id="back-to-top-anchor" style={{ height: 0 }} />
+						{children}
+					</NavbarOffset>
+					{/*Bottomfill element is required to avoid unwanted whitespace at bottom of screen when the
+					bottom bar disappears on mobile browsers (e.g., Safari) */}
+					<div className={classes.bottomFill} />
 				</React.Fragment>
 			);
 		} else {
@@ -37,6 +43,7 @@ export default function CustomNavWindow({ children }) {
 								renderThumbVertical={(props) => <div {...props} className={classes.verticalScroll} />}
 								autoHide
 							>
+								<div id="back-to-top-anchor" />
 								{children}
 							</Scrollbars>
 						</NavbarOffset>
