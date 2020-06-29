@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { isBrowser } from 'react-device-detect';
 import axios from 'axios';
 import FinderForm from './FinderForm';
 import MovieList from './MovieList';
@@ -6,9 +7,6 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTheme } from '@material-ui/core/styles';
 import useStyles from './styles/MovieFinderStyles';
 import { MovieListsContext } from './contexts/MovieListsContext';
-import useToggleState from './hooks/useToggleState';
-import Navbar from './Navbar';
-import MovieFinderNav from './MovieFinderNav';
 
 export default function MovieFinder() {
 	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
@@ -48,6 +46,7 @@ export default function MovieFinder() {
 		},
 		[ query ]
 	);
+
 	useEffect(
 		() => {
 			if (movies.length === 0 && Object.keys(query).length) {
@@ -66,6 +65,13 @@ export default function MovieFinder() {
 		[ selectedMovies ]
 	);
 
+	// Clears movie selection when leaving page
+	useEffect(() => {
+		return () => {
+			clearSelectedMovies();
+		};
+	}, []);
+
 	return (
 		<div className={classes.root}>
 			<FinderForm
@@ -79,7 +85,7 @@ export default function MovieFinder() {
 				dataLength={movies.length}
 				next={fetchMovies}
 				hasMore={hasMore && Object.keys(query).length && !showSelected}
-				scrollableTarget="scroller"
+				scrollableTarget={isBrowser ? 'scroller' : ''}
 			>
 				{Object.keys(query).length > 0 &&
 				query.type === 'search' &&
