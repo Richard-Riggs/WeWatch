@@ -1,4 +1,4 @@
-# movie-app
+# WeWatch
 TODO:
 X Remove discover by 'trending' feature (not obviously different from 'popular'),
   only serves to confuse users
