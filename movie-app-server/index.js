@@ -13,7 +13,6 @@ app.use(bodyParser.json());
 //===================== ROUTES ===========================
 app.use('/api/movies', require('./routes/movies'));
 app.get('/*', (req, res) => res.sendFile('movie-app-client/build/index.html', { root: '../' }));
-// app.get('*', (req, res) => res.sendFile('../movie-app-client/build/index.html'));
 
 // ================== VOTING SESSIONS ====================
 const io = require('socket.io')(http);

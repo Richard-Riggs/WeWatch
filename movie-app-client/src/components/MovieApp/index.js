@@ -75,6 +75,14 @@ export default function MovieApp() {
 									);
 								}}
 							/>
+							<Route
+								path="*"
+								render={(routeProps) => (
+									<Page>
+										<HomePage {...routeProps} />
+									</Page>
+								)}
+							/>
 						</Switch>
 					</CSSTransition>
 				</TransitionGroup>
