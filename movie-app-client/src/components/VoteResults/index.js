@@ -25,7 +25,7 @@ export default function VoteResults() {
 			<div className={classes.winners}>
 				{results.winners.map((w) => (
 					<div className={classes.winner}>
-						<img src={`https://image.tmdb.org/t/p/w500${w.poster_path}`} />
+						<img src={`https://image.tmdb.org/t/p/w500${w.poster_path}`} alt={w.title} />
 					</div>
 				))}
 			</div>

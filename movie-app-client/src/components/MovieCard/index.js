@@ -28,7 +28,7 @@ function MovieCard(props) {
 	return (
 		<Grid className={classes.gridItem} onClick={handleCardClick} item xs="auto">
 			<Card
-				elevation={3}
+				elevation={8}
 				className={`${classes.root} ${selected && classes.selected} ${disabled && classes.disabled}`}
 			>
 				<CardMedia className={classes.poster} component="div" alt={title} title={title} />

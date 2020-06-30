@@ -50,7 +50,7 @@ export default function MovieFinder() {
 				(async () => await fetchMovies())();
 			}
 		},
-		[ movies ]
+		[ movies, fetchMovies ]
 	);
 
 	useEffect(

@@ -30,7 +30,7 @@ export default memo(function MovieList({ movies, isLoading, mode, selectLimit })
 				setMovieToToggle();
 			}
 		},
-		[ movieToToggle ]
+		[ movieToToggle, toggleMovie ]
 	);
 
 	return (

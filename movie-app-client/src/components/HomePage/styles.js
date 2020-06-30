@@ -51,13 +51,13 @@ export default makeStyles((theme) => ({
 		width: '355px',
 		maxWidth: '100%',
 		margin: '0 auto !important',
-		['@media (min-width: 387px)']: {
+		'@media (min-width: 387px)': {
 			maxWidth: '387px'
 		},
-		['@media (min-width: 742px)']: {
+		'@media (min-width: 742px)': {
 			maxWidth: '742px'
 		},
-		['@media (min-width: 1097px)']: {
+		'@media (min-width: 1097px)': {
 			maxWidth: '1097px'
 		}
 	},

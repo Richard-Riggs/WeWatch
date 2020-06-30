@@ -67,7 +67,7 @@ export default makeStyles((theme) => ({
 		root: (props) => ({
 			width: '150px',
 			maxWidth: '150px',
-			borderRadius: '0.5rem',
+			borderRadius: '0.75rem',
 			'&:before': {
 				content: `"${props.movie.title}"`,
 				display: 'block',

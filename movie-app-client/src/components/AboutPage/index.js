@@ -25,7 +25,6 @@ const Text = styled(Typography)(
 );
 
 export default function AboutPage() {
-	const theme = useTheme();
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>

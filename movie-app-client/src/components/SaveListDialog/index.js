@@ -64,14 +64,7 @@ function SaveListDialog({ open, setStage, history }) {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}>Cancel</Button>
-					<Button
-						className={classes.saveBtn}
-						color="primary"
-						startIcon={<SaveIcon />}
-						variant="contained"
-						color="secondary"
-						type="submit"
-					>
+					<Button className={classes.saveBtn} startIcon={<SaveIcon />} variant="contained" type="submit">
 						Save List
 					</Button>
 				</DialogActions>

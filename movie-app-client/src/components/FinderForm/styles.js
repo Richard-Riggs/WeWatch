@@ -50,7 +50,7 @@ export default makeStyles((theme) => ({
 		color: theme.palette.text.primary,
 		width: '95vw',
 		maxWidth: '100%',
-		borderRadius: '0.5rem',
+		borderRadius: '0.75rem !important',
 		'& .MuiExpansionPanelDetails-root': {
 			flexDirection: 'row',
 			flexWrap: 'wrap',
