@@ -41,7 +41,6 @@ export default makeStyles((theme) => ({
 			fontWeight: 400,
 			fontSize: '1.6rem',
 			textAlign: 'center',
-			letterSpacing: '0.05rem',
 			'& span': {
 				fontSize: '1.25em'
 			}

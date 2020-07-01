@@ -13,11 +13,9 @@ export default makeStyles((theme) => ({
 		justifyContent: 'center',
 		'& h1': {
 			color: theme.palette.text.header,
-			fontSize: '4rem',
+			fontSize: '5rem',
 			fontFamily: theme.fonts.header,
 			fontWeight: 200,
-			letterSpacing: '0.25rem',
-			marginRight: '-0.25rem',
 			'& span': {
 				fontSize: '1.25em'
 			}

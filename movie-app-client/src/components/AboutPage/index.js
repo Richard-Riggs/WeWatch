@@ -3,6 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Navbar from '../Navbar';
 import TMDbLogo from '../../assets/images/tmdbLogo.svg';
+import WeWatchLogo from '../../assets/images/WeWatch-margin-transparent-contained.svg';
+import WeWatchLogoDark from '../../assets/images/WeWatch-margin-transparent-contained-dark.svg';
 import useStyles from './styles';
 import { styled } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/core/styles';
@@ -26,14 +28,18 @@ const Text = styled(Typography)(
 
 export default function AboutPage() {
 	const classes = useStyles();
+	const { darkMode } = useTheme();
 	return (
 		<div className={classes.root}>
 			<Navbar />
 			<Box component="main" p={{ xs: 2, sm: 3 }} mt={{ xs: 0, sm: 4 }} maxWidth={800} mx="auto" mb="15vh">
 				<Box mb={5}>
-					<Text component="h2">
-						Welcome to W<span>E</span>W<span>ATCH</span>
-					</Text>
+					<div className={classes.header}>
+						<img src={darkMode ? WeWatchLogo : WeWatchLogoDark} />
+						<div className={classes.headerBackdrop}>
+							<div className={classes.screenBackground} />
+						</div>
+					</div>
 					<Text mt={3} textAlign={{ xs: 'center', sm: 'justify' }}>
 						<strong>WeWatch is an app for helping people find and select movies to watch.</strong> With an
 						ever-expanding range of digital streaming options at our fingertips, simply deciding what to
