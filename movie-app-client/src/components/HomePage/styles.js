@@ -25,13 +25,17 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'center',
-		marginTop: '2rem'
+		marginTop: '2rem',
+		'& button': {
+			borderRadius: '2rem !important'
+		}
 	},
 	headerBtn: {
 		margin: '0.5rem !important',
 		width: '180px',
 		maxHeight: '40px',
 		textDecoration: 'none',
+
 		'& button': {
 			width: '180px'
 		}
@@ -81,6 +85,13 @@ export default makeStyles((theme) => ({
 		'&.MuiDivider-root': {
 			backgroundColor: theme.palette.text.secondary,
 			opacity: 0.5
+		}
+	},
+	noList: {
+		paddingTop: '0 !important',
+		'& p': {
+			textAlign: 'center',
+			color: theme.palette.text.secondary
 		}
 	},
 	[theme.breakpoints.down('md')]: {

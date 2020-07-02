@@ -76,8 +76,8 @@ export default function AboutPage() {
 						<Text component="h3">4. Start the Vote</Text>
 						<Text>
 							When at least 2 people are in the lobby, click 'Start Vote' to begin the voting process.
-							Select the movies in the movie list you are most interested in watching and click 'Submit'.
-							The movie that receives the most votes wins!
+							Select the movies in the list you are most interested in watching and click 'Submit'. The
+							movie that receives the most votes wins!
 						</Text>
 					</Box>
 				</Box>

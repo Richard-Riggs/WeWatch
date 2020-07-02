@@ -48,7 +48,7 @@ export default function StartVoteDialog({ open, setOpen }) {
 					</ListItem>
 				)}
 				<Divider />
-				<ListItem button component={Link} to="/find">
+				<ListItem button component={Link} to="/find" onClick={handleClose}>
 					<ListItemAvatar>
 						<Avatar>
 							<AddIcon />

@@ -48,7 +48,14 @@ export default function HomePage() {
 					</Typography>
 					<Divider className={classes.divider} />
 				</Grid>
-				{movieLists.map((list, i) => <MovieListItem key={`listItem-${list.id}`} movieList={list} />)}
+				{movieLists.length ? (
+					movieLists.map((list, i) => <MovieListItem key={`listItem-${list.id}`} movieList={list} />)
+				) : (
+					<Grid className={classes.noList} item xs={'12'}>
+						<p>You don't have any movie lists yet!</p>
+					</Grid>
+				)}
+
 				<Grid className={classes.spacer} item xs={'auto'} />
 				<Grid className={classes.spacer} item xs={'auto'} />
 			</Grid>

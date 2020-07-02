@@ -21,14 +21,16 @@ export default makeStyles((theme) => ({
 	gridSkeletonPoster: {
 		backgroundColor: theme.darkMode ? 'rgba(120,120,120,0.25)' : 'rgba(0,0,0,0.25)',
 		width: '300px',
-		height: '450px'
+		height: '450px',
+		borderRadius: '1rem'
 	},
 	gridSkeletonText: {
 		backgroundColor: theme.darkMode ? 'rgba(120,120,120,0.25)' : 'rgba(0,0,0,0.25)',
 		width: '300px',
 		height: '100px',
 		marginTop: '1rem',
-		flexGrow: '1'
+		flexGrow: '1',
+		borderRadius: '1rem'
 	},
 	[theme.breakpoints.down('sm')]: {
 		cardSpacer: {
@@ -41,11 +43,14 @@ export default makeStyles((theme) => ({
 		},
 		gridSkeletonPoster: {
 			width: '150px',
-			height: '225px'
+			height: '225px',
+			borderRadius: '0.75rem'
 		},
 		gridSkeletonText: {
 			width: '150px',
-			height: '70px'
+			height: '40px',
+			marginTop: '0.5rem',
+			borderRadius: '0.75rem'
 		}
 	},
 	[theme.breakpoints.down('xs')]: {

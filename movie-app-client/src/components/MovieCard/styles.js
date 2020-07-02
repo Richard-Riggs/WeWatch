@@ -77,8 +77,6 @@ export default makeStyles((theme) => ({
 				width: '140px',
 				textAlign: 'center',
 				color: '#777',
-				// fontWeight: 'bold',
-
 				fontSize: '1.0rem',
 				zIndex: 1
 			}
