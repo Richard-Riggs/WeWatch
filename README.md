@@ -5,6 +5,8 @@ ever-expanding range of digital streaming options at our fingertips, simply deci
 watch can be a time-consuming process. WeWatch helps groups of movie watchers overcome
 indecisiveness by streamlining the decision-making process.
 
+[Visit WeWatch Home Page](http://wewatch.us-east-1.elasticbeanstalk.com/)
+
 # How To Use WeWatch
 ### 1. Find Some Movies
 Use the discover feature to find popular movies in your favorite genres. If you have
