@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 import { v4 as uuid } from 'uuid';
 import { useHistory } from 'react-router-dom';
@@ -12,7 +12,7 @@ function Alert(props) {
 
 export const UserDataContext = createContext();
 export function UserDataProvider({ children }) {
-	const [ clientId, setClientId ] = useLocalStorageState('clientId', uuid());
+	const [ clientId ] = useLocalStorageState('clientId', uuid());
 	const history = useHistory();
 	const [ notification, setNotification ] = useState({});
 	const [ openSnackbar, setOpenSnackbar ] = useState(false);
