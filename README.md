@@ -30,6 +30,7 @@ WeWatch employs the following technologies:
 - Express
 - Material UI
 - JSS styling
+
 For a full list of the npm packages used in this project, please view the project.json files in the client and server directories.
 
 # Sources
