@@ -1,17 +1,17 @@
 //======================= MODULES =======================
-const express = require('express');
-const router = express.Router();
-const short = require('short-uuid');
+import express from 'express';
+import short from 'short-uuid';
+import { Server } from 'socket.io';
 const utils = require('../utils').voteUtils;
 
 //==================== SESSION DATA =====================
-const sessions = [];
+const sessions: any[] = [];
 
 //======================= SOCKETS =======================
-exports.sockets = (io) => {
+const sockets = (io: Server) => {
 	const vote = io.of('/vote');
 	vote.on('connection', (socket) => {
-		const sessionId = socket.handshake.query.sessionId;
+		const sessionId = socket.handshake.query.sessionId as string; // TODO: fix type
 		const clientId = socket.handshake.query.clientId;
 		const sessionData = sessions.find((s) => s.id === sessionId);
 
@@ -65,7 +65,7 @@ exports.sockets = (io) => {
 			});
 
 			socket.on('disconnect', () => {
-				sessionData.clients = [ ...sessionData.clients.filter((c) => c !== clientId) ];
+				sessionData.clients = [ ...sessionData.clients.filter((c: any) => c !== clientId) ]; // TODO: fix type
 				utils.updateUserCount(vote, sessionData);
 
 				// Terminates voting session if leader disconnects without emitting 'terminate'
@@ -89,6 +89,7 @@ exports.sockets = (io) => {
 };
 
 //======================= ROUTES =======================
+const router = express.Router();
 router.post('/', (req, res) => {
 	const session = {
 		id: short.generate(),
@@ -109,4 +110,4 @@ router.delete('/:sessionId', (req, res) => {
 	utils.deleteSession(sessions, req.params.sessionId);
 });
 
-exports.router = router;
+export default {sockets, router};
