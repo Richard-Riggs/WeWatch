@@ -1,4 +1,5 @@
-//======================= MODULES =======================
+// @ts-check
+
 const express = require('express');
 const router = express.Router();
 const short = require('short-uuid');

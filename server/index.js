@@ -1,25 +1,37 @@
-//======================= MODULES =======================
-require('dotenv').config();
+// @ts-check
+
+/**
+ * Modules
+ */
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
+const http = require('http');
+const socketIO = require('socket.io');
+const movieRouter = require('./routes/movies');
+const voteRouter = require('./routes/vote');
 
-//===================== SERVER SETUP ====================
+/**
+ * Server setup
+ */
 const app = express();
-const http = require('http').createServer(app);
+const httpServer = http.createServer(app);
+
 app.use(express.static('./dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-//===================== ROUTES ===========================
-app.use('/api/movies', require('./routes/movies'));
+// Routes
+app.use('/api/movies', movieRouter);
 app.get('/*', (req, res) => res.sendFile('dist/index.html', { root: '.' }));
 
 // ================== VOTING SESSIONS ====================
-const io = require('socket.io')(http);
-const vote = require('./routes/vote');
-const voteSockets = vote.sockets(io);
-app.use('/api/vote', vote.router);
+const socketServer = socketIO(http);
+const voteSockets = voteRouter.sockets(socketServer);
+app.use('/api/vote', voteRouter.router);
 
 //===================== START SERVER ====================
 const port = process.env.PORT || 8080;
-http.listen(port, () => console.log(`WeWatch server listening on port ${port} `));
+httpServer.listen(port, () => console.log(`WeWatch server listening on port ${port} `));
