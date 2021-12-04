@@ -1,8 +1,10 @@
+// @ts-check
+
 //======================= MODULES =======================
 const express = require('express');
 const router = express.Router();
-const short = require('short-uuid');
-const utils = require('../utils').voteUtils;
+const voteService = require('../services/votes/voteService');
+const socketUtil = require('../utils/socketUtils');
 
 //==================== SESSION DATA =====================
 const sessions = [];
@@ -11,76 +13,63 @@ const sessions = [];
 exports.sockets = (io) => {
 	const vote = io.of('/vote');
 	vote.on('connection', (socket) => {
-		const sessionId = socket.handshake.query.sessionId;
-		const clientId = socket.handshake.query.clientId;
-		const sessionData = sessions.find((s) => s.id === sessionId);
+		const { sessionId, clientId } = socket.handshake.query;
+		const session = voteService.getSession(sessionId);
+		//const sessionData = sessions.find((s) => s.id === sessionId);
 
-		if (sessionData && !sessionData.clients.includes(clientId)) {
+		if (session && !session.clientIsConnected(clientId)) {
 			socket.join(sessionId);
-			sessionData.clients.push(clientId);
+			session.addClient(clientId);
 
-			if (sessionData.leaderId === clientId) {
+			if (session.leaderId === clientId) {
 				socket.emit('userIsLeader', true);
 			}
 
-			socket.emit('loadSessionData', sessionData);
-			utils.updateUserCount(vote, sessionData);
+			socket.emit('loadSessionData', session.getData());
+			vote.to(sessionId).emit('updateUserCount', session.clients.length);
 
 			socket.on('startVote', (startVote) => {
-				if (sessionData.leaderId === clientId) {
-					sessionData.stage = 'vote';
-					vote.to(sessionId).emit('startVote', { startVote: startVote, stage: sessionData.stage });
+				if (session.leaderId === clientId) {
+					session.stage = 'vote';
+					vote.to(sessionId).emit('startVote', { startVote: startVote, stage: session.stage });
 				}
 			});
 
 			socket.on('submitVote', (selectedMovies) => {
-				if (!sessionData.votedClients.includes(clientId)) {
-					sessionData.movieVotes.push(...selectedMovies);
-					sessionData.votedClients.push(clientId);
+				if (!session.clientHasVoted(clientId)) {
+					session.submitClientVotes(clientId, selectedMovies);
 
 					// Triggers if votes have been received from all clients
-					if (sessionData.clients.length === sessionData.votedClients.length) {
-						const results = utils.getVoteWinner(sessionData.movieVotes);
-
-						// Triggers tiebreaker if there are 2 or more winners
-						// An equal tie between all movies results in a stalemate, which completes the vote
-						// (Else the exact same list would be voted on again)
-						if (
-							results.winners.length > 1 &&
-							results.winners.length < sessionData.movieList.movies.length
-						) {
-							sessionData.movieList.movies = [ ...results.winners ];
-							sessionData.voteLimit = utils.getVoteLimit(sessionData.movieList.movies.length);
-							sessionData.movieVotes = [];
-							sessionData.votedClients = [];
-							sessionData.stage = 'revote';
-							vote.to(sessionId).emit('loadSessionData', sessionData);
-						} else {
-							sessionData.results = results;
-							sessionData.stage = 'results';
-							vote.to(sessionId).emit('loadSessionData', sessionData);
-						}
+					if (session.allClientsVoted) {
+						session.processResults();
+						vote.to(sessionId).emit('loadSessionData', session.getData());
 					}
 				}
 			});
 
 			socket.on('disconnect', () => {
-				sessionData.clients = [ ...sessionData.clients.filter((c) => c !== clientId) ];
-				utils.updateUserCount(vote, sessionData);
+				session.removeClient(clientId);
+				vote.to(sessionId).emit('updateUserCount', session.clients.length);				
 
 				// Terminates voting session if leader disconnects without emitting 'terminate'
-				if (clientId === sessionData.leaderId)
+				if (clientId === session.leaderId) {
 					setTimeout(() => {
-						if (!sessionData.clients.includes(clientId)) {
-							utils.terminateSession(sessions, vote, sessionId);
+						// Check if leader hasn't reconnected within 5 seconds.
+						if (!session.clientIsConnected(clientId)) {
+							socketUtil.deleteRoom(vote, sessionId, 'terminate');
+							voteService.deleteSession(sessionId);
 						}
 					}, 5000);
+				}
 			});
 
 			socket.on('terminate', () => {
-				if (clientId === sessionData.leaderId) utils.terminateSession(sessions, vote, sessionId);
+				if (clientId === session.leaderId) {
+					socketUtil.deleteRoom(vote, sessionId, 'terminate');
+					voteService.deleteSession(sessionId);
+				};
 			});
-		} else if (sessionData) {
+		} else if (session) {
 			socket.emit('loadSessionData', { error: 'Your web browser is already connected to this voting lobby.' });
 		} else {
 			socket.emit('loadSessionData', { error: 'Voting session does not exist.' });
@@ -90,23 +79,12 @@ exports.sockets = (io) => {
 
 //======================= ROUTES =======================
 router.post('/', (req, res) => {
-	const session = {
-		id: short.generate(),
-		movieList: { ...req.body.movieList },
-		voteLimit: utils.getVoteLimit(req.body.movieList.movies.length),
-		leaderId: req.body.clientId,
-		clients: [],
-		votedClients: [],
-		movieVotes: [],
-		stage: 'lobby',
-		results: {}
-	};
-	sessions.push(session);
+	const session = voteService.createNewSession(req.body.movieList, req.body.clientId);
 	res.status(201).json({ sessionId: session.id });
 });
 
 router.delete('/:sessionId', (req, res) => {
-	utils.deleteSession(sessions, req.params.sessionId);
+	voteService.deleteSession(req.params.sessionId);
 });
 
 exports.router = router;
