@@ -41,7 +41,7 @@ export default function HomePage() {
 					</Button>
 				</div>
 			</header>
-			<Grid container className={classes.movieLists} spacing={5} justify="center">
+			<Grid container className={classes.movieLists} spacing={5} justifyContent="center">
 				<Grid item xs={12}>
 					<Typography variant="h6" className={classes.title}>
 						Your Movie Lists
