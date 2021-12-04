@@ -26,7 +26,7 @@ exports.sockets = (io) => {
 			}
 
 			socket.emit('loadSessionData', session.getData());
-			vote.to(sessionId).emit('updateUserCount', session.clients.length);
+			vote.to(sessionId).emit('updateUserCount', session.clientCount);
 
 			socket.on('startVote', (startVote) => {
 				if (session.leaderId === clientId) {
@@ -49,7 +49,7 @@ exports.sockets = (io) => {
 
 			socket.on('disconnect', () => {
 				session.removeClient(clientId);
-				vote.to(sessionId).emit('updateUserCount', session.clients.length);				
+				vote.to(sessionId).emit('updateUserCount', session.clientCount);				
 
 				// Terminates voting session if leader disconnects without emitting 'terminate'
 				if (clientId === session.leaderId) {

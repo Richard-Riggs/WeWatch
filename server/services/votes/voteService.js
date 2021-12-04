@@ -45,6 +45,10 @@ class VoteSession {
         this.results = {};
     }
 
+    get clientCount() {
+        return Object.entries(this.clients).length;
+    }
+
     get voteLimit() {
         const listLength = this.movieList.movies.length;
         return listLength >= 10 ? 5 : Math.ceil(listLength / 2);
@@ -127,6 +131,7 @@ class VoteSession {
         this.movieList.movies = [ ...this.results.winners ];
         this.movieVotes = [];
         this.stage = 'revote';
+        this.results = {};
 
         for (const client of Object.values(this.clients)) {
             client.voted = false;

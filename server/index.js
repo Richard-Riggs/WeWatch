@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 //===================== SERVER SETUP ====================
 const app = express();
@@ -12,7 +13,7 @@ app.use(bodyParser.json());
 
 //===================== ROUTES ===========================
 app.use('/api/movies', require('./routes/movies'));
-app.get('/*', (req, res) => res.sendFile('../client/build/index.html', { root: '.' }));
+app.get('/*', (req, res) => res.sendFile(path.resolve('../client/build/index.html')));
 
 // ================== VOTING SESSIONS ====================
 const io = require('socket.io')(http);
