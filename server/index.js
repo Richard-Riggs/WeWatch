@@ -6,13 +6,13 @@ const bodyParser = require('body-parser');
 //===================== SERVER SETUP ====================
 const app = express();
 const http = require('http').createServer(app);
-app.use(express.static('./build'));
+app.use(express.static('../client/build'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //===================== ROUTES ===========================
 app.use('/api/movies', require('./routes/movies'));
-app.get('/*', (req, res) => res.sendFile('build/index.html', { root: '.' }));
+app.get('/*', (req, res) => res.sendFile('../client/build/index.html', { root: '.' }));
 
 // ================== VOTING SESSIONS ====================
 const io = require('socket.io')(http);
