@@ -1,4 +1,4 @@
-import { createTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 const shared = {
 	fonts: {
@@ -20,7 +20,7 @@ const shared = {
 	}
 };
 
-export const lightTheme = createTheme({
+export const lightTheme = createMuiTheme({
 	...shared,
 	darkMode: false,
 	palette: {
@@ -45,7 +45,7 @@ export const lightTheme = createTheme({
 	}
 });
 
-export const darkTheme = createTheme({
+export const darkTheme = createMuiTheme({
 	...shared,
 	darkMode: true,
 	palette: {
