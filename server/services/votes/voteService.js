@@ -1,6 +1,7 @@
 // @ts-check
 const short = require('short-uuid');
 
+
 class VoteSessionService {
 
     constructor() {
