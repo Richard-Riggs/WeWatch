@@ -1,6 +1,6 @@
 // @ts-check
 const { SocketController } = require('./SocketController');
-const voteService = require('../services/votes/voteService');
+const voteSessionManager = require('../services/voteSessions/VoteSessionManager');
 
 
 class VoteSocketController extends SocketController {
@@ -20,7 +20,7 @@ class VoteSocketController extends SocketController {
         const namespace = socketServer.of(namespaceString);
         namespace.on('connection', (socket) => {
             const { sessionId, clientId } = socket.handshake.query;
-            const session = voteService.getSession(sessionId);
+            const session = voteSessionManager.getSession(sessionId);
             if (!session) {
                 socket.emit('loadSessionData', { error: 'Voting session does not exist.' });
                 return null;
@@ -94,7 +94,7 @@ class VoteSocketController extends SocketController {
     terminateSession() {
         if (this.clientId === this.voteSession.leaderId) {
             super.disconnectAllSockets('terminate');
-            voteService.deleteSession(this.voteSessionId);
+            voteSessionManager.deleteSession(this.voteSessionId);
         };
     }
 }

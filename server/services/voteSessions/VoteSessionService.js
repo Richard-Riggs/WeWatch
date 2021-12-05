@@ -1,40 +1,13 @@
 // @ts-check
+
 const short = require('short-uuid');
 
-
-class VoteSessionService {
-
-    constructor() {
-        this.sessions = {};
-    }
-
-    /**
-     * 
-     * @param {{[key: string]: any}} movieList 
-     * @param {string} leaderId 
-     * @returns {VoteSession}
-     */
-    createNewSession(movieList, leaderId) {
-        const newSession = new VoteSession(movieList, leaderId);
-        this.sessions[newSession.id] = newSession;
-        return newSession;
-    }
-
-    getSession(sessionId) {
-        const session = this.sessions[sessionId];
-        return session ?? null;
-    }
-
-    deleteSession(sessionId) {
-        delete this.sessions[sessionId];
-    }
-}
 
 /**
  * @property {string} id
  * @property {{[key: string]: any}} clients
  */
-class VoteSession {
+ class VoteSessionService {
 
     constructor(movieList, leaderId) {
         this.id = short.generate();
@@ -157,5 +130,4 @@ class VoteSession {
 
 }
 
-const service = new VoteSessionService();
-module.exports = service;
+module.exports = { VoteSessionService };

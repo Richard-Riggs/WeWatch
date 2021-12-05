@@ -1,5 +1,6 @@
-const express = require('express');
-const router = express.Router();
+// @ts-check
+
+const router = require('express').Router();
 const movieUtils = require('../utils').movieUtils;
 
 router.get('/:queryType', async (req, res) => {

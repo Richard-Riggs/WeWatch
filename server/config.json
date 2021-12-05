@@ -1,0 +1,10 @@
+{
+    "apis": {
+        "tmdb": {
+            "base_url": "https://api.themoviedb.org/3"
+        },
+        "omdb": {
+            "base_url": "http://www.omdbapi.com/"
+        }
+    }
+}

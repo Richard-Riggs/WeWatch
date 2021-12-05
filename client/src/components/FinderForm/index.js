@@ -46,6 +46,7 @@ export default function FinderForm({ setQuery, showSelected, toggleShowSelected,
 		);
 		setQuery({
 			type: 'discover',
+			value: genreVal || '',
 			params: {
 				language: 'en-US',
 				sort_by: 'popularity.desc',
@@ -68,6 +69,7 @@ export default function FinderForm({ setQuery, showSelected, toggleShowSelected,
 
 			setQuery({
 				type: 'search',
+				value: searchVal,
 				params: {
 					language: 'en-US',
 					query: searchVal,

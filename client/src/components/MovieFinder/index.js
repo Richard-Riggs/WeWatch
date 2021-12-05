@@ -7,6 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTheme } from '@material-ui/core/styles';
 import useStyles from './styles';
 import { MovieListsContext } from '../../contexts/MovieListsContext';
+import MoviesAPI from '../../adapters/MoviesAPI';
 
 export default function MovieFinder() {
 	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
@@ -24,6 +25,7 @@ export default function MovieFinder() {
 		if (Object.keys(query).length) {
 			setIsLoading(true);
 			const nextPage = resultsPage + 1;
+			await MoviesAPI.fetchMovies(query.type, query.value, nextPage);
 			const response = await axios.get(`/api/movies/${query.type}`, {
 				params: { ...query.params, page: nextPage }
 			});

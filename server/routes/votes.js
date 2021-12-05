@@ -1,11 +1,8 @@
 // @ts-check
 
-//======================= MODULES =======================
-const express = require('express');
-const router = express.Router();
-const voteService = require('../services/votes/voteService');
+const router = require('express').Router();
+const voteService = require('../services/votes/VoteSessionService');
 
-//======================= ROUTES =======================
 router.post('/', (req, res) => {
 	const session = voteService.createNewSession(req.body.movieList, req.body.clientId);
 	res.status(201).json({ sessionId: session.id });
