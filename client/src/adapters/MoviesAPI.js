@@ -4,7 +4,7 @@ import axios from 'axios';
 import config from '../constants/api.config';
 
 
-export class MoviesAPI {
+export default class MoviesAPI {
 
     constructor() {
         this.baseUrl = config.wewatch_api.movies.base_url;
@@ -15,14 +15,17 @@ export class MoviesAPI {
         try {
             const response = await axios.get(api.baseUrl, {
                 params: {
-                    type: queryType,
+                    mode: queryType,
                     value: queryValue,
                     page: page
                 }
             });
-            debugger;
-        } catch {
-            return [];
+            return response.data;
+        } catch (e) {
+            return {
+                error: e.response.data.error,
+                movies: []
+            };
         }
     }
 }

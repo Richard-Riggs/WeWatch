@@ -1,7 +1,7 @@
 // @ts-check
 
 const router = require('express').Router();
-const voteService = require('../services/votes/VoteSessionService');
+const voteService = require('../services/voteSessions/VoteSessionManager');
 
 router.post('/', (req, res) => {
 	const session = voteService.createNewSession(req.body.movieList, req.body.clientId);

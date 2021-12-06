@@ -17,7 +17,7 @@ class VoteSessionManager {
 
     getSession(sessionId) {
         const session = this.sessions[sessionId];
-        return session ?? null;
+        return session || null;
     }
 
     deleteSession(sessionId) {

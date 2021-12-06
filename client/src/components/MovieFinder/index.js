@@ -25,13 +25,15 @@ export default function MovieFinder() {
 		if (Object.keys(query).length) {
 			setIsLoading(true);
 			const nextPage = resultsPage + 1;
-			await MoviesAPI.fetchMovies(query.type, query.value, nextPage);
-			const response = await axios.get(`/api/movies/${query.type}`, {
-				params: { ...query.params, page: nextPage }
-			});
-			if (response.data.movies.length) setMovies([ ...movies, ...response.data.movies ]);
+			const moviesData = await MoviesAPI.fetchMovies(query.type, query.value, nextPage);
+			if (moviesData.movies.length) setMovies([ ...movies, ...moviesData.movies ]);
 			setResultsPage(nextPage);
-			setHasMore(!(movies.length >= 500) && response.data.totalPages > 0 && nextPage < response.data.totalPages);
+
+			if (moviesData.error) {
+				setHasMore(false);
+			} else {
+				setHasMore(!(movies.length >= 500) && moviesData.totalPages > 0 && nextPage < moviesData.totalPages);
+			}
 			setIsLoading(false);
 		}
 	};
