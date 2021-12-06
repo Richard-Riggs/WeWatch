@@ -22,7 +22,7 @@ export default function MovieFinder() {
 	const toggleShowSelected = () => setShowSelected(!showSelected);
 
 	const fetchMovies = async () => {
-		if (Object.keys(query).length) {
+		if (Object.keys(query).length && !isLoading) {
 			setIsLoading(true);
 			const nextPage = resultsPage + 1;
 			const moviesData = await MoviesAPI.fetchMovies(query.type, query.value, nextPage);
@@ -31,6 +31,7 @@ export default function MovieFinder() {
 
 			if (moviesData.error) {
 				setHasMore(false);
+				setQuery({});
 			} else {
 				setHasMore(!(movies.length >= 500) && moviesData.totalPages > 0 && nextPage < moviesData.totalPages);
 			}

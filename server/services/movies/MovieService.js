@@ -74,7 +74,7 @@ class MovieService {
 		await Promise.all(
 			movies.map(async (movie) => {
                 const url = `${config.externalAPIs.tmdb.baseUrl}/movie/${movie.id}/external_ids`;
-                const { data, status } = await this.fetchData(url, { api_key: process.env.TMDB_KEY + "12345" });
+                const { data, status } = await this.fetchData(url, { api_key: process.env.TMDB_KEY });
                 if (data.hasOwnProperty('success') && !data.success) {
                     movie.error = data.status_message;
                     movie.errorStatus = status;

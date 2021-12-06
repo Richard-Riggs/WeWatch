@@ -24,7 +24,8 @@ export default class MoviesAPI {
         } catch (e) {
             return {
                 error: e.response.data.error,
-                movies: []
+                movies: [],
+                totalPages: 0
             };
         }
     }
