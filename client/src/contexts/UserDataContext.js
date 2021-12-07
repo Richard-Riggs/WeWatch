@@ -22,7 +22,7 @@ export function UserDataProvider({ children }) {
 	};
 
 	const initiateVote = async (movieList) => {
-		const response = await axios.post('/api/vote', {
+		const response = await axios.post('/api/votes', {
 			movieList: movieList,
 			clientId: clientId
 		});

@@ -20,10 +20,6 @@ export default [
 		name: 'Crime'
 	},
 	{
-		id: 99,
-		name: 'Documentary'
-	},
-	{
 		id: 18,
 		name: 'Drama'
 	},

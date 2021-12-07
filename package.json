@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "install": "npm install --no-save --prefix ./server && npm install --no-save --prefix ./client",
+        "build": "npm run build --prefix ./client",
+        "start": "npm start --prefix ./server"
+    }
+}

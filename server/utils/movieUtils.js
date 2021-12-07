@@ -1,6 +1,8 @@
+//@ts-check
+
 const axios = require('axios');
 const rax = require('retry-axios');
-const interceptorId = rax.attach();
+rax.attach();
 
 // Input query type (discover, search, or trending) and parameters (JSON format)
 // Return array of TMDb movie objects
