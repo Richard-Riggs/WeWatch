@@ -2,7 +2,6 @@
 
 const router = require('express').Router();
 const movieService = require('../services/movies/MovieService');
-const movieUtils = require('../utils').movieUtils;
 
 router.get('/', async (req, res) => {
 	let { mode, value, page } = req.query;
