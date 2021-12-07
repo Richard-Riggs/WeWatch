@@ -1,4 +1,9 @@
 {
+    "name": "movie-app",
+    "version": "1.0.0",
+    "engines": {
+        "node": "16.x"
+    },
     "scripts": {
         "install": "npm install --no-save --prefix ./server && npm install --no-save --prefix ./client",
         "build": "npm run build --prefix ./client",
