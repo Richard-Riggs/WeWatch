@@ -1,6 +1,6 @@
 // @ts-check
 
-const { VoteSessionService } = require('./VoteSessionService');
+const { VoteSession } = require('./VoteSession');
 
 
 class VoteSessionManager {
@@ -10,7 +10,7 @@ class VoteSessionManager {
     }
 
     createNewSession(movieList, leaderId) {
-        const newSession = new VoteSessionService(movieList, leaderId);
+        const newSession = new VoteSession(movieList, leaderId);
         this.sessions[newSession.id] = newSession;
         return newSession;
     }

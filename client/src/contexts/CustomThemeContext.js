@@ -8,6 +8,7 @@ export const CustomThemeContext = createContext();
 export function CustomThemeProvider(props) {
 	const [ isDarkMode, setDarkMode ] = useLocalStorageState('isDarkMode', true);
 	const toggleTheme = () => setDarkMode(!isDarkMode);
+
 	return (
 		<CustomThemeContext.Provider value={{ isDarkMode, toggleTheme }}>
 			<ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>{props.children}</ThemeProvider>
