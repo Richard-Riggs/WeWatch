@@ -3,11 +3,7 @@
 const short = require('short-uuid');
 
 
-/**
- * @property {string} id
- * @property {{[key: string]: any}} clients
- */
- class VoteSessionService {
+ class VoteSession {
 
     constructor(movieList, leaderId) {
         this.id = short.generate();
@@ -132,4 +128,4 @@ const short = require('short-uuid');
 
 }
 
-module.exports = { VoteSessionService };
+module.exports = { VoteSession };

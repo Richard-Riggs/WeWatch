@@ -1,7 +1,7 @@
 // @ts-check
 
 import axios from 'axios';
-import config from '../constants/api.config';
+import config from '../constants/api';
 
 
 export default class VotesAPI {

@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import config from '../constants/api.config';
+import config from '../constants/api';
 
 class VoteSocket {
     

@@ -10,7 +10,7 @@ import CheckRoundedIcon from '@material-ui/icons/CheckRounded';
 import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 
 export default function VotingLobby() {
-	const { movieList, userCount, isLeader, startVote, terminateSession } = useContext(VoteSessionContext);
+	const { movieList, userCount, isLeader, startVote, terminateSession, voteLimit } = useContext(VoteSessionContext);
 	const { notifyInfo } = useContext(UserDataContext);
 	const classes = useStyles();
 	const [ openTooltip, setOpenTooltip ] = useState(false);
@@ -38,8 +38,8 @@ export default function VotingLobby() {
 				<h3>Instructions</h3>
 				<p>
 					Once the vote begins, select the movies that you're most interested in watching. You are allowed to
-					select up to 5 movies. When you've finished selecting your preferred movies, press the 'Vote' button
-					to submit your movie selection. The winner will be determined as soon as everyone in the lobby has
+					select up to {voteLimit > 1 ? `${voteLimit} movies` : "1 movie"}. When you've finished selecting your preferred movies,
+					press the 'Vote' button to submit your movie selection. The winner will be determined as soon as everyone in the lobby has
 					finished voting.
 				</p>
 				<CopyToClipboard text={window.location.href} onCopy={handleLinkShare}>

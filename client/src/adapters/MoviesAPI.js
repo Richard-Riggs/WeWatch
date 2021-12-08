@@ -1,7 +1,7 @@
 // @ts-check
 
 import axios from 'axios';
-import config from '../constants/api.config';
+import config from '../constants/api';
 
 
 export default class MoviesAPI {
@@ -23,7 +23,7 @@ export default class MoviesAPI {
             return response.data;
         } catch (e) {
             return {
-                error: e.response.data.error,
+                error: e.response.data.error ?? "An error occurred when calling the movies API.",
                 movies: [],
                 totalPages: 0
             };
