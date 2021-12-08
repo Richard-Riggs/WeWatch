@@ -11,14 +11,14 @@ import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 
 export default function VotingLobby() {
 	const { movieList, userCount, isLeader, startVote, terminateSession } = useContext(VoteSessionContext);
-	const { notifyUser } = useContext(UserDataContext);
+	const { notifyInfo } = useContext(UserDataContext);
 	const classes = useStyles();
 	const [ openTooltip, setOpenTooltip ] = useState(false);
 	const handleToolTipOpen = () => setOpenTooltip(true);
 	const handleToolTipClose = () => setOpenTooltip(false);
 
 	const handleLinkShare = () => {
-		notifyUser({ severity: 'info', message: 'Lobby Link Copied to Clipboard' });
+		notifyInfo('Lobby Link Copied to Clipboard');
 	};
 
 	return (

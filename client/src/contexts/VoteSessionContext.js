@@ -1,8 +1,11 @@
+// @ts-check
+
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { MovieListsContext } from './MovieListsContext';
 import { UserDataContext } from './UserDataContext';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import VoteSocket from '../adapters/VoteSocket';
+import VotesAPI from '../adapters/VotesAPI';
 
 
 export const VoteSessionContext = createContext();
@@ -10,7 +13,7 @@ export const VoteSessionContext = createContext();
 export function VoteSessionProvider({ children }) {
 	const match = useRouteMatch('/vote/:sessionId');
 	const history = useHistory();
-	const { notifyUser, clientId } = useContext(UserDataContext);
+	const { notifyError, notifyWarning, clientId } = useContext(UserDataContext);
 	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
 	const [ movieList, setMovieList ] = useState();
 	const [ userCount, setUserCount ] = useState(0);
@@ -19,6 +22,16 @@ export function VoteSessionProvider({ children }) {
 	const [ stage, setStage ] = useState('');
 	const [ error, setError ] = useState();
 	const [ results, setResults ] = useState();
+
+	const initiateVoteSession = async (movieList) => {
+		const sessionData = await VotesAPI.createVoteSession(movieList, clientId);
+		if (sessionData.error) {
+			notifyError("Failed to create voting session.");
+		} else {
+			history.push(`/vote/${sessionData.sessionId}`);
+		}
+	};
+
 
 	const handleLoadSessionData = (data) => {
 		if (data.error) {
@@ -70,9 +83,9 @@ export function VoteSessionProvider({ children }) {
 					? 'You have ended the voting session'
 					: 'The leader has ended the voting session';
 
-				notifyUser({ severity: 'warning', message: message });
+				notifyWarning(message);
 			} else if (isLeader) {
-				notifyUser({ severity: 'warning', message: 'Ending voting session...' });
+				notifyWarning('Ending voting session...');
 			}
 			setStage('');
 		}
@@ -85,15 +98,16 @@ export function VoteSessionProvider({ children }) {
 				userCount,
 				isLeader,
 				stage,
-				startVote: () => VoteSocket.startVote(),
 				error,
+				voteLimit,
+				results,
+				initiateVoteSession,
+				startVote: () => VoteSocket.startVote(),
+				terminateSession: () => VoteSocket.terminateSession(),
 				submitVote: () => {
 					VoteSocket.submitVote(selectedMovies);
 					clearSelectedMovies();
-				},
-				voteLimit,
-				results,
-				terminateSession: () => VoteSocket.terminateSession()
+				}
 			}}
 		>
 			{children}

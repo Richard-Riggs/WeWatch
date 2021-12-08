@@ -1,19 +1,17 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { useLocalStorageState } from '../hooks/useLocalStorageState';
 import { v4 as uuid } from 'uuid';
-import { useHistory } from 'react-router-dom';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-import axios from 'axios';
 
 function Alert(props) {
 	return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 export const UserDataContext = createContext();
+
 export function UserDataProvider({ children }) {
 	const [ clientId ] = useLocalStorageState('clientId', uuid());
-	const history = useHistory();
 	const [ notification, setNotification ] = useState({});
 	const [ openSnackbar, setOpenSnackbar ] = useState(false);
 
@@ -21,21 +19,16 @@ export function UserDataProvider({ children }) {
 		setOpenSnackbar(false);
 	};
 
-	const initiateVote = async (movieList) => {
-		const response = await axios.post('/api/votes', {
-			movieList: movieList,
-			clientId: clientId
-		});
-		history.push(`/vote/${response.data.sessionId}`);
-	};
+	const notifyUser = (severity, message) => setNotification({ severity, message });
 
 	// Resets notification after closing animation completes
 	useEffect(
 		() => {
-			if (!openSnackbar)
+			if (!openSnackbar) {
 				setTimeout(() => {
 					setNotification({});
 				}, 500);
+			}
 		},
 		[ openSnackbar ]
 	);
@@ -48,7 +41,14 @@ export function UserDataProvider({ children }) {
 	);
 
 	return (
-		<UserDataContext.Provider value={{ clientId, notifyUser: setNotification, initiateVote }}>
+		<UserDataContext.Provider value={{
+			clientId,
+			notifyUser: setNotification,
+			notifySuccess: (message) => notifyUser('success', message),
+			notifyInfo: (message) => notifyUser('info', message),
+			notifyWarning: (message) => notifyUser('warning', message),
+			notifyError: (message) => notifyUser('error', message)
+		}}>
 			<Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleSnackbarClose}>
 				<Alert onClose={handleSnackbarClose} severity={notification.severity}>
 					{notification.message}

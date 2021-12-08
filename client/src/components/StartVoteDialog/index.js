@@ -9,13 +9,13 @@ import Dialog from '@material-ui/core/Dialog';
 import AddIcon from '@material-ui/icons/Add';
 import { MovieListsContext } from '../../contexts/MovieListsContext';
 import Divider from '@material-ui/core/Divider';
-import { UserDataContext } from '../../contexts/UserDataContext';
+import { VoteSessionContext } from '../../contexts/VoteSessionContext';
 import { Link } from 'react-router-dom';
 import useStyles from './styles';
 
 export default function StartVoteDialog({ open, setOpen }) {
 	const { movieLists } = useContext(MovieListsContext);
-	const { initiateVote } = useContext(UserDataContext);
+	const { initiateVoteSession } = useContext(VoteSessionContext);
 	const handleClose = () => setOpen(false);
 	const classes = useStyles();
 	return (
@@ -28,7 +28,7 @@ export default function StartVoteDialog({ open, setOpen }) {
 							key={`start-vote-${ml.id}`}
 							button
 							onClick={() => {
-								initiateVote(ml);
+								initiateVoteSession(ml);
 								setOpen(false);
 							}}
 							alignItems="flex-start"
