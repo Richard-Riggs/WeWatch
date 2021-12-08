@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { isBrowser } from 'react-device-detect';
-import axios from 'axios';
 import FinderForm from '../FinderForm';
 import MovieList from '../MovieList';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useTheme } from '@material-ui/core/styles';
 import useStyles from './styles';
 import { MovieListsContext } from '../../contexts/MovieListsContext';
+import { UserDataContext } from '../../contexts/UserDataContext';
 import MoviesAPI from '../../adapters/MoviesAPI';
 
 export default function MovieFinder() {
 	const { selectedMovies, clearSelectedMovies } = useContext(MovieListsContext);
+	const { notifyError } = useContext(UserDataContext);
 	const theme = useTheme();
 	const classes = useStyles(theme);
 	const [ movies, setMovies ] = useState([]);
@@ -32,6 +33,7 @@ export default function MovieFinder() {
 			if (moviesData.error) {
 				setHasMore(false);
 				setQuery({});
+				notifyError("Error: There was a problem loading movies.");
 			} else {
 				setHasMore(!(movies.length >= 500) && moviesData.totalPages > 0 && nextPage < moviesData.totalPages);
 			}

@@ -14,14 +14,14 @@ import useStyles from './styles';
 
 export default function AddToListDialog({ open, setStage }) {
 	const { movieLists, addToMovieList, clearSelectedMovies, selectedMovies } = useContext(MovieListsContext);
-	const { notifyUser } = useContext(UserDataContext);
+	const { notifySuccess } = useContext(UserDataContext);
 	const [ openTooltip, setOpenTooltip ] = useState('');
 	const handleClose = () => setStage('');
 	const classes = useStyles();
 	const handleSave = (movieList) => {
 		addToMovieList(movieList.id);
 		setStage('');
-		notifyUser({ severity: 'success', message: `Saved ${movieList.name}` });
+		notifySuccess(`Saved ${movieList.name}`);
 		clearSelectedMovies();
 	};
 	return (

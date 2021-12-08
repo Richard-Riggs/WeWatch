@@ -81,24 +81,26 @@ const short = require('short-uuid');
     }
 
     determineVoteWinner() {
-        const voteReducer = (voteMap, movieVote) => voteMap.set(movieVote.id, (voteMap.get(movieVote.id) || 0) + 1);
-        const resultsMap = this.movieVotes.reduce(voteReducer, new Map());
-        const findWinner = (resultsMap) => {
-            let highVotes = 0,
-                winners = [];
-            for (const [ movie, votes ] of resultsMap) {
-                if (votes > highVotes) {
-                    highVotes = votes;
-                    winners = [ movie ];
-                } else if (votes === highVotes) {
-                    winners.push(movie);
-                }
+        let winners = [];
+        let runningTally = {};
+        let highVotes = 0;
+
+        for (const movieVote of this.movieVotes) {
+            if (!runningTally.hasOwnProperty(movieVote.id)) {
+                runningTally[movieVote.id] = 0;
             }
-            return { highVotes, winners };
-        };
-        const results = findWinner(resultsMap);
-        results.winners = results.winners.map((w) => this.movieVotes.find((mv) => mv.id === w));
-        this.results = results;
+
+            runningTally[movieVote.id]++;
+
+            if (runningTally[movieVote.id] > highVotes) {
+                highVotes = runningTally[movieVote.id];
+                winners = [ movieVote ];
+            } else if (runningTally[movieVote.id] === highVotes) {
+                winners.push(movieVote);
+            }
+        }
+
+        this.results = { highVotes, winners };
     }
 
     stageRevote() {

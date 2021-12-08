@@ -93,7 +93,7 @@ class VoteSocketController extends SocketController {
 
     terminateSession() {
         if (this.clientId === this.voteSession.leaderId) {
-            super.disconnectAllSockets('terminate');
+            super.disconnectAllSockets('terminate', this.clientId);
             voteSessionManager.deleteSession(this.voteSessionId);
         };
     }

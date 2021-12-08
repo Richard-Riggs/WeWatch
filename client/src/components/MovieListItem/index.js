@@ -7,18 +7,18 @@ import Button from '@material-ui/core/Button';
 import DeleteListDialog from '../DeleteListDialog';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { UserDataContext } from '../../contexts/UserDataContext';
+import { VoteSessionContext } from '../../contexts/VoteSessionContext';
 import Grid from '@material-ui/core/Grid';
 
 function MovieListItem({ movieList }) {
-	const { initiateVote } = useContext(UserDataContext);
+	const { initiateVoteSession } = useContext(VoteSessionContext);
 	const [ openDeleteDialog, setOpenDeleteDialog ] = useState(false);
 	const handleDeleteOpen = () => setOpenDeleteDialog(true);
 
 	const classes = useStyles();
 	const handleDelete = () => handleDeleteOpen();
 
-	const handleVote = () => initiateVote(movieList);
+	const handleVote = () => initiateVoteSession(movieList);
 
 	return (
 		<Grid className={classes.GridItem} item xs={'auto'}>

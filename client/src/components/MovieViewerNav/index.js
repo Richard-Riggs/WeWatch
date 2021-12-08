@@ -26,7 +26,7 @@ export default function MovieViewerNav() {
 	const movieList = movieLists.find((ml) => ml.id === match.params.listId);
 	const theme = useTheme();
 	const classes = useStyles(theme);
-	const { notifyUser } = useContext(UserDataContext);
+	const { notifySuccess } = useContext(UserDataContext);
 	const numSelected = selectedMovies.length;
 	const [ openSave, setOpenSave ] = useState(false);
 
@@ -43,7 +43,7 @@ export default function MovieViewerNav() {
 	const handleListSave = () => {
 		updateMovieList(movieList.id);
 		toggleEdit();
-		notifyUser({ severity: 'success', message: `Updated ${movieList.name}` });
+		notifySuccess(`Updated ${movieList.name}`);
 	};
 
 	useEffect(() => {

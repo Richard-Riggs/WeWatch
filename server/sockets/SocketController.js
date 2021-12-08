@@ -13,11 +13,11 @@ class SocketController {
         this.socket.join(this.roomId);
     }
 
-    disconnectAllSockets(emitEvent = "") {
+    disconnectAllSockets(emitEvent = "", emitData = null) {
         const sockets = this.namespace.in(this.roomId).connected;
         for (const socket in sockets) {
             if (emitEvent) {
-                sockets[socket].emit(emitEvent);
+                sockets[socket].emit(emitEvent, emitData);
             }
             sockets[socket].disconnect(true);
         }
