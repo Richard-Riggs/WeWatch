@@ -1,5 +1,4 @@
-// http://localhost:3001
-
+// Only gets used when running the create-react-app dev server on local.
 const proxy = require('http-proxy-middleware');
 
 module.exports = function(app) {
