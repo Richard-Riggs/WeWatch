@@ -24,5 +24,8 @@
             "httpMethodsToRetry": [ "GET", "HEAD", "OPTIONS", "DELETE", "PUT" ],
             "statusCodesToRetry": [ [ 100, 199 ], [ 401, 429 ], [ 500, 599 ] ]
         }
+    },
+    "voteSocket": {
+        "autoDisconnectTime": 60
     }
 }

@@ -1,6 +1,7 @@
 // @ts-check
 const { SocketController } = require('./SocketController');
 const voteSessionManager = require('../services/voteSessions/VoteSessionManager');
+const config = require('../config.json');
 
 
 class VoteSocketController extends SocketController {
@@ -82,12 +83,13 @@ class VoteSocketController extends SocketController {
 
         // Terminates voting session if leader disconnects without emitting 'terminate'
         if (this.clientId === this.voteSession.leaderId) {
+            const autoDisconnectMS = config.voteSocket.autoDisconnectTime * 1000;
             setTimeout(() => {
-                // Check if leader hasn't reconnected within 5 seconds.
+                // Check if leader hasn't reconnected within the specified time.
                 if (!this.voteSession.clientIsConnected(this.clientId)) {
                     this.terminateSession();
                 }
-            }, 5000);
+            }, autoDisconnectMS);
         }
     }
 
